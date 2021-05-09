@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Final Project - Web2 - VNUHCM University Of Science",
   "scripts": {
-    "start": "cd ./server"
+    "start": "cd ./server && npm start"
   },
   "repository": {
     "type": "git",
