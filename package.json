@@ -1,0 +1,18 @@
+{
+  "name": "cgv",
+  "version": "1.0.0",
+  "description": "Final Project - Web2 - VNUHCM University Of Science",
+  "scripts": {
+    "dev:server": "cd ./server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nguy3n47/cgv-cinemas.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nguy3n47/cgv-cinemas/issues"
+  },
+  "homepage": "https://github.com/nguy3n47/cgv-cinemas#readme"
+}

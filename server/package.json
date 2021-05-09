@@ -4,9 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "db:seed": "sequelize-cli db:seed:undo:all && sequelize-cli db:seed:all",
-    "db:seed:new": "sequelize-cli seed:generate --name",
-    "db:migrate": "sequelize-cli db:migrate:undo:all && sequelize-cli db:migrate",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --exec npx babel-node index.js",
     "dev": "nodemon --exec npx babel-node index.js"
@@ -14,6 +11,12 @@
   "author": "Nguyen Dev",
   "license": "MIT",
   "dependencies": {
+    "@babel/cli": "^7.13.16",
+    "@babel/core": "^7.14.0",
+    "@babel/eslint-parser": "^7.13.14",
+    "@babel/node": "^7.13.13",
+    "@babel/preset-env": "^7.14.1",
+    "@babel/register": "^7.13.16",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
@@ -32,17 +35,11 @@
     "pg": "^8.6.0",
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.6.2",
+    "sequelize-cli": "^6.2.0",
     "totp-generator": "^0.0.9",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.13.16",
-    "@babel/core": "^7.14.0",
-    "@babel/eslint-parser": "^7.13.14",
-    "@babel/node": "^7.13.13",
-    "@babel/preset-env": "^7.14.1",
-    "@babel/register": "^7.13.16",
-    "eslint": "^7.26.0",
-    "sequelize-cli": "^6.2.0"
+    "eslint": "^7.26.0"
   }
 }
