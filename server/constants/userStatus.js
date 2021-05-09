@@ -1,0 +1,6 @@
+const USER_STATUS = {
+  UNVERIFIED: "UNVERIFIED",
+  VERIFIED: "VERIFIED",
+  WAITING: "WAITING",
+};
+module.exports = USER_STATUS;
