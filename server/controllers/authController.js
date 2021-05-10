@@ -7,6 +7,7 @@ import { User } from "../models";
 import { comparePassword, getHashedPassword } from "../utils/password";
 import multer from "multer";
 import USER_STATUS from "../constants/userStatus";
+import MailService from "../services/mail";
 
 // SET STORAGE
 var storage = multer.diskStorage({
@@ -65,7 +66,41 @@ const register = async (req, res) => {
     });
 
     if (newUser) {
-      res.status(200).send({ message: "Success" });
+      const code = Math.floor(100000 + Math.random() * 900000);
+      req.session.code = code.toString();
+      req.session.email = newUser.email;
+
+      await MailService.sendMail(
+        newUser.email,
+        "Verify your email address",
+        "Code: " + code.toString()
+      );
+      res.status(200).send({ message: "Success", code: code.toString() });
+    } else {
+      res.status(400).send({ error: "Fail" });
+    }
+  } catch (error) {
+    return res.status(400).send({ error: "Fail" });
+  }
+};
+
+const verifyEmail = async (req, res) => {
+  const { code } = req.body;
+  const email = req.session.email;
+
+  try {
+    if (code == req.session.code) {
+      const user = await User.findOne({
+        where: {
+          email,
+        },
+      });
+      user.status = USER_STATUS.VERIFIED;
+      await user.save();
+
+      delete req.session.code;
+      delete req.session.email;
+      return res.status(200).send({ message: "Verified" });
     } else {
       res.status(400).send({ error: "Fail" });
     }
@@ -107,4 +142,4 @@ const login = async (req, res) => {
   }
 };
 
-export { register, login, uploadImage };
+export { register, login, uploadImage, verifyEmail };

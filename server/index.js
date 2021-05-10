@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import expressValidator from "express-validator";
 import cookieParser from "cookie-parser";
+import cookieSession from "cookie-session";
 
 import models from "./models";
 
@@ -17,6 +18,17 @@ app.use(bodyParser.json());
 app.use(expressValidator());
 app.use(cookieParser());
 app.use(cors());
+
+// Session
+app.use(
+  cookieSession({
+    name: "session",
+    keys: [process.env.COOKIE_KEY || "secret"],
+
+    // Cookie Options
+    maxAge: 24 * 60 * 60 * 1000, // 24 hours
+  })
+);
 
 app.use(express.static("public"));
 
