@@ -1,31 +1,31 @@
-import path from "path";
-import { v4 as uuidv4 } from "uuid";
-import crypto from "crypto";
-import { Movie } from "../models";
-import multer from "multer";
+import path from 'path';
+import {v4 as uuidv4} from 'uuid';
+import crypto from 'crypto';
+import {Movie} from '../models';
+import multer from 'multer';
 
 // SET STORAGE
 var storage = multer.diskStorage({
   destination(req, file, cb) {
-    cb(null, "public/img/movies/");
+    cb(null, 'public/img/movies/');
   },
   filename(req, file, cb) {
     cb(
       null,
-      crypto.randomBytes(18).toString("hex") + path.extname(file.originalname),
+      crypto.randomBytes(18).toString('hex') + path.extname(file.originalname),
     );
   },
 });
 
-var upload = multer({ storage }).single("poster");
+var upload = multer({storage}).single('poster');
 
 const create = (req, res, next) => {
   try {
     upload(req, res, async (err) => {
-      if (err) return res.send({ error: err.message });
-      if (!req.file) return res.send({ error: "Missing movie poster." });
+      if (err) return res.send({error: err.message});
+      if (!req.file) return res.send({error: 'Missing movie poster.'});
 
-      req.body.poster = "http://127.0.0.1:5000/img/movies/" + req.file.filename;
+      req.body.poster = 'http://127.0.0.1:5000/img/movies/' + req.file.filename;
 
       const {
         title,
@@ -53,9 +53,9 @@ const create = (req, res, next) => {
       });
 
       if (newMovie) {
-        return res.status(200).send({ message: "Success" });
+        return res.status(200).send({message: 'Success'});
       } else {
-        return res.status(400).send({ message: "Fail" });
+        return res.status(400).send({message: 'Fail'});
       }
     });
   } catch (error) {
@@ -77,11 +77,11 @@ const getAll = async (req, res, next) => {
 const getById = async (req, res, next) => {
   try {
     const movie_id = req.params.id;
-    const movie = await Movie.findOne({ where: { movie_id } });
+    const movie = await Movie.findOne({where: {movie_id}});
     if (movie) {
-      return res.status(200).send({ movie });
+      return res.status(200).send({movie});
     } else {
-      return res.status(400).send({ error: "Movie not found" });
+      return res.status(400).send({error: 'Movie not found'});
     }
   } catch (error) {
     next(error);
@@ -91,13 +91,13 @@ const getById = async (req, res, next) => {
 const update = async (req, res, next) => {
   try {
     const movie_id = req.params.id;
-    const movie = await Movie.findOne({ where: { movie_id } });
+    const movie = await Movie.findOne({where: {movie_id}});
     if (movie) {
       upload(req, res, async (err) => {
-        if (err) return res.send({ error: err.message });
+        if (err) return res.send({error: err.message});
         if (req.file) {
           movie.poster =
-            "http://127.0.0.1:5000/img/movies/" + req.file.filename;
+            'http://127.0.0.1:5000/img/movies/' + req.file.filename;
           await movie.save();
         }
 
@@ -122,14 +122,14 @@ const update = async (req, res, next) => {
           running_time: parseInt(running_time),
           release_date,
           state,
-          active: active === "true",
+          active: active === 'true',
         };
 
         await movie.update(parserData);
-        return res.status(200).send({ message: "Updated" });
+        return res.status(200).send({message: 'Updated'});
       });
     } else {
-      return res.status(400).send({ error: "Movie not found" });
+      return res.status(400).send({error: 'Movie not found'});
     }
   } catch (error) {
     next(error);
@@ -139,16 +139,16 @@ const update = async (req, res, next) => {
 const deleted = async (req, res, next) => {
   try {
     const movie_id = req.params.id;
-    const movie = await Movie.findOne({ where: { movie_id } });
+    const movie = await Movie.findOne({where: {movie_id}});
     if (movie) {
       await movie.destroy();
-      return res.status(200).send({ message: "Deleted" });
+      return res.status(200).send({message: 'Deleted'});
     } else {
-      return res.status(400).send({ error: "Movie not found" });
+      return res.status(400).send({error: 'Movie not found'});
     }
   } catch (error) {
     next(error);
   }
 };
 
-export { create, getAll, getById, update, deleted };
+export {create, getAll, getById, update, deleted};

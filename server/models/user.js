@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
-    "User",
+    'User',
     {
       fullname: DataTypes.STRING,
       birthday: DataTypes.DATEONLY,
@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       status: DataTypes.STRING,
       resetPasswordToken: DataTypes.STRING,
     },
-    {}
+    {},
   );
 
   User.associate = function () {

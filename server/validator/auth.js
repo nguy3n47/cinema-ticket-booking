@@ -1,28 +1,28 @@
 const userValidator = (req, res, next) => {
-  req.check("fullname", "Fullname is required.").notEmpty();
+  req.check('fullname', 'Fullname is required.').notEmpty();
 
   req
-    .check("email", "Email must be between 3 to 32 characters.")
+    .check('email', 'Email must be between 3 to 32 characters.')
     .isEmail()
-    .withMessage("Invalid email")
+    .withMessage('Invalid email')
     .isLength({
       min: 4,
       max: 32,
     })
     .normalizeEmail();
-  req.check("birthday", "Invalid birthday.").isISO8601().toDate();
-  req.check("phone_number", "Phone number is required.").notEmpty();
+  req.check('birthday', 'Invalid birthday.').isISO8601().toDate();
+  req.check('phone_number', 'Phone number is required.').notEmpty();
 
-  req.check("password", "Password is required.").notEmpty();
+  req.check('password', 'Password is required.').notEmpty();
   req
-    .check("password")
+    .check('password')
     .isLength({
       min: 6,
     })
-    .withMessage("Password must contain at least 6 characters")
+    .withMessage('Password must contain at least 6 characters')
     .matches(/\d/)
-    .withMessage("Password must contain number");
-  req.check("address", "Address is required.").notEmpty();
+    .withMessage('Password must contain number');
+  req.check('address', 'Address is required.').notEmpty();
   //check for error
   const errors = req.validationErrors();
   if (errors) {
@@ -36,15 +36,15 @@ const userValidator = (req, res, next) => {
 };
 
 const resetPasswordValidator = (req, res, next) => {
-  req.check("newPassword", "Password is required.").notEmpty();
+  req.check('newPassword', 'Password is required.').notEmpty();
   req
-    .check("newPassword")
+    .check('newPassword')
     .isLength({
       min: 6,
     })
-    .withMessage("Password must contain at least 6 characters")
+    .withMessage('Password must contain at least 6 characters')
     .matches(/\d/)
-    .withMessage("Password must contain number");
+    .withMessage('Password must contain number');
 
   //check for error
   const errors = req.validationErrors();
@@ -57,4 +57,4 @@ const resetPasswordValidator = (req, res, next) => {
   //process to next middleware
   next();
 };
-export { userValidator, resetPasswordValidator };
+export {userValidator, resetPasswordValidator};

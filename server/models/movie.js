@@ -1,7 +1,7 @@
-import SequelizeSlugify from "sequelize-slugify";
+import SequelizeSlugify from 'sequelize-slugify';
 module.exports = (sequelize, DataTypes) => {
   const Movie = sequelize.define(
-    "Movie",
+    'Movie',
     {
       slug: {
         type: DataTypes.STRING,
@@ -26,8 +26,8 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   SequelizeSlugify.slugifyModel(Movie, {
-    source: ["title"],
-    suffixSource: ["release_date"],
+    source: ['title'],
+    suffixSource: ['release_date'],
   });
 
   Movie.associate = function () {

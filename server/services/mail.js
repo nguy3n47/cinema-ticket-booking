@@ -1,9 +1,9 @@
-require("dotenv").config();
+require('dotenv').config();
 
-import nodemailer from "nodemailer";
+import nodemailer from 'nodemailer';
 
 const config = {
-  host: process.env.EMAIL_HOST || "smtp.gmail.com",
+  host: process.env.EMAIL_HOST || 'smtp.gmail.com',
   port: 587,
   auth: {
     user: process.env.EMAIL_ACC,

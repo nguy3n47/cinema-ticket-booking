@@ -1,8 +1,8 @@
-import express from "express";
-import * as AuthController from "../controllers/authController";
-import * as MovieController from "../controllers/movieController";
-import { userValidator } from "../validator/auth";
-import verifyUser from "../middlewares/verifyUser";
+import express from 'express';
+import * as AuthController from '../controllers/authController';
+import * as MovieController from '../controllers/movieController';
+import {userValidator} from '../validator/auth';
+import verifyUser from '../middlewares/verifyUser';
 
 const router = express.Router();
 
@@ -46,16 +46,16 @@ const router = express.Router();
  *          default:
  *              description: This is the default response for it
  */
-router.post("/auth/register", userValidator, AuthController.register);
-router.post("/auth/login", AuthController.login);
-router.post("/auth/uploadImage", verifyUser, AuthController.uploadImage);
-router.post("/auth/verifyEmail", AuthController.verifyEmail);
+router.post('/auth/register', userValidator, AuthController.register);
+router.post('/auth/login', AuthController.login);
+router.post('/auth/uploadImage', verifyUser, AuthController.uploadImage);
+router.post('/auth/verifyEmail', AuthController.verifyEmail);
 
 // Movie Router
-router.get("/movies", MovieController.getAll);
-router.post("/movies", MovieController.create);
-router.get("/movies/:id", MovieController.getById);
-router.put("/movies/:id", MovieController.update);
-router.delete("/movies/:id", MovieController.deleted);
+router.get('/movies', MovieController.getAll);
+router.post('/movies', MovieController.create);
+router.get('/movies/:id', MovieController.getById);
+router.put('/movies/:id', MovieController.update);
+router.delete('/movies/:id', MovieController.deleted);
 
 export default router;
