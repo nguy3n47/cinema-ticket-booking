@@ -34,14 +34,8 @@ const uploadImage = (req, res) => {
 };
 
 const register = async (req, res) => {
-  const {
-    fullname,
-    birthday,
-    phone_number,
-    password,
-    email,
-    address,
-  } = req.body;
+  const { fullname, birthday, phone_number, password, email, address } =
+    req.body;
 
   const hashedPassword = await getHashedPassword(password);
   try {
@@ -75,7 +69,7 @@ const register = async (req, res) => {
         "Verify your email address",
         "Code: " + code.toString()
       );
-      res.status(200).send({ message: "Success", code: code.toString() });
+      res.status(200).send({ message: "Success" });
     } else {
       res.status(400).send({ error: "Fail" });
     }

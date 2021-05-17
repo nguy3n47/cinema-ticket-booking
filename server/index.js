@@ -6,12 +6,48 @@ import cors from "cors";
 import expressValidator from "express-validator";
 import cookieParser from "cookie-parser";
 import cookieSession from "cookie-session";
+import swaggerUi from "swagger-ui-express";
+const swaggerJsdoc = require("swagger-jsdoc");
 
+// Model
 import models from "./models";
-
-import authRoute from "./routers/authRoute";
+// Route
+import routers from "./routers";
 
 const app = express();
+
+const options = {
+  swaggerDefinition: {
+    openapi: "3.0.0",
+    info: {
+      title: "CGV Cinemas API",
+      version: "1.0.0",
+    },
+    servers: [
+      {
+        url: "http://127.0.0.1:5000",
+        description: "Development server",
+      },
+    ],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT",
+        },
+      },
+    },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
+  },
+  apis: ["./routers/*.js"],
+};
+const swaggerSpecs = swaggerJsdoc(options);
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -33,11 +69,15 @@ app.use(
 app.use(express.static("public"));
 
 // Route
-app.use("/api/auth", authRoute);
-
+app.use("/api", routers);
+app.get("/", (req, res) => {
+  res.status(200).json({
+    information: "CGV Cinemas API v1.0.0",
+  });
+});
 app.use("*", (req, res) => {
   res.status(404).json({
-    error: "NotFound",
+    error: "Not Found",
   });
 });
 
@@ -66,7 +106,7 @@ app.listen(port, async () => {
   try {
     await models.sequelize.sync();
     console.log("Database connected!");
-    console.log(`Server running at http://${hostname}:${port}/`);
+    console.log(`🚀 Server running at http://${hostname}:${port}`);
   } catch (error) {
     console.log("Failed to start server!");
     console.log(error);
