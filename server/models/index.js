@@ -19,7 +19,7 @@ let sequelize = new Sequelize(
       useUTC: false, //for reading from database
     },
     timezone: '+07:00', //for writing to database
-  },
+  }
 );
 
 fs.readdirSync(__dirname)
@@ -31,7 +31,7 @@ fs.readdirSync(__dirname)
   .forEach((file) => {
     const model = require(path.join(__dirname, file))(
       sequelize,
-      Sequelize.DataTypes,
+      Sequelize.DataTypes
     );
     db[model.name] = model;
   });

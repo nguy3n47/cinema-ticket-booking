@@ -3,8 +3,8 @@ require('dotenv').config();
 import path from 'path';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
-import {User} from '../models';
-import {comparePassword, getHashedPassword} from '../utils/password';
+import { User } from '../models';
+import { comparePassword, getHashedPassword } from '../utils/password';
 import multer from 'multer';
 import USER_STATUS from '../constants/userStatus';
 import MailService from '../services/mail';
@@ -17,24 +17,24 @@ var storage = multer.diskStorage({
   filename(req, file, cb) {
     cb(
       null,
-      crypto.randomBytes(18).toString('hex') + path.extname(file.originalname),
+      crypto.randomBytes(18).toString('hex') + path.extname(file.originalname)
     );
   },
 });
 
-var upload = multer({storage}).fields([{name: 'avatar', maxCount: 1}]);
+var upload = multer({ storage }).fields([{ name: 'avatar', maxCount: 1 }]);
 
 const uploadImage = (req, res) => {
   upload(req, res, (err) => {
-    if (err) return res.send({error: err.message});
-    if (!req.files.avatar) return res.json({error: 'Missing avatar image.'});
+    if (err) return res.send({ error: err.message });
+    if (!req.files.avatar) return res.json({ error: 'Missing avatar image.' });
     req.body.avatar = req.files.avatar;
     return res.status(200).send(req.body.avatar[0]);
   });
 };
 
 const register = async (req, res) => {
-  const {fullname, birthday, phone_number, password, email, address} = req.body;
+  const { fullname, birthday, phone, password, email, address } = req.body;
 
   const hashedPassword = await getHashedPassword(password);
   try {
@@ -51,7 +51,7 @@ const register = async (req, res) => {
     const newUser = await User.create({
       fullname,
       birthday,
-      phone_number,
+      phone,
       password: hashedPassword,
       email,
       address,
@@ -66,19 +66,19 @@ const register = async (req, res) => {
       await MailService.sendMail(
         newUser.email,
         'Verify your email address',
-        'Code: ' + code.toString(),
+        'Code: ' + code.toString()
       );
-      res.status(200).send({message: 'Success'});
+      res.status(200).send({ message: 'Success' });
     } else {
-      res.status(400).send({error: 'Fail'});
+      res.status(400).send({ error: 'Fail' });
     }
   } catch (error) {
-    return res.status(400).send({error: 'Fail'});
+    return res.status(400).send({ error: 'Fail' });
   }
 };
 
 const verifyEmail = async (req, res) => {
-  const {code} = req.body;
+  const { code } = req.body;
   const email = req.session.email;
 
   try {
@@ -93,17 +93,17 @@ const verifyEmail = async (req, res) => {
 
       delete req.session.code;
       delete req.session.email;
-      return res.status(200).send({message: 'Verified'});
+      return res.status(200).send({ message: 'Verified' });
     } else {
-      res.status(400).send({error: 'Fail'});
+      res.status(400).send({ error: 'Fail' });
     }
   } catch (error) {
-    return res.status(400).send({error: 'Fail'});
+    return res.status(400).send({ error: 'Fail' });
   }
 };
 
 const login = async (req, res) => {
-  const {email, password} = req.body;
+  const { email, password } = req.body;
   try {
     const user = await User.findOne({
       where: {
@@ -121,12 +121,12 @@ const login = async (req, res) => {
         error: 'Email and password do not match.',
       });
     }
-    const token = jwt.sign({id: user.id}, process.env.JWT_SECRET);
-    const {id, fullname, address, status} = user;
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
+    const { id, fullname, address, status } = user;
 
     return res.send({
       accessToken: token,
-      user: {id, email, fullname, address, status},
+      user: { id, email, fullname, address, status },
     });
   } catch (error) {
     return res.status(400).send({
@@ -135,4 +135,4 @@ const login = async (req, res) => {
   }
 };
 
-export {register, login, uploadImage, verifyEmail};
+export { register, login, uploadImage, verifyEmail };

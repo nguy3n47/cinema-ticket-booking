@@ -1,7 +1,7 @@
 import express from 'express';
 import * as AuthController from '../controllers/authController';
 import * as MovieController from '../controllers/movieController';
-import {userValidator} from '../validator/auth';
+import { userValidator } from '../validator/auth';
 import verifyUser from '../middlewares/verifyUser';
 
 const router = express.Router();

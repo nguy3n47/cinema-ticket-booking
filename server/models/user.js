@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       fullname: DataTypes.STRING,
       birthday: DataTypes.DATEONLY,
-      phone_number: DataTypes.STRING,
+      phone: DataTypes.STRING,
       password: DataTypes.STRING,
       email: DataTypes.STRING,
       address: DataTypes.STRING,
@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       status: DataTypes.STRING,
       resetPasswordToken: DataTypes.STRING,
     },
-    {},
+    {}
   );
 
   User.associate = function () {

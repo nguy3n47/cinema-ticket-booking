@@ -57,4 +57,4 @@ const resetPasswordValidator = (req, res, next) => {
   //process to next middleware
   next();
 };
-export {userValidator, resetPasswordValidator};
+export { userValidator, resetPasswordValidator };

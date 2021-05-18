@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: true,
       },
     },
-    {},
+    {}
   );
 
   SequelizeSlugify.slugifyModel(Movie, {
