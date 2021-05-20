@@ -12,7 +12,7 @@ const swaggerJsdoc = require('swagger-jsdoc');
 // Model
 import models from './models';
 // Route
-import routers from './routers';
+import route from './routers';
 
 const app = express();
 
@@ -69,7 +69,7 @@ app.use(
 app.use(express.static('public'));
 
 // Route
-app.use('/api', routers);
+app.use('/api', route);
 app.get('/', (req, res) => {
   res.status(200).json({
     information: 'CGV Cinemas API v1.0.0',

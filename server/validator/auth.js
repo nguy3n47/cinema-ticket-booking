@@ -11,7 +11,7 @@ const userValidator = (req, res, next) => {
     })
     .normalizeEmail();
   req.check('birthday', 'Invalid birthday.').isISO8601().toDate();
-  req.check('phone_number', 'Phone number is required.').notEmpty();
+  req.check('phone', 'Phone number is required.').notEmpty();
 
   req.check('password', 'Password is required.').notEmpty();
   req

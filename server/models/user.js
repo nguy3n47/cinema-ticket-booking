@@ -2,6 +2,11 @@ module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
     'User',
     {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+      },
       fullname: DataTypes.STRING,
       birthday: DataTypes.DATEONLY,
       phone: DataTypes.STRING,
@@ -15,8 +20,8 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
 
-  User.associate = function () {
-    // Associations can be defined here
+  User.associate = function (models) {
+    User.hasMany(models.Booking, { foreignKey: 'user_id' });
   };
 
   return User;

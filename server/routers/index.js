@@ -6,7 +6,6 @@ import verifyUser from '../middlewares/verifyUser';
 
 const router = express.Router();
 
-// Authentication Router
 /**
  * @swagger
  * tags:
@@ -46,6 +45,8 @@ const router = express.Router();
  *          default:
  *              description: This is the default response for it
  */
+
+// Auth Router
 router.post('/auth/register', userValidator, AuthController.register);
 router.post('/auth/login', AuthController.login);
 router.post('/auth/uploadImage', verifyUser, AuthController.uploadImage);

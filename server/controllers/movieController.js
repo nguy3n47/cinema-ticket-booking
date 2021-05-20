@@ -40,7 +40,7 @@ const create = (req, res, next) => {
       } = req.body;
 
       const newMovie = await Movie.create({
-        movie_id: uuidv4(),
+        id: uuidv4(),
         title,
         description,
         director,
@@ -76,8 +76,8 @@ const getAll = async (req, res, next) => {
 
 const getById = async (req, res, next) => {
   try {
-    const movie_id = req.params.id;
-    const movie = await Movie.findOne({ where: { movie_id } });
+    const { id } = req.params;
+    const movie = await Movie.findByPk(id);
     if (movie) {
       return res.status(200).send({ movie });
     } else {
@@ -90,8 +90,8 @@ const getById = async (req, res, next) => {
 
 const update = async (req, res, next) => {
   try {
-    const movie_id = req.params.id;
-    const movie = await Movie.findOne({ where: { movie_id } });
+    const { id } = req.params;
+    const movie = await Movie.findByPk(id);
     if (movie) {
       upload(req, res, async (err) => {
         if (err) return res.send({ error: err.message });
@@ -138,8 +138,8 @@ const update = async (req, res, next) => {
 
 const deleted = async (req, res, next) => {
   try {
-    const movie_id = req.params.id;
-    const movie = await Movie.findOne({ where: { movie_id } });
+    const { id } = req.params;
+    const movie = await Movie.findByPk(id);
     if (movie) {
       await movie.destroy();
       return res.status(200).send({ message: 'Deleted' });

@@ -3,11 +3,14 @@ module.exports = (sequelize, DataTypes) => {
   const Movie = sequelize.define(
     'Movie',
     {
+      id: {
+        type: DataTypes.UUID,
+        primaryKey: true,
+      },
       slug: {
         type: DataTypes.STRING,
         unique: true,
       },
-      movie_id: DataTypes.STRING,
       title: DataTypes.STRING,
       description: DataTypes.TEXT,
       director: DataTypes.STRING,
@@ -30,9 +33,8 @@ module.exports = (sequelize, DataTypes) => {
     suffixSource: ['release_date'],
   });
 
-  Movie.associate = function () {
-    // Associations can be defined here
-    //Movie.hasMany(models.Schedule, { foreignKey: "movie_id" });
+  Movie.associate = function (models) {
+    Movie.hasMany(models.Showtime, { foreignKey: 'movie_id' });
   };
 
   return Movie;

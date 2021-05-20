@@ -34,7 +34,7 @@ const uploadImage = (req, res) => {
 };
 
 const register = async (req, res) => {
-  const { fullname, birthday, phone, password, email, address } = req.body;
+  const { fullname, email, phone, password, birthday, address } = req.body;
 
   const hashedPassword = await getHashedPassword(password);
   try {
@@ -50,10 +50,11 @@ const register = async (req, res) => {
 
     const newUser = await User.create({
       fullname,
-      birthday,
-      phone,
-      password: hashedPassword,
       email,
+      password: hashedPassword,
+      phone,
+      avatar: 'http://127.0.0.1:5000/img/users/profile.jqg',
+      birthday,
       address,
       status: USER_STATUS.UNVERIFIED,
     });
@@ -95,7 +96,7 @@ const verifyEmail = async (req, res) => {
       delete req.session.email;
       return res.status(200).send({ message: 'Verified' });
     } else {
-      res.status(400).send({ error: 'Fail' });
+      res.status(400).send({ error: 'Verification code has expired' });
     }
   } catch (error) {
     return res.status(400).send({ error: 'Fail' });
@@ -119,6 +120,12 @@ const login = async (req, res) => {
     if (!isTruePassword) {
       return res.status(401).send({
         error: 'Email and password do not match.',
+      });
+    }
+
+    if (user.status === 'UNVERIFIED') {
+      return res.status(401).send({
+        error: 'Account is not verified',
       });
     }
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
