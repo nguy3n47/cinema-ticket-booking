@@ -36,9 +36,9 @@ const userValidator = (req, res, next) => {
 };
 
 const resetPasswordValidator = (req, res, next) => {
-  req.check('newPassword', 'Password is required.').notEmpty();
+  req.check('password', 'Password is required.').notEmpty();
   req
-    .check('newPassword')
+    .check('password')
     .isLength({
       min: 6,
     })

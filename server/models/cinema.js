@@ -10,6 +10,8 @@ module.exports = (sequelize, DataTypes) => {
       name: DataTypes.STRING,
       cineplex_id: DataTypes.INTEGER,
       cinemaType_id: DataTypes.INTEGER,
+      vertical_size: DataTypes.INTEGER,
+      horizontal_size: DataTypes.INTEGER,
     },
     {
       timestamps: false,

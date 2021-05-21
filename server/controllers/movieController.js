@@ -5,19 +5,16 @@ import { Movie } from '../models';
 import multer from 'multer';
 
 // SET STORAGE
-var storage = multer.diskStorage({
+let storage = multer.diskStorage({
   destination(req, file, cb) {
     cb(null, 'public/img/movies/');
   },
   filename(req, file, cb) {
-    cb(
-      null,
-      crypto.randomBytes(18).toString('hex') + path.extname(file.originalname)
-    );
+    cb(null, crypto.randomBytes(18).toString('hex') + path.extname(file.originalname));
   },
 });
 
-var upload = multer({ storage }).single('poster');
+let upload = multer({ storage }).single('poster');
 
 const create = (req, res, next) => {
   try {
@@ -88,6 +85,20 @@ const getById = async (req, res, next) => {
   }
 };
 
+const getByState = async (req, res, next) => {
+  try {
+    const { state } = req.params;
+    const movie = await Movie.findOne({ where: { state } });
+    if (movie) {
+      return res.status(200).send({ movie });
+    } else {
+      return res.status(400).send({ error: 'Movie not found' });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 const update = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -96,8 +107,7 @@ const update = async (req, res, next) => {
       upload(req, res, async (err) => {
         if (err) return res.send({ error: err.message });
         if (req.file) {
-          movie.poster =
-            'http://127.0.0.1:5000/img/movies/' + req.file.filename;
+          movie.poster = 'http://127.0.0.1:5000/img/movies/' + req.file.filename;
           await movie.save();
         }
 
@@ -136,7 +146,7 @@ const update = async (req, res, next) => {
   }
 };
 
-const deleted = async (req, res, next) => {
+const remove = async (req, res, next) => {
   try {
     const { id } = req.params;
     const movie = await Movie.findByPk(id);
@@ -151,4 +161,4 @@ const deleted = async (req, res, next) => {
   }
 };
 
-export { create, getAll, getById, update, deleted };
+export { create, getAll, getById, getByState, update, remove };

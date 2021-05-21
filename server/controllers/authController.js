@@ -10,19 +10,16 @@ import USER_STATUS from '../constants/userStatus';
 import MailService from '../services/mail';
 
 // SET STORAGE
-var storage = multer.diskStorage({
+let storage = multer.diskStorage({
   destination(req, file, cb) {
     cb(null, 'public/img/users/');
   },
   filename(req, file, cb) {
-    cb(
-      null,
-      crypto.randomBytes(18).toString('hex') + path.extname(file.originalname)
-    );
+    cb(null, crypto.randomBytes(18).toString('hex') + path.extname(file.originalname));
   },
 });
 
-var upload = multer({ storage }).fields([{ name: 'avatar', maxCount: 1 }]);
+let upload = multer({ storage }).fields([{ name: 'avatar', maxCount: 1 }]);
 
 const uploadImage = (req, res) => {
   upload(req, res, (err) => {
@@ -142,4 +139,67 @@ const login = async (req, res) => {
   }
 };
 
-export { register, login, uploadImage, verifyEmail };
+const logout = async (req, res) => {
+  req.session = null;
+  return res.status(200).send({ message: 'Successful logout' });
+};
+
+const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+  const code = Math.floor(100000 + Math.random() * 900000);
+  try {
+    const userExists = await User.findOne({ where: { email: email } });
+
+    if (!userExists)
+      return res.status(403).send({
+        error: 'Email is not exists',
+      });
+
+    await MailService.sendMail(userExists.email, 'Forgot Password', 'Code: ' + code.toString());
+    req.session.codeVerify = code.toString();
+    req.session.email = email;
+    return res.status(200).send({ message: 'Success', codeVerify: code.toString() });
+  } catch (error) {
+    return res.status(400).send({ error: 'Fail' });
+  }
+};
+
+const verifyCodeResetPassword = (req, res) => {
+  const { code } = req.body;
+  const codeVerify = req.session.codeVerify;
+
+  if (code != codeVerify) {
+    return res.status(403).send({ message: 'Invalid Code' });
+  } else {
+    delete req.session.codeVerify;
+    return res.status(200).send({ message: 'OK' });
+  }
+};
+
+const resetPassword = async (req, res) => {
+  const email = req.session.email;
+  const { password } = req.body;
+
+  try {
+    const user = await User.findOne({ where: { email: email } });
+    user.password = await getHashedPassword(password);
+    await user.save();
+    delete req.session.email;
+    return res.status(200).send({ message: 'Change password successfully' });
+  } catch (error) {
+    return res.status(400).send({
+      error: 'Something went wrong!',
+    });
+  }
+};
+
+export {
+  register,
+  login,
+  uploadImage,
+  verifyEmail,
+  logout,
+  forgotPassword,
+  verifyCodeResetPassword,
+  resetPassword,
+};
