@@ -34,7 +34,11 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Movie.associate = function (models) {
-    Movie.hasMany(models.Showtime, { foreignKey: 'movie_id' });
+    Movie.hasMany(models.Showtime, {
+      foreignKey: { name: 'movie_id', allowNull: true },
+      onDelete: 'CASCADE',
+      hooks: true,
+    });
   };
 
   return Movie;

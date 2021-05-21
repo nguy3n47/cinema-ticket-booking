@@ -83,9 +83,7 @@ app.use('*', (req, res) => {
 
 app.use((err, req, res, next) => {
   if (err.name === 'UnauthorizedError') {
-    return res
-      .status(401)
-      .json({ error: 'Unauthorized', message: err.message });
+    return res.status(401).json({ error: 'Unauthorized', message: err.message });
   }
   if (err.status && err.name) {
     return res.status(err.status).send({

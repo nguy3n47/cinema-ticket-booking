@@ -21,8 +21,11 @@ module.exports = (sequelize, DataTypes) => {
   Cinema.associate = function (models) {
     Cinema.belongsTo(models.Cineplex, { foreignKey: 'cineplex_id' });
     Cinema.belongsTo(models.CinemaType, { foreignKey: 'cinemaType_id' });
-
-    Cinema.hasMany(models.Showtime, { foreignKey: 'cinema_id' });
+    Cinema.hasMany(models.Showtime, {
+      foreignKey: { name: 'cinema_id', allowNull: true },
+      onDelete: 'CASCADE',
+      hooks: true,
+    });
   };
 
   return Cinema;

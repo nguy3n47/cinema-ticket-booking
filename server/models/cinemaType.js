@@ -15,7 +15,11 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   CinemaType.associate = function (models) {
-    CinemaType.hasMany(models.Cinema, { foreignKey: 'cinemaType_id' });
+    CinemaType.hasMany(models.Cinema, {
+      foreignKey: { name: 'cinemaType_id', allowNull: true },
+      onDelete: 'CASCADE',
+      hooks: true,
+    });
   };
 
   return CinemaType;

@@ -17,7 +17,11 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Cineplex.associate = function (models) {
-    Cineplex.hasMany(models.Cinema, { foreignKey: 'cineplex_id' });
+    Cineplex.hasMany(models.Cinema, {
+      foreignKey: { name: 'cineplex_id', allowNull: true },
+      onDelete: 'CASCADE',
+      hooks: true,
+    });
   };
 
   return Cineplex;
