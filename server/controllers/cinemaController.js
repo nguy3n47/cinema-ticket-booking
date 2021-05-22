@@ -117,4 +117,21 @@ const getSeats = async (req, res, next) => {
   }
 };
 
-export { create, getByCineplexId, getById, update, remove, getSeats };
+const getType = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    let cinema = await Cinema.findByPk(id);
+    if (cinema) {
+      let type = await cinema.getCinemaType();
+      let data = { ...cinema.dataValues };
+      data.type = type.name;
+      return res.status(200).send({ data });
+    } else {
+      return res.status(400).send({ error: 'Cinema not found' });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { create, getByCineplexId, getById, update, remove, getSeats, getType };

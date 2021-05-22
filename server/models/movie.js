@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       poster: DataTypes.STRING,
       running_time: DataTypes.INTEGER,
       release_date: DataTypes.DATEONLY,
+      trailer: DataTypes.STRING,
       state: DataTypes.STRING,
       active: {
         type: DataTypes.BOOLEAN,

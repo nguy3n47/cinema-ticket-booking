@@ -33,6 +33,7 @@ const create = (req, res, next) => {
         poster,
         running_time,
         release_date,
+        trailer,
         state,
       } = req.body;
 
@@ -46,6 +47,7 @@ const create = (req, res, next) => {
         poster,
         running_time: parseInt(running_time),
         release_date,
+        trailer,
         state,
       });
 
@@ -62,7 +64,13 @@ const create = (req, res, next) => {
 
 const getAll = async (req, res, next) => {
   try {
-    const movies = await Movie.findAll();
+    let movies;
+    const { state } = req.query;
+    if (state) {
+      movies = await Movie.findAll({ where: { state } });
+    } else {
+      movies = await Movie.findAll();
+    }
     return res.status(200).send({
       movies,
     });
@@ -75,20 +83,6 @@ const getById = async (req, res, next) => {
   try {
     const { id } = req.params;
     const movie = await Movie.findByPk(id);
-    if (movie) {
-      return res.status(200).send({ movie });
-    } else {
-      return res.status(400).send({ error: 'Movie not found' });
-    }
-  } catch (error) {
-    next(error);
-  }
-};
-
-const getByState = async (req, res, next) => {
-  try {
-    const { state } = req.params;
-    const movie = await Movie.findOne({ where: { state } });
     if (movie) {
       return res.status(200).send({ movie });
     } else {
@@ -119,6 +113,7 @@ const update = async (req, res, next) => {
           genre,
           running_time,
           release_date,
+          trailer,
           state,
           active,
         } = req.body;
@@ -131,6 +126,7 @@ const update = async (req, res, next) => {
           genre,
           running_time: parseInt(running_time),
           release_date,
+          trailer,
           state,
           active: active === 'true',
         };
@@ -161,4 +157,4 @@ const remove = async (req, res, next) => {
   }
 };
 
-export { create, getAll, getById, getByState, update, remove };
+export { create, getAll, getById, update, remove };
