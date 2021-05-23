@@ -54,4 +54,47 @@ const getByMovieId = async (req, res, next) => {
   }
 };
 
-export { create, getByMovieId };
+const update = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const showtime = await Showtime.findByPk(id);
+
+    if (showtime) {
+      const { movie_id, cinema_id, start_time, price } = req.body;
+      const movie = await Movie.findByPk(movie_id);
+      const end_time = moment(start_time)
+        .add(movie.running_time, 'minutes')
+        .format('YYYY-MM-DD HH:mm');
+      const parserData = {
+        movie_id,
+        cinema_id,
+        start_time,
+        end_time,
+        price,
+      };
+      await showtime.update(parserData);
+      return res.status(200).send({ message: 'Updated' });
+    } else {
+      return res.status(400).send({ error: 'Showtime not found' });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+const remove = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const showtime = await Showtime.findByPk(id);
+    if (showtime) {
+      await showtime.destroy();
+      return res.status(200).send({ message: 'Deleted' });
+    } else {
+      return res.status(400).send({ error: 'Cinema not found' });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { create, getByMovieId, update, remove };

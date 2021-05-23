@@ -5,6 +5,7 @@ import * as MovieController from '../controllers/movieController';
 import * as CineplexController from '../controllers/cineplexController';
 import * as CinemaController from '../controllers/cinemaController';
 import * as ShowtimeController from '../controllers/showtimeController';
+import * as BookingController from '../controllers/bookingControlller';
 import { resetPasswordValidator, userValidator } from '../validator/auth';
 import verifyUser from '../middlewares/verifyUser';
 
@@ -88,5 +89,11 @@ router.delete('/cinemas/:id', CinemaController.remove);
 // Showtime Router
 router.get('/showtimes', ShowtimeController.getByMovieId);
 router.post('/showtimes', ShowtimeController.create);
+router.put('/showtimes/:id', ShowtimeController.update);
+router.delete('/showtimes/:id', ShowtimeController.remove);
+
+// Booking Router
+router.get('/bookings', BookingController.getByUserId);
+router.post('/bookings', BookingController.create);
 
 export default router;
