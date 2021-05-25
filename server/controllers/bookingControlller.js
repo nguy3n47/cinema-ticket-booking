@@ -1,4 +1,4 @@
-import { User, Booking, Ticket, Showtime, Movie } from '../models';
+import { User, Booking, Ticket, Showtime, Movie, Cinema, Cineplex } from '../models';
 import { v4 as uuidv4 } from 'uuid';
 
 const getByUserId = async (req, res, next) => {
@@ -22,6 +22,16 @@ const getByUserId = async (req, res, next) => {
             {
               model: Movie,
               attributes: ['title'],
+            },
+            {
+              model: Cinema,
+              attributes: ['name'],
+              include: [
+                {
+                  model: Cineplex,
+                  attributes: ['name'],
+                },
+              ],
             },
           ],
         },
@@ -69,4 +79,19 @@ const create = async (req, res, next) => {
   }
 };
 
-export { create, getByUserId };
+const remove = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const booking = await Booking.findByPk(id);
+    if (booking) {
+      await booking.destroy();
+      return res.status(200).send({ message: 'Deleted' });
+    } else {
+      return res.status(400).send({ error: 'Booking not found' });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { create, getByUserId, remove };

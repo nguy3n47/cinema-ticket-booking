@@ -7,7 +7,6 @@ import expressValidator from 'express-validator';
 import cookieParser from 'cookie-parser';
 import cookieSession from 'cookie-session';
 import swaggerUi from 'swagger-ui-express';
-import multer from 'multer';
 const swaggerJsdoc = require('swagger-jsdoc');
 
 // Model
@@ -52,7 +51,6 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(multer().array());
 app.use(expressValidator());
 app.use(cookieParser());
 app.use(cors());

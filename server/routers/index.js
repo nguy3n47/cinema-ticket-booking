@@ -6,50 +6,11 @@ import * as CineplexController from '../controllers/cineplexController';
 import * as CinemaController from '../controllers/cinemaController';
 import * as ShowtimeController from '../controllers/showtimeController';
 import * as BookingController from '../controllers/bookingControlller';
-import { resetPasswordValidator, userValidator } from '../validator/auth';
+import { resetPasswordValidator, userValidator } from '../validations/auth';
 import verifyUser from '../middlewares/verifyUser';
+import multer from 'multer';
 
 const router = express.Router();
-
-/**
- * @swagger
- * tags:
- *  name: Authentication
- * /api/auth/register:
- *  post:
- *      tags: [Authentication]
- *      requestBody:
- *          required: true
- *          content:
- *              application/json:
- *                  schema:
- *                      type: object
- *                      properties:
- *                          fullname:
- *                              type: string
- *                              default: Vu Cao Nguyen
- *                          birthday:
- *                              type: string
- *                              default: 07/10/2000
- *                          phone_number:
- *                              type: string
- *                              default: 0383188752
- *                          password:
- *                               type: string
- *                               default: 123456
- *                          email:
- *                                type: string
- *                                default: nguyenvux710@gmail.com
- *                          address:
- *                                type: string
- *                                default: 135B Tran Hung Dao, Q1, TP.HCM
- *                          status:
- *                                type: string
- *                                default: UNVERIFIED
- *      responses:
- *          default:
- *              description: This is the default response for it
- */
 
 // Auth Router
 router.post('/auth/register', userValidator, AuthController.register);
@@ -82,7 +43,7 @@ router.get('/cinemas', CinemaController.getByCineplexId);
 router.get('/cinemas/:id/type', CinemaController.getType);
 router.post('/cinemas', CinemaController.create);
 router.get('/cinemas/:id', CinemaController.getById);
-router.get('/cinemas/:id/seats', CinemaController.getSeats);
+router.get('/cinemas/:id/seats', CinemaController.getSeatsByShowtimeId);
 router.put('/cinemas/:id', CinemaController.update);
 router.delete('/cinemas/:id', CinemaController.remove);
 
@@ -94,6 +55,7 @@ router.delete('/showtimes/:id', ShowtimeController.remove);
 
 // Booking Router
 router.get('/bookings', BookingController.getByUserId);
-router.post('/bookings', BookingController.create);
+router.post('/bookings', multer().array(), BookingController.create);
+router.delete('/bookings/:id', BookingController.remove);
 
 export default router;
