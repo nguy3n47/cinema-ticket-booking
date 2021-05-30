@@ -6,8 +6,10 @@ import * as CineplexController from '../controllers/cineplexController';
 import * as CinemaController from '../controllers/cinemaController';
 import * as ShowtimeController from '../controllers/showtimeController';
 import * as BookingController from '../controllers/bookingControlller';
+import * as AdminController from '../controllers/adminController';
 import { resetPasswordValidator, userValidator } from '../validations/auth';
 import verifyUser from '../middlewares/verifyUser';
+import isAdmin from '../middlewares/verifyAdmin';
 import multer from 'multer';
 
 const router = express.Router();
@@ -57,5 +59,9 @@ router.delete('/showtimes/:id', ShowtimeController.remove);
 router.get('/bookings', BookingController.getByUserId);
 router.post('/bookings', multer().array(), BookingController.create);
 router.delete('/bookings/:id', BookingController.remove);
+
+// Admin Router
+router.get('/admin/profile', verifyUser, isAdmin, AdminController.getProfile);
+router.post('/admin/auth/login', AdminController.login);
 
 export default router;

@@ -126,11 +126,11 @@ const login = async (req, res) => {
       });
     }
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
-    const { id, fullname, address, status } = user;
+    const { id, fullname, address, status, avatar } = user;
 
-    return res.send({
+    return res.status(200).send({
       accessToken: token,
-      user: { id, email, fullname, address, status },
+      user: { id, email, fullname, address, status, avatar },
     });
   } catch (error) {
     return res.status(400).send({
