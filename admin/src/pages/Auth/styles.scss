@@ -1,0 +1,24 @@
+#cover {
+  background: #222
+    url("https://www.wallpaperup.com/uploads/wallpapers/2015/12/12/858387/4b8a92b93fc6b6a5a91175fdc7692d3c.jpg")
+    center center no-repeat;
+  background-size: cover;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  position: relative;
+  box-shadow: inset 0 0 500px 100px #000000;
+}
+
+#cover-caption {
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+#button-default {
+  width: 120px;
+  background-color: #ff0000 !important;
+  border-color: #ff0000 !important;
+}
