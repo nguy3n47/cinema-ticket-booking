@@ -2,12 +2,11 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import './styles.scss';
 import { Container, Form, Button, Row, Col, Image } from 'react-bootstrap';
-import authApi from '../../api/authApi';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserInfo } from '../../redux/actions/authActions';
+import { login } from '../../redux/actions/authActions';
 import { getUserSelector } from '../../redux/selectors/authSelector';
 import { Redirect, useHistory } from 'react-router-dom';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 
 function Login() {
   const currentUser = useSelector(getUserSelector);
@@ -17,14 +16,8 @@ function Login() {
   const history = useHistory();
 
   const onSubmit = (data) => {
-    authApi
-      .login(data)
-      .then((response) => {
-        localStorage.setItem('user', JSON.stringify(response.admin));
-        dispatch(getUserInfo(response.admin));
-        history.push('/');
-      })
-      .catch((error) => toast.error('Account is invalid!'));
+    dispatch(login(data));
+    history.push('/');
   };
 
   if (currentUser) {
@@ -54,6 +47,7 @@ function Login() {
                   {...register('email')}
                   type="email"
                   placeholder="Email"
+                  autoComplete="email"
                   required
                 />
               </Form.Group>
@@ -64,6 +58,7 @@ function Login() {
                   {...register('password')}
                   type="password"
                   placeholder="Password"
+                  autoComplete="password"
                   required
                 />
               </Form.Group>

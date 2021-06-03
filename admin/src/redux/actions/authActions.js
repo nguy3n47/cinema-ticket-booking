@@ -1,13 +1,30 @@
+import authApi from '../../api/authApi';
+
 export const setAccessToken = (token) => ({
   type: 'ACCESS_TOKEN',
   payload: token,
 });
 
-export const getUserInfo = (payload) => ({
-  type: 'GET_USER_INFO',
-  payload,
-});
+export const login = (data) => async (dispatch) => {
+  try {
+    const response = await authApi.login(data);
+    dispatch({
+      type: 'LOGIN_SUCCESS',
+      payload: response.admin,
+    });
+  } catch (error) {
+    dispatch({
+      type: 'LOGIN_FAIL',
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
 
-export const logout = () => ({
-  type: 'LOGOUT',
-});
+export const logout = () => async (dispatch) => {
+  dispatch({
+    type: 'LOGOUT',
+  });
+};

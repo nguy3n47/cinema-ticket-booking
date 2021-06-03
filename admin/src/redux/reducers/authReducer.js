@@ -1,16 +1,30 @@
+import toast from 'react-hot-toast';
+
 const initialState = {
   user: JSON.parse(localStorage.getItem('user')),
 };
 
 const authReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case 'GET_USER_INFO': {
+  const { type, payload } = action;
+
+  switch (type) {
+    case 'LOGIN_SUCCESS': {
+      localStorage.setItem('user', JSON.stringify(payload));
       return {
         ...state,
-        user: action.payload,
+        user: payload,
+      };
+    }
+    case 'LOGIN_FAIL': {
+      toast.error('Account is invalid!');
+      return {
+        ...state,
+        user: null,
       };
     }
     case 'LOGOUT': {
+      localStorage.clear();
+      window.location.reload();
       return {
         ...state,
         user: null,

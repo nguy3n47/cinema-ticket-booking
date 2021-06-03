@@ -1,7 +1,7 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import Login from './pages/Auth/Login';
-import Home from './pages/Dashboard/Home';
+import Dashboard from './pages/Dashboard';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -9,8 +9,9 @@ function App() {
     <>
       <Router>
         <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/auth/login" component={Login} />
+          <Redirect exact from="/" to="/dashboard" />
+          <Route path="/dashboard" component={Dashboard} />
+          <Route path="/auth/login" component={Login} />
           <Route component={NotFound} />
         </Switch>
       </Router>
