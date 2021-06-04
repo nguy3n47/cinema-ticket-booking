@@ -3,7 +3,7 @@ import React from 'react';
 function Ticket() {
   return (
     <div className="content">
-      <h1>Ticket Page</h1>
+      <h1 className="text-center mt-3">Ticket Page</h1>
     </div>
   );
 }

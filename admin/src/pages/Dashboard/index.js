@@ -28,13 +28,13 @@ function Dashboard() {
       <Navbar />
       <Switch>
         <Route exact path={`${match.url}`} component={Home} />
-        <Route path={`${match.url}/movies`} component={Movie} />
-        <Route path={`${match.url}/cinemas`} component={Cinema} />
-        <Route path={`${match.url}/showtimes`} component={Showtime} />
-        <Route path={`${match.url}/tickets`} component={Ticket} />
-        <Route path={`${match.url}/users`} component={User} />
-        <Route path={`${match.url}/statistics`} component={Statistic} />
-        <Route path={`${match.url}/settings`} component={Setting} />
+        <Route exact path={`${match.url}/movies`} component={Movie} />
+        <Route exact path={`${match.url}/cinemas`} component={Cinema} />
+        <Route exact path={`${match.url}/showtimes`} component={Showtime} />
+        <Route exact path={`${match.url}/tickets`} component={Ticket} />
+        <Route exact path={`${match.url}/users`} component={User} />
+        <Route exact path={`${match.url}/statistics`} component={Statistic} />
+        <Route exact path={`${match.url}/settings`} component={Setting} />
         <Route component={NotFound} />
       </Switch>
     </>

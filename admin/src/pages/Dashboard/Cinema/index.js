@@ -3,7 +3,7 @@ import React from 'react';
 function Cinema() {
   return (
     <div className="content">
-      <h1>Cinema Page</h1>
+      <h1 className="text-center mt-3">Cinema Page</h1>
     </div>
   );
 }

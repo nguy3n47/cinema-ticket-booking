@@ -1,9 +1,17 @@
 import React from 'react';
+import { Col, Row } from 'react-bootstrap';
 
 function Showtime() {
   return (
     <div className="content">
-      <h1>Showtime Page</h1>
+      <Row>
+        <Col>
+          <h1 className="text-center">Showtimes</h1>
+        </Col>
+      </Row>
+      <Row>
+        <Col></Col>
+      </Row>
     </div>
   );
 }

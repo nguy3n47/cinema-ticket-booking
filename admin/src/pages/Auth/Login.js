@@ -11,11 +11,14 @@ import { Toaster } from 'react-hot-toast';
 function Login() {
   const currentUser = useSelector(getUserSelector);
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const dispatch = useDispatch();
   const history = useHistory();
 
   const onSubmit = (data) => {
+    reset('', {
+      keepValues: false,
+    });
     dispatch(login(data));
     history.push('/');
   };
@@ -47,7 +50,6 @@ function Login() {
                   {...register('email')}
                   type="email"
                   placeholder="Email"
-                  autoComplete="email"
                   required
                 />
               </Form.Group>

@@ -1,6 +1,5 @@
 import $ from 'jquery';
 import React, { useEffect } from 'react';
-import { GiTheaterCurtains } from 'react-icons/gi';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../../redux/actions/authActions';
@@ -59,16 +58,14 @@ function Navbar() {
         </li>
         <li>
           <Link to="/dashboard/movies">
-            <i className="bx bx-movie"></i>
+            <i className="bx bx-movie-play"></i>
             <span className="links_name">Movie</span>
           </Link>
           <span className="tooltip">Movie</span>
         </li>
         <li>
           <Link to="/dashboard/cinemas">
-            <i>
-              <GiTheaterCurtains />
-            </i>
+            <i className="bx bx-tv"></i>
             <span className="links_name">Cinema</span>
           </Link>
           <span className="tooltip">Cinema</span>

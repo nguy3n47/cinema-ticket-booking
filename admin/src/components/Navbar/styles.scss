@@ -253,7 +253,7 @@ code {
   width: calc(100% - 78px);
   left: 78px;
   background: #ffffff;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2px);
+  padding: 15px 15px;
   transition: all 0.5s ease;
 }
 .sidebar.active ~ .content {
