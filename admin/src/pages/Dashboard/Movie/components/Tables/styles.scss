@@ -8,7 +8,40 @@ td {
   vertical-align: middle !important;
 }
 
-#button-trash {
+.button-trash {
   background-color: #ff0000 !important;
   border-color: #ff0000 !important;
+}
+
+.button-add {
+  background-color: #ff0000 !important;
+  border-color: #ff0000 !important;
+}
+
+.button-icon {
+  margin-right: 0.5em;
+}
+
+.page-link {
+  color: #e60a0a !important;
+}
+
+.page-item.active .page-link {
+  color: #fff !important;
+  background-color: #e60a0a !important;
+  border-color: #e60a0a !important;
+}
+
+.page-item.disabled .page-link {
+  color: #6c757d !important;
+}
+
+th.sortable {
+  color: #000000 !important;
+}
+
+ol,
+ul,
+dl {
+  margin-bottom: 1rem !important;
 }

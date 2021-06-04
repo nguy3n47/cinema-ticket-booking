@@ -35,7 +35,7 @@ function Navbar() {
   });
 
   return (
-    <div className="sidebar active">
+    <div className="sidebar">
       <div className="logo_content">
         <div className="logo">
           <i className="bx bx-bracket"></i>

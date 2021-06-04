@@ -1,24 +1,21 @@
 import React from 'react';
+import { Button, Col, Container, Form, Image, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
-import './styles.scss';
-import { Container, Form, Button, Row, Col, Image } from 'react-bootstrap';
+import { Toaster } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
+import { Redirect, useHistory } from 'react-router-dom';
 import { login } from '../../redux/actions/authActions';
 import { getUserSelector } from '../../redux/selectors/authSelector';
-import { Redirect, useHistory } from 'react-router-dom';
-import { Toaster } from 'react-hot-toast';
+import './styles.scss';
 
 function Login() {
   const currentUser = useSelector(getUserSelector);
 
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
   const history = useHistory();
 
   const onSubmit = (data) => {
-    reset('', {
-      keepValues: false,
-    });
     dispatch(login(data));
     history.push('/');
   };
@@ -50,6 +47,7 @@ function Login() {
                   {...register('email')}
                   type="email"
                   placeholder="Email"
+                  autoComplete="email"
                   required
                 />
               </Form.Group>

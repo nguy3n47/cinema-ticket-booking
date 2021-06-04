@@ -4,6 +4,7 @@ import DataTable from './components/Tables/DataTable';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMoviesSelector } from '../../../redux/selectors/movieSelector';
 import { getAllMovies } from '../../../redux/actions/movieActions';
+import ModalForm from './components/Modals/Modal';
 
 function Movie() {
   const movies = useSelector(getMoviesSelector);
@@ -18,6 +19,11 @@ function Movie() {
       <Row>
         <Col>
           <h1 className="text-center">Movies</h1>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <ModalForm />
         </Col>
       </Row>
       <Row>

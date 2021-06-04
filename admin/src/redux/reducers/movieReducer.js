@@ -1,3 +1,5 @@
+import toast from 'react-hot-toast';
+
 const initialState = {
   movies: [],
 };
@@ -16,6 +18,31 @@ const movieReducer = (state = initialState, action) => {
       return {
         ...state,
         movies: [],
+      };
+    }
+    case 'CREATE_MOVIE_SUCCESS': {
+      window.location.reload();
+      return {
+        ...state,
+      };
+    }
+    case 'CREATE_MOVIE_FAIL': {
+      toast.error('Error!');
+      return {
+        ...state,
+      };
+    }
+    case 'DELETE_MOVIE_SUCCESS': {
+      const { movieId } = payload;
+      return {
+        ...state,
+        movies: [...state.movies].filter((movie) => movie.id !== movieId),
+      };
+    }
+    case 'DELETE_MOVIE_FAIL': {
+      toast.error('Error!');
+      return {
+        ...state,
       };
     }
     default:

@@ -5,6 +5,18 @@ const movieApi = {
     const url = '/movies';
     return axiosClient.get(url);
   },
+
+  create: (formData) => {
+    const url = '/movies';
+    return axiosClient.post(url, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+  },
+
+  delete: (id) => {
+    const url = `/movies/${id}`;
+    return axiosClient.delete(url);
+  },
 };
 
 export default movieApi;
