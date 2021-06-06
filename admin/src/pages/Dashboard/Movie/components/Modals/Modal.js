@@ -3,32 +3,40 @@ import { Button, Modal } from 'react-bootstrap';
 import { BsFillPlusSquareFill } from 'react-icons/bs';
 import FormAddEdit from '../Forms/FormAddEdit';
 
-function ModalForm() {
-  const [show, setShow] = useState(false);
+function ModalForm(props) {
+  const [show, setShow] = useState(props.isShow);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const buutonAdd = (
+    <Button className="button-add" onClick={handleShow}>
+      <BsFillPlusSquareFill className="button-icon" />
+      {props.label}
+    </Button>
+  );
+
   return (
     <>
-      <Button className="button-add" onClick={handleShow}>
-        <BsFillPlusSquareFill className="button-icon" />
-        Add Movie
-      </Button>
+      {props.menthod === 'add' ? buutonAdd : ''}
 
       <Modal size="lg" show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Add New Movie</Modal.Title>
+          <Modal.Title> {props.title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <FormAddEdit />
+          <FormAddEdit data={props.data} />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button form="form-add-edit" className="button-add" type="submit">
-            Submit
+          <Button
+            onClick={handleClose}
+            form="form-add-edit"
+            className="button-add"
+            type="submit">
+            {props.menthod === 'add' ? 'Submit' : 'Update'}
           </Button>
         </Modal.Footer>
       </Modal>

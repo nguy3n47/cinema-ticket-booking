@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button, Col, Container, Form, Image, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
-import { Toaster } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
 import { login } from '../../redux/actions/authActions';
@@ -26,9 +25,6 @@ function Login() {
 
   return (
     <section id="cover" className="min-vh-100">
-      <div>
-        <Toaster />
-      </div>
       <Container>
         <Row>
           <Col className="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">

@@ -3,10 +3,12 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import Login from './pages/Auth/Login';
 import Dashboard from './pages/Dashboard';
 import NotFound from './pages/NotFound';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
     <>
+      <Toaster />
       <Router>
         <Switch>
           <Redirect exact from="/" to="/dashboard" />

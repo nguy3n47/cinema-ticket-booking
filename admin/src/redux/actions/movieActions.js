@@ -24,9 +24,38 @@ export const createMovie = (data) => async (dispatch) => {
     dispatch({
       type: 'CREATE_MOVIE_SUCCESS',
     });
+
+    const response = await movieApi.getAll();
+    dispatch({
+      type: 'GET_MOVIE_SUCCESS',
+      payload: response.movies,
+    });
   } catch (error) {
     dispatch({
       type: 'CREATE_MOVIE_FAIL',
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const updateMovie = (data, id) => async (dispatch) => {
+  try {
+    await movieApi.update(data, id);
+    dispatch({
+      type: 'UPDATE_MOVIE_SUCCESS',
+    });
+
+    const response = await movieApi.getAll();
+    dispatch({
+      type: 'GET_MOVIE_SUCCESS',
+      payload: response.movies,
+    });
+  } catch (error) {
+    dispatch({
+      type: 'UPDATE_MOVIE_FAIL',
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

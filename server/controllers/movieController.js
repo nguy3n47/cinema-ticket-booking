@@ -20,7 +20,7 @@ const create = (req, res, next) => {
   try {
     upload(req, res, async (err) => {
       if (err) return res.send({ error: err.message });
-      if (!req.file) return res.send({ error: 'Missing movie poster.' });
+      if (!req.file) return res.status(401).send({ error: 'Missing movie poster.' });
 
       req.body.poster = 'http://127.0.0.1:5000/img/movies/' + req.file.filename;
 
@@ -99,7 +99,7 @@ const update = async (req, res, next) => {
     const movie = await Movie.findByPk(id);
     if (movie) {
       upload(req, res, async (err) => {
-        if (err) return res.send({ error: err.message });
+        if (err) return res.status(400).send({ error: err.message });
         if (req.file) {
           movie.poster = 'http://127.0.0.1:5000/img/movies/' + req.file.filename;
           await movie.save();

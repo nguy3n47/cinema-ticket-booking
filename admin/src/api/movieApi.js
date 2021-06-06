@@ -13,6 +13,13 @@ const movieApi = {
     });
   },
 
+  update: (formData, id) => {
+    const url = `/movies/${id}`;
+    return axiosClient.put(url, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+  },
+
   delete: (id) => {
     const url = `/movies/${id}`;
     return axiosClient.delete(url);

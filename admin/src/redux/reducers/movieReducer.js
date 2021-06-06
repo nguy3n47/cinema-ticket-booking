@@ -20,8 +20,9 @@ const movieReducer = (state = initialState, action) => {
         movies: [],
       };
     }
+
     case 'CREATE_MOVIE_SUCCESS': {
-      window.location.reload();
+      toast.success('Successfully Add New Movie');
       return {
         ...state,
       };
@@ -32,7 +33,22 @@ const movieReducer = (state = initialState, action) => {
         ...state,
       };
     }
+
+    case 'UPDATE_MOVIE_SUCCESS': {
+      toast.success('Successfully Update Movie');
+      return {
+        ...state,
+      };
+    }
+    case 'UPDATE_MOVIE_FAIL': {
+      toast.error('Error!');
+      return {
+        ...state,
+      };
+    }
+
     case 'DELETE_MOVIE_SUCCESS': {
+      toast.success('Successfully Delete Movie');
       const { movieId } = payload;
       return {
         ...state,

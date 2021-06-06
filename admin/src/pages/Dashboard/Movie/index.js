@@ -23,7 +23,12 @@ function Movie() {
       </Row>
       <Row>
         <Col>
-          <ModalForm />
+          <ModalForm
+            isShow={false}
+            menthod="add"
+            label="Add Movie"
+            title="Add New Movie"
+          />
         </Col>
       </Row>
       <Row>

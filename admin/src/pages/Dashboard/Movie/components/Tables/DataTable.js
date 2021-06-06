@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Image } from 'react-bootstrap';
 import ReactDatatable from '@ashvin27/react-datatable';
 import { orderBy } from 'lodash';
 import './styles.scss';
 import { useDispatch } from 'react-redux';
 import { removeMovie } from '../../../../../redux/actions/movieActions';
+import ModalForm from '../Modals/Modal';
+import moment from 'moment';
 
 function DataTable(props) {
   const { movies } = props;
+  const [isShow, setIsShow] = useState(false);
+  const [data, setData] = useState(null);
   const dispatch = useDispatch();
 
   const columns = [
@@ -54,6 +58,9 @@ function DataTable(props) {
       key: 'release_date',
       text: 'Release Date',
       sortable: true,
+      cell: (movie) => {
+        return moment(movie.release_date).format('DD/MM/YYYY');
+      },
       width: 120,
     },
     {
@@ -97,7 +104,7 @@ function DataTable(props) {
   };
 
   const deleteMovie = (id) => {
-    console.log('Delete movie', id);
+    setIsShow((isShow) => !isShow);
     dispatch(removeMovie(id));
   };
 
@@ -112,15 +119,28 @@ function DataTable(props) {
     return match && match[2].length === 11 ? match[2] : null;
   };
 
+  const rowClickedHandler = (event, data, rowIndex) => {
+    setIsShow((isShow) => !isShow);
+    setData(data);
+  };
+
   return (
-    <ReactDatatable
-      responsive
-      hover
-      config={config}
-      records={movies}
-      columns={columns}
-      onSort={onSort}
-    />
+    <>
+      {isShow ? (
+        <ModalForm isShow={isShow} data={data} menthod="eidt" title="Edit Movie" />
+      ) : (
+        ''
+      )}
+      <ReactDatatable
+        responsive
+        hover
+        config={config}
+        records={movies}
+        columns={columns}
+        onSort={onSort}
+        onRowClicked={rowClickedHandler}
+      />
+    </>
   );
 }
 
