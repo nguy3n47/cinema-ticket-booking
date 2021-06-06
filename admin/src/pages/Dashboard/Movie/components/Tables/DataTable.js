@@ -44,10 +44,12 @@ function DataTable(props) {
     {
       key: 'actor',
       text: 'Actor',
+      width: 200,
     },
     {
       key: 'genre',
       text: 'Genre',
+      width: 200,
     },
     {
       key: 'running_time',
@@ -81,6 +83,10 @@ function DataTable(props) {
     {
       key: 'state',
       text: 'State',
+      sortable: true,
+      cell: (movie) => {
+        return movie.state === 'now-showing' ? 'Now Showing' : 'Coming Soon';
+      },
     },
     {
       key: 'action',
@@ -96,7 +102,7 @@ function DataTable(props) {
   ];
 
   const config = {
-    page_size: 3,
+    page_size: 6,
     show_filter: false,
     show_length_menu: false,
     show_pagination: true,
@@ -127,7 +133,7 @@ function DataTable(props) {
   return (
     <>
       {isShow ? (
-        <ModalForm isShow={isShow} data={data} menthod="eidt" title="Edit Movie" />
+        <ModalForm isShow={isShow} data={data} method="eidt" title="Edit Movie" />
       ) : (
         ''
       )}

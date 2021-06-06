@@ -81,10 +81,11 @@ function FormAddEdit(props) {
             <Form.Label className="form-group required control-label">Poster</Form.Label>
             <Form.Control
               type="file"
+              accept="image/*"
               {...register('poster')}
               onChange={(e) => {
-                register('poster').onChange(e); // method from hook form register
-                onChangePicture(e); // your method
+                register('poster').onChange(e);
+                onChangePicture(e);
               }}
             />
           </Form.Group>
@@ -100,8 +101,8 @@ function FormAddEdit(props) {
               defaultValue={movie?.trailer ? movie?.trailer : ''}
               {...register('trailer')}
               onChange={(e) => {
-                register('trailer').onChange(e); // method from hook form register
-                onChangeVideoId(e); // your method
+                register('trailer').onChange(e);
+                onChangeVideoId(e);
               }}
               autoComplete="trailer"
               required
@@ -204,6 +205,7 @@ function FormAddEdit(props) {
             </Form.Label>
             <Form.Control
               type="number"
+              min="0"
               defaultValue={movie?.running_time ? movie?.running_time : ''}
               {...register('running_time')}
               autoComplete="running_time"

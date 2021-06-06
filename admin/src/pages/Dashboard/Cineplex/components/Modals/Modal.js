@@ -12,7 +12,7 @@ function ModalForm(props) {
   const buutonAdd = (
     <Button className="button-add" onClick={handleShow}>
       <BsFillPlusSquareFill className="button-icon" />
-      Add Movie
+      Add Cineplex
     </Button>
   );
 

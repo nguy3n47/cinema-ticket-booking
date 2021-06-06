@@ -5,6 +5,7 @@ import Navbar from '../../components/Navbar';
 import { getUserSelector } from '../../redux/selectors/authSelector';
 import NotFound from '../NotFound';
 import Cinema from './Cinema';
+import Cineplex from './Cineplex';
 import Home from './Home';
 import Movie from './Movie';
 import Setting from './Setting';
@@ -29,6 +30,7 @@ function Dashboard() {
       <Switch>
         <Route exact path={`${match.url}`} component={Home} />
         <Route exact path={`${match.url}/movies`} component={Movie} />
+        <Route exact path={`${match.url}/cineplexs`} component={Cineplex} />
         <Route exact path={`${match.url}/cinemas`} component={Cinema} />
         <Route exact path={`${match.url}/showtimes`} component={Showtime} />
         <Route exact path={`${match.url}/tickets`} component={Ticket} />

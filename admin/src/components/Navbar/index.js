@@ -64,6 +64,13 @@ function Navbar() {
           <span className="tooltip">Movie</span>
         </li>
         <li>
+          <Link to="/dashboard/cineplexs">
+            <i className="bx bxs-collection"></i>
+            <span className="links_name">Cineplex</span>
+          </Link>
+          <span className="tooltip">Cineplex</span>
+        </li>
+        <li>
           <Link to="/dashboard/cinemas">
             <i className="bx bx-tv"></i>
             <span className="links_name">Cinema</span>

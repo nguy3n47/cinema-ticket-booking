@@ -23,12 +23,13 @@ const create = (req, res, next) => {
 
       req.body.image = 'http://127.0.0.1:5000/img/cineplexs/' + req.file.filename;
 
-      const { name, address, image } = req.body;
+      const { name, address, image, googleMapsUrl } = req.body;
 
       const newCineplex = await Cineplex.create({
         name,
         address,
         image,
+        googleMapsUrl,
       });
 
       if (newCineplex) {
@@ -79,11 +80,12 @@ const update = async (req, res, next) => {
           await cineplex.save();
         }
 
-        const { name, address } = req.body;
+        const { name, address, googleMapsUrl } = req.body;
 
         const parserData = {
           name,
           address,
+          googleMapsUrl,
         };
 
         await cineplex.update(parserData);

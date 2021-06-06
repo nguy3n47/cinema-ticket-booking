@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Col, Container, Form, Image, Row } from 'react-bootstrap';
+import { Button, Col, Container, Form, Image, Row, FloatingLabel } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
@@ -38,25 +38,27 @@ function Login() {
 
             <Form onSubmit={handleSubmit(onSubmit)}>
               <Form.Group className="mb-3">
-                <Form.Control
-                  size="lg"
-                  {...register('email')}
-                  type="email"
-                  placeholder="Email"
-                  autoComplete="email"
-                  required
-                />
+                <FloatingLabel label="Email">
+                  <Form.Control
+                    {...register('email')}
+                    type="email"
+                    autoComplete="email"
+                    placeholder="name@example.com"
+                    required
+                  />
+                </FloatingLabel>
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Control
-                  size="lg"
-                  {...register('password')}
-                  type="password"
-                  placeholder="Password"
-                  autoComplete="password"
-                  required
-                />
+                <FloatingLabel label="Password">
+                  <Form.Control
+                    {...register('password')}
+                    type="password"
+                    placeholder="Password"
+                    autoComplete="password"
+                    required
+                  />
+                </FloatingLabel>
               </Form.Group>
 
               <Button id="button-default" type="submit">
