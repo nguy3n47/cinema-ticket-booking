@@ -2,13 +2,16 @@ import ReactDatatable from '@ashvin27/react-datatable';
 import { orderBy } from 'lodash';
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 import ModalForm from '../Modals/Modal';
+import { removeCinema } from '../../../../../redux/actions/cinemaActions';
 import './styles.scss';
 
 function DataTable(props) {
-  const { cinemas, cineplexs } = props;
+  const { cinemas, cineplexs, cinemaTypes } = props;
   const [isShow, setIsShow] = useState(false);
   const [data, setData] = useState(null);
+  const dispatch = useDispatch();
 
   const columns = [
     {
@@ -71,6 +74,7 @@ function DataTable(props) {
 
   const deleteCinema = (id) => {
     setIsShow((isShow) => !isShow);
+    dispatch(removeCinema(id));
   };
 
   const onSort = (column, records, sortOrder) => {
@@ -89,6 +93,7 @@ function DataTable(props) {
           isShow={isShow}
           data={data}
           cineplexs={cineplexs}
+          cinemaTypes={cinemaTypes}
           method="eidt"
           title="Edit Cinema"
         />

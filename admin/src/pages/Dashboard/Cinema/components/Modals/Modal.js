@@ -25,7 +25,11 @@ function ModalForm(props) {
           <Modal.Title> {props.title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <FormAddEdit data={props.data} cineplexs={props.cineplexs} />
+          <FormAddEdit
+            data={props.data}
+            cinemaTypes={props.cinemaTypes}
+            cineplexs={props.cineplexs}
+          />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>

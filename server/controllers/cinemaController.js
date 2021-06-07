@@ -21,6 +21,17 @@ const getAll = async (req, res, next) => {
   }
 };
 
+const getTypes = async (req, res, next) => {
+  try {
+    const cinemaTypes = await CinemaType.findAll({
+      order: [['id', 'ASC']],
+    });
+    return res.status(200).send(cinemaTypes);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const create = async (req, res, next) => {
   try {
     const { name, cineplex_id, cinemaType_id, vertical_size, horizontal_size } = req.body;
@@ -175,7 +186,7 @@ const getSeatsByShowtimeId = async (req, res, next) => {
   }
 };
 
-const getType = async (req, res, next) => {
+const getTypeByCinemaId = async (req, res, next) => {
   try {
     const { id } = req.params;
     let cinema = await Cinema.findByPk(id);
@@ -192,4 +203,14 @@ const getType = async (req, res, next) => {
   }
 };
 
-export { getAll, create, getByCineplexId, getById, update, remove, getSeatsByShowtimeId, getType };
+export {
+  getAll,
+  create,
+  getByCineplexId,
+  getById,
+  update,
+  remove,
+  getSeatsByShowtimeId,
+  getTypeByCinemaId,
+  getTypes,
+};

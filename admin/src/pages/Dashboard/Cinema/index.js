@@ -3,19 +3,24 @@ import { Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import ModalForm from './components/Modals/Modal';
 import DataTable from './components/Tables/DataTable';
-import { getCinemasSelector } from '../../../redux/selectors/cinemaSelector';
-import { getAllCinemas } from '../../../redux/actions/cinemaActions';
+import {
+  getCinemasSelector,
+  getCinemaTypesSelector,
+} from '../../../redux/selectors/cinemaSelector';
+import { getAllCinemas, getCinemaTypes } from '../../../redux/actions/cinemaActions';
 import { getCineplexsSelector } from '../../../redux/selectors/cineplexSelector';
 import { getAllCineplexs } from '../../../redux/actions/cineplexActions';
 
 function Cinema() {
   const cinemas = useSelector(getCinemasSelector);
+  const cinemaTypes = useSelector(getCinemaTypesSelector);
   const cineplexs = useSelector(getCineplexsSelector);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllCinemas());
     dispatch(getAllCineplexs());
+    dispatch(getCinemaTypes());
   }, [dispatch]);
 
   return (
@@ -30,6 +35,7 @@ function Cinema() {
           <ModalForm
             isShow={false}
             cineplexs={cineplexs}
+            cinemaTypes={cinemaTypes}
             method="add"
             title="Add New Cinema"
           />
@@ -37,7 +43,7 @@ function Cinema() {
       </Row>
       <Row>
         <Col>
-          <DataTable cinemas={cinemas} cineplexs={cineplexs} />
+          <DataTable cinemaTypes={cinemaTypes} cinemas={cinemas} cineplexs={cineplexs} />
         </Col>
       </Row>
     </div>
