@@ -1,4 +1,25 @@
-import { Cinema, Booking, Ticket } from '../models';
+import { Cinema, Booking, Ticket, Cineplex, CinemaType } from '../models';
+
+const getAll = async (req, res, next) => {
+  try {
+    const cinemas = await Cinema.findAll({
+      order: [['id', 'ASC']],
+      include: [
+        {
+          model: Cineplex,
+          attributes: ['name'],
+        },
+        {
+          model: CinemaType,
+          attributes: ['name'],
+        },
+      ],
+    });
+    return res.status(200).send({ cinemas });
+  } catch (error) {
+    next(error);
+  }
+};
 
 const create = async (req, res, next) => {
   try {
@@ -25,7 +46,19 @@ const create = async (req, res, next) => {
 const getByCineplexId = async (req, res, next) => {
   try {
     const { cineplex_id } = req.body;
-    const cinemas = await Cinema.findAll({ where: { cineplex_id } });
+    const cinemas = await Cinema.findAll({
+      where: { cineplex_id },
+      include: [
+        {
+          model: Cineplex,
+          attributes: ['name'],
+        },
+        {
+          model: CinemaType,
+          attributes: ['name'],
+        },
+      ],
+    });
     if (cinemas) {
       return res.status(200).send({ cinemas });
     } else {
@@ -159,4 +192,4 @@ const getType = async (req, res, next) => {
   }
 };
 
-export { create, getByCineplexId, getById, update, remove, getSeatsByShowtimeId, getType };
+export { getAll, create, getByCineplexId, getById, update, remove, getSeatsByShowtimeId, getType };

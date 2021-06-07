@@ -1,67 +1,59 @@
 import ReactDatatable from '@ashvin27/react-datatable';
 import { orderBy } from 'lodash';
 import React, { useState } from 'react';
-import { Button, Image } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
-import { removeCineplex } from '../../../../../redux/actions/cineplexActions';
+import { Button } from 'react-bootstrap';
 import ModalForm from '../Modals/Modal';
 import './styles.scss';
 
 function DataTable(props) {
-  const { cineplexs } = props;
+  const { cinemas, cineplexs } = props;
   const [isShow, setIsShow] = useState(false);
   const [data, setData] = useState(null);
-  const dispatch = useDispatch();
 
   const columns = [
     {
       key: 'id',
       text: 'ID',
       sortable: true,
-      cell: (cineplex, index) => {
+      cell: (cinema, index) => {
         return index + 1;
-      },
-    },
-    {
-      key: 'image',
-      text: 'Image',
-      sortable: true,
-      cell: (cineplex) => {
-        return <Image src={cineplex.image} width={120}></Image>;
       },
     },
     {
       key: 'name',
       text: 'Name',
       sortable: true,
-      width: 300,
     },
     {
-      key: 'address',
-      text: 'Address',
+      key: 'cineplex',
+      text: 'Cineplex',
       sortable: true,
+      cell: (cinema) => {
+        return cinema.Cineplex.name;
+      },
     },
     {
-      key: 'googleMaps',
-      text: 'Google Maps',
-      cell: (cineplex) => {
-        return (
-          <iframe
-            className="embed-responsive-item"
-            title={cineplex.name}
-            allowFullScreen
-            loading="lazy"
-            src={cineplex.googleMapsUrl}
-          />
-        );
+      key: 'cinemaType',
+      text: 'Cinema Type',
+      sortable: true,
+      cell: (cinema) => {
+        return cinema.CinemaType.name;
       },
+    },
+    {
+      key: 'vertical_size',
+      text: 'Vertical Size',
+    },
+    {
+      key: 'horizontal_size',
+      text: 'Horizontal Size',
     },
     {
       key: 'action',
       text: 'Action',
-      cell: (cineplex) => {
+      cell: (cinema) => {
         return (
-          <Button className="button-trash" onClick={() => deleteCineplex(cineplex.id)}>
+          <Button className="button-trash" onClick={() => deleteCinema(cinema.id)}>
             <i className="bx bxs-trash-alt"></i>
           </Button>
         );
@@ -70,16 +62,15 @@ function DataTable(props) {
   ];
 
   const config = {
-    page_size: 10,
+    page_size: 5,
     show_filter: false,
     show_length_menu: false,
     show_pagination: true,
     pagination: 'advance',
   };
 
-  const deleteCineplex = (id) => {
+  const deleteCinema = (id) => {
     setIsShow((isShow) => !isShow);
-    dispatch(removeCineplex(id));
   };
 
   const onSort = (column, records, sortOrder) => {
@@ -94,7 +85,13 @@ function DataTable(props) {
   return (
     <>
       {isShow ? (
-        <ModalForm isShow={isShow} data={data} method="eidt" title="Edit Cineplex" />
+        <ModalForm
+          isShow={isShow}
+          data={data}
+          cineplexs={cineplexs}
+          method="eidt"
+          title="Edit Cinema"
+        />
       ) : (
         ''
       )}
@@ -102,7 +99,7 @@ function DataTable(props) {
         responsive
         hover
         config={config}
-        records={cineplexs}
+        records={cinemas}
         columns={columns}
         onSort={onSort}
         onRowClicked={rowClickedHandler}

@@ -42,6 +42,7 @@ router.delete('/cineplexs/:id', CineplexController.remove);
 
 // Cinema Router
 router.get('/cinemas', CinemaController.getByCineplexId);
+router.get('/cinemas/all', CinemaController.getAll);
 router.get('/cinemas/:id/type', CinemaController.getType);
 router.post('/cinemas', CinemaController.create);
 router.get('/cinemas/:id', CinemaController.getById);

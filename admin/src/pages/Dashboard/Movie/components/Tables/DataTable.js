@@ -126,8 +126,8 @@ function DataTable(props) {
   };
 
   const rowClickedHandler = (event, data, rowIndex) => {
-    setIsShow((isShow) => !isShow);
     setData(data);
+    setIsShow((isShow) => !isShow);
   };
 
   return (
