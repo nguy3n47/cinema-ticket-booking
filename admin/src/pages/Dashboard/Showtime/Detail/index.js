@@ -6,16 +6,20 @@ import DataTable from './Tables/DataTable';
 import ModalForm from '../components/Modals/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCineplexsSelector } from '../../../../redux/selectors/cineplexSelector';
+import { getShowtimesSelector } from '../../../../redux/selectors/showtimeSelector';
 import { getAllCineplexs } from '../../../../redux/actions/cineplexActions';
+import { getAllShowtimesByMovieId } from '../../../../redux/actions/showtimeActions';
 
 function DetailPage(props) {
   const { movie } = props.location.state ? props.location.state : {};
+  const showtimes = useSelector(getShowtimesSelector);
   const cineplexs = useSelector(getCineplexsSelector);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(getAllShowtimesByMovieId({ movie_id: movie?.id }));
     dispatch(getAllCineplexs());
-  }, [dispatch]);
+  }, [dispatch, movie]);
 
   if (!movie) {
     return <Redirect to="/dashboard/showtimes" />;
@@ -23,25 +27,29 @@ function DetailPage(props) {
 
   return (
     <Row>
-      <Col xs={6} md={3}>
+      <Col md={3}>
         <Form.Group>
           <Image src={movie?.poster} fluid />
         </Form.Group>
 
         <Form.Group className="mt-1">
-          <h3>{movie?.title}</h3>
+          <h2 className="text-center">{movie?.title}</h2>
         </Form.Group>
 
         <Form.Group>
-          <p>{moment(movie?.release_date).format('DD/MM/YYYY')}</p>
+          <h3 className="text-center">
+            {moment(movie?.release_date).format('DD/MM/YYYY')}
+          </h3>
         </Form.Group>
 
         <Form.Group>
-          <p>{movie?.running_time} minutes</p>
+          <p className="text-center">{movie?.running_time} minutes</p>
         </Form.Group>
 
         <Form.Group>
-          <p>{movie?.state === 'now-showing' ? 'Now Showing' : 'Coming Soon'}</p>
+          <p className="text-center">
+            {movie?.state === 'now-showing' ? 'Now Showing' : 'Coming Soon'}
+          </p>
         </Form.Group>
       </Col>
       <Col>
@@ -51,7 +59,7 @@ function DetailPage(props) {
           method="add"
           title="Add New Showtime"
         />
-        <DataTable cineplexs={cineplexs} showtimes={movie.Showtimes} />
+        <DataTable cineplexs={cineplexs} showtimes={showtimes} />
       </Col>
     </Row>
   );

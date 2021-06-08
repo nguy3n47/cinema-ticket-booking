@@ -1,16 +1,25 @@
 import axiosClient from './axiosClient';
 
 const showtimeApi = {
-  getShowtimesByMovieId: (data) => {
+  getShowtimesByMovieId: (params) => {
     const url = '/showtimes';
-    return axiosClient.get(url, data);
+    return axiosClient.get(url, { params });
   },
 
-  create: (data) => {},
+  create: (data) => {
+    const url = '/showtimes';
+    return axiosClient.post(url, data);
+  },
 
-  update: (data, id) => {},
+  update: (data, id) => {
+    const url = `/showtimes/${id}`;
+    return axiosClient.put(url, data);
+  },
 
-  delete: (id) => {},
+  delete: (id) => {
+    const url = `/showtimes/${id}`;
+    return axiosClient.delete(url);
+  },
 };
 
 export default showtimeApi;

@@ -28,7 +28,7 @@ function DataTable(props) {
     },
     {
       key: 'title',
-      text: 'Name',
+      text: 'Movie',
       sortable: true,
     },
     {

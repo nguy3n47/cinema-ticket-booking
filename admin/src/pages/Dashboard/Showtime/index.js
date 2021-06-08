@@ -18,7 +18,7 @@ function Showtime() {
       <Row>
         <Switch>
           <Route exact path={`${match.url}`} component={MainPage} />
-          <Route exact path={`${match.url}/:id`} component={DetailPage} />
+          <Route exact path={`${match.url}/:movieId`} component={DetailPage} />
           <Route component={NotFound} />
         </Switch>
       </Row>

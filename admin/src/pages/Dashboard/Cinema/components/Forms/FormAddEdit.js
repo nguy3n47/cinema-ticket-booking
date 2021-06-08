@@ -53,7 +53,6 @@ function FormAddEdit(props) {
   };
 
   const onUpdateSubmit = (data) => {
-    console.log(data);
     dispatch(updateCinema(data, cinema.id));
   };
 

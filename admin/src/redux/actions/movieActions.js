@@ -18,24 +18,6 @@ export const getAllMovies = () => async (dispatch) => {
   }
 };
 
-export const getAllMoviesShowtimes = () => async (dispatch) => {
-  try {
-    const response = await movieApi.getAllShowtimes();
-    dispatch({
-      type: 'GET_MOVIES_SHOWTIMES_SUCCESS',
-      payload: response,
-    });
-  } catch (error) {
-    dispatch({
-      type: 'GET_MOVIES_SHOWTIMES_FAIL',
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
-
 export const createMovie = (data) => async (dispatch) => {
   try {
     await movieApi.create(data);

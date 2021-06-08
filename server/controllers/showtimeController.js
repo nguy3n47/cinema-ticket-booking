@@ -1,4 +1,4 @@
-import { Showtime, Movie, Cinema, Cineplex } from '../models';
+import { Showtime, Movie, Cinema, Cineplex, CinemaType } from '../models';
 import moment from 'moment';
 
 const create = async (req, res, next) => {
@@ -31,9 +31,10 @@ const create = async (req, res, next) => {
 
 const getByMovieId = async (req, res, next) => {
   try {
-    const { movie_id } = req.body;
+    const { movie_id } = req.query;
     const showtimes = await Showtime.findAll({
       where: { movie_id },
+      order: [['start_time', 'DESC']],
       include: [
         {
           model: Movie,
@@ -42,7 +43,7 @@ const getByMovieId = async (req, res, next) => {
         {
           model: Cinema,
           attributes: ['id', 'name', 'cineplex_id'],
-          include: [{ model: Cineplex, attributes: ['id', 'name'] }],
+          include: [{ model: Cineplex, attributes: ['id', 'name'] }, { model: CinemaType }],
         },
       ],
     });

@@ -2,7 +2,6 @@ import toast from 'react-hot-toast';
 
 const initialState = {
   movies: [],
-  showtimes: [],
 };
 
 const movieReducer = (state = initialState, action) => {
@@ -19,19 +18,6 @@ const movieReducer = (state = initialState, action) => {
       return {
         ...state,
         movies: [],
-      };
-    }
-
-    case 'GET_MOVIES_SHOWTIMES_SUCCESS': {
-      return {
-        ...state,
-        showtimes: payload,
-      };
-    }
-    case 'GET_MOVIES_SHOWTIMES_FAIL': {
-      return {
-        ...state,
-        showtimes: [],
       };
     }
 

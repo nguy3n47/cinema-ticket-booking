@@ -3,10 +3,17 @@ import { Col, Form, Row } from 'react-bootstrap';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router';
+import moment from 'moment';
+import {
+  createShowtime,
+  updateShowtime,
+} from '../../../../../redux/actions/showtimeActions';
 
 function FormAddEdit(props) {
   const showtime = props.data;
   const { cineplexs } = props;
+  const { movieId } = useParams();
 
   const { register, handleSubmit } = useForm();
   const [currentCineplexId, setCurrentCineplexId] = useState(
@@ -15,11 +22,13 @@ function FormAddEdit(props) {
   const dispatch = useDispatch();
 
   const onAddSubmit = (data) => {
-    console.log(data);
+    data.movie_id = movieId;
+    dispatch(createShowtime(data));
   };
 
   const onUpdateSubmit = (data) => {
-    console.log(data);
+    data.movie_id = movieId;
+    dispatch(updateShowtime(data, showtime.id));
   };
 
   const onChangeCineplexId = (e) => {
@@ -82,16 +91,29 @@ function FormAddEdit(props) {
         <Col>
           <Form.Group>
             <Form.Label className="form-group required control-label">
-              Start Time
+              Date Time Start
             </Form.Label>
-            <Form.Control type="datetime-local" />
+            <Form.Control
+              type="datetime-local"
+              {...register('start_time')}
+              defaultValue={
+                showtime?.start_time
+                  ? moment(showtime?.start_time).format('YYYY-MM-DDTHH:mm')
+                  : ''
+              }
+              autoComplete="start_time"
+              required
+            />
           </Form.Group>
 
           <Form.Group>
             <Form.Label className="form-group required control-label">Price</Form.Label>
             <Form.Control
               type="number"
+              {...register('price')}
               defaultValue={showtime?.price ? showtime?.price : ''}
+              autoComplete="price"
+              required
             />
           </Form.Group>
         </Col>

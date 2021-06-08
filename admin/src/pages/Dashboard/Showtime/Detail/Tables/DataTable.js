@@ -6,10 +6,10 @@ import { useDispatch } from 'react-redux';
 import ModalForm from '../../components/Modals/Modal';
 import moment from 'moment';
 import './styles.scss';
+import { removeShowtime } from '../../../../../redux/actions/showtimeActions';
 
 function DataTable(props) {
   const { showtimes, cineplexs } = props;
-  console.log(showtimes);
   const [isShow, setIsShow] = useState(false);
   const [data, setData] = useState(null);
   const dispatch = useDispatch();
@@ -76,11 +76,10 @@ function DataTable(props) {
       text: 'Price',
       sortable: true,
       cell: (showtime) => {
-        const numberFormat = new Intl.NumberFormat('vi-VN', {
+        return showtime?.price.toLocaleString('it-IT', {
           style: 'currency',
           currency: 'VND',
         });
-        return numberFormat.format(showtime?.price);
       },
     },
     {
@@ -106,6 +105,7 @@ function DataTable(props) {
 
   const deleteShowtime = (id) => {
     setIsShow((isShow) => !isShow);
+    dispatch(removeShowtime(id));
   };
 
   const onSort = (column, records, sortOrder) => {
