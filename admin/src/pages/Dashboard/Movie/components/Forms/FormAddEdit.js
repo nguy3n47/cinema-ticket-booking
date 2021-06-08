@@ -191,6 +191,7 @@ function FormAddEdit(props) {
             <Form.Label className="form-group required control-label">
               Release Date
             </Form.Label>
+
             <DatePicker
               className="form-control"
               selected={startDate}

@@ -1,7 +1,7 @@
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import crypto from 'crypto';
-import { Movie } from '../models';
+import { Movie, Showtime, Cinema, Cineplex, CinemaType } from '../models';
 import multer from 'multer';
 
 // SET STORAGE
@@ -57,6 +57,26 @@ const create = (req, res, next) => {
         return res.status(400).send({ message: 'Fail' });
       }
     });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getAllShowtimes = async (req, res, next) => {
+  try {
+    const showtimes = await Movie.findAll({
+      include: [
+        {
+          model: Showtime,
+          include: [{ model: Cinema, include: [{ model: Cineplex }, { model: CinemaType }] }],
+        },
+      ],
+    });
+    if (showtimes) {
+      return res.status(200).send(showtimes);
+    } else {
+      return res.status(400).send({ message: 'Fail' });
+    }
   } catch (error) {
     next(error);
   }
@@ -157,4 +177,4 @@ const remove = async (req, res, next) => {
   }
 };
 
-export { create, getAll, getById, update, remove };
+export { create, getAll, getAllShowtimes, getById, update, remove };

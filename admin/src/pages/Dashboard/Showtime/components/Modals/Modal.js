@@ -12,7 +12,7 @@ function ModalForm(props) {
   const buutonAdd = (
     <Button className="button-add" onClick={handleShow}>
       <BsFillPlusSquareFill className="button-icon" />
-      Add Cinema
+      Add Showtime
     </Button>
   );
 
@@ -20,21 +20,12 @@ function ModalForm(props) {
     <>
       {props.method === 'add' ? buutonAdd : ''}
 
-      <Modal
-        size="xl"
-        show={show}
-        backdrop="static"
-        fullscreen={true}
-        onHide={handleClose}>
+      <Modal size="lg" show={show} backdrop="static" onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title> {props.title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <FormAddEdit
-            data={props.data}
-            cinemaTypes={props.cinemaTypes}
-            cineplexs={props.cineplexs}
-          />
+          <FormAddEdit cineplexs={props.cineplexs} data={props.data} />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>

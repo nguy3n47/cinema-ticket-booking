@@ -28,6 +28,7 @@ router.get('/user/me', verifyUser, UserController.getProfile);
 
 // Movie Router
 router.get('/movies', MovieController.getAll);
+router.get('/movies/showtimes', MovieController.getAllShowtimes);
 router.post('/movies', MovieController.create);
 router.get('/movies/:id', MovieController.getById);
 router.put('/movies/:id', MovieController.update);

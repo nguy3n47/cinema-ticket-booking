@@ -1,4 +1,4 @@
-import { Showtime, Movie } from '../models';
+import { Showtime, Movie, Cinema, Cineplex } from '../models';
 import moment from 'moment';
 
 const create = async (req, res, next) => {
@@ -38,6 +38,11 @@ const getByMovieId = async (req, res, next) => {
         {
           model: Movie,
           attributes: ['title'],
+        },
+        {
+          model: Cinema,
+          attributes: ['id', 'name', 'cineplex_id'],
+          include: [{ model: Cineplex, attributes: ['id', 'name'] }],
         },
       ],
     });

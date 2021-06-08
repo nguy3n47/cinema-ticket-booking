@@ -4,12 +4,30 @@ export const getAllMovies = () => async (dispatch) => {
   try {
     const response = await movieApi.getAll();
     dispatch({
-      type: 'GET_MOVIE_SUCCESS',
+      type: 'GET_MOVIES_SUCCESS',
       payload: response.movies,
     });
   } catch (error) {
     dispatch({
-      type: 'GET_MOVIE_FAIL',
+      type: 'GET_MOVIES_FAIL',
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const getAllMoviesShowtimes = () => async (dispatch) => {
+  try {
+    const response = await movieApi.getAllShowtimes();
+    dispatch({
+      type: 'GET_MOVIES_SHOWTIMES_SUCCESS',
+      payload: response,
+    });
+  } catch (error) {
+    dispatch({
+      type: 'GET_MOVIES_SHOWTIMES_FAIL',
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -27,7 +45,7 @@ export const createMovie = (data) => async (dispatch) => {
 
     const response = await movieApi.getAll();
     dispatch({
-      type: 'GET_MOVIE_SUCCESS',
+      type: 'GET_MOVIES_SUCCESS',
       payload: response.movies,
     });
   } catch (error) {
@@ -50,7 +68,7 @@ export const updateMovie = (data, id) => async (dispatch) => {
 
     const response = await movieApi.getAll();
     dispatch({
-      type: 'GET_MOVIE_SUCCESS',
+      type: 'GET_MOVIES_SUCCESS',
       payload: response.movies,
     });
   } catch (error) {

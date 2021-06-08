@@ -6,6 +6,11 @@ const movieApi = {
     return axiosClient.get(url);
   },
 
+  getAllShowtimes: () => {
+    const url = '/movies/showtimes';
+    return axiosClient.get(url);
+  },
+
   create: (formData) => {
     const url = '/movies';
     return axiosClient.post(url, formData, {

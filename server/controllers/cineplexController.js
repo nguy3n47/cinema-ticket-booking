@@ -1,6 +1,6 @@
 import path from 'path';
 import crypto from 'crypto';
-import { Cineplex } from '../models';
+import { Cineplex, Cinema } from '../models';
 import multer from 'multer';
 
 // SET STORAGE
@@ -45,7 +45,10 @@ const create = (req, res, next) => {
 
 const getAll = async (req, res, next) => {
   try {
-    const cineplexs = await Cineplex.findAll();
+    const cineplexs = await Cineplex.findAll({
+      order: [['id', 'ASC']],
+      include: [{ model: Cinema }],
+    });
     return res.status(200).send({
       cineplexs,
     });

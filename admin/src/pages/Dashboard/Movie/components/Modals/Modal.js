@@ -20,7 +20,7 @@ function ModalForm(props) {
     <>
       {props.method === 'add' ? buutonAdd : ''}
 
-      <Modal size="lg" show={show} onHide={handleClose}>
+      <Modal size="lg" show={show} backdrop="static" onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title> {props.title}</Modal.Title>
         </Modal.Header>

@@ -32,7 +32,7 @@ function Dashboard() {
         <Route exact path={`${match.url}/movies`} component={Movie} />
         <Route exact path={`${match.url}/cineplexs`} component={Cineplex} />
         <Route exact path={`${match.url}/cinemas`} component={Cinema} />
-        <Route exact path={`${match.url}/showtimes`} component={Showtime} />
+        <Route path={`${match.url}/showtimes`} component={Showtime} />
         <Route exact path={`${match.url}/tickets`} component={Ticket} />
         <Route exact path={`${match.url}/users`} component={User} />
         <Route exact path={`${match.url}/statistics`} component={Statistic} />

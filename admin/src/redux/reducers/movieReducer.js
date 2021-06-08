@@ -2,22 +2,36 @@ import toast from 'react-hot-toast';
 
 const initialState = {
   movies: [],
+  showtimes: [],
 };
 
 const movieReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case 'GET_MOVIE_SUCCESS': {
+    case 'GET_MOVIES_SUCCESS': {
       return {
         ...state,
         movies: payload,
       };
     }
-    case 'GET_MOVIE_FAIL': {
+    case 'GET_MOVIES_FAIL': {
       return {
         ...state,
         movies: [],
+      };
+    }
+
+    case 'GET_MOVIES_SHOWTIMES_SUCCESS': {
+      return {
+        ...state,
+        showtimes: payload,
+      };
+    }
+    case 'GET_MOVIES_SHOWTIMES_FAIL': {
+      return {
+        ...state,
+        showtimes: [],
       };
     }
 

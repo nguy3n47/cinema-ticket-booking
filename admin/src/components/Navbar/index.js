@@ -24,8 +24,10 @@ function Navbar() {
       sidebar.classList.toggle('active');
     };
 
-    const pathname = window.location.pathname;
-    let currentElement = $(`a[href="${pathname}"]`);
+    const pathname = window.location.pathname.split('/');
+    let currentElement = $(
+      `a[href="${'/' + pathname[1] + (pathname.length > 2 ? '/' + pathname[2] : '')}"]`
+    );
     currentElement.addClass('active');
 
     $('.nav_list li a').bind('click', function () {
