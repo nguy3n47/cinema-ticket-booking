@@ -36,29 +36,29 @@ const getByCineplexs = async (req, res, next) => {
         {
           model: Cinema,
           attributes: [],
-          rights: true,
           include: [
             {
               model: Showtime,
               attributes: [],
-              rights: true,
               include: [
                 {
                   model: Booking,
                   attributes: [],
-                  rights: true,
-                  where: {
-                    createdAt: {
-                      [Op.between]: [
-                        moment(from).format(),
-                        moment(to)
-                          .add(1, 'day')
-                          .subtract(1, 'seconds')
-                          .format(),
-                      ],
-                    },
-                  },
-                  include: [{ model: Ticket, attributes: [], rights: true }],
+                  where:
+                    from && to
+                      ? {
+                          createdAt: {
+                            [Op.between]: [
+                              moment(from).format(),
+                              moment(to)
+                                .add(1, 'day')
+                                .subtract(1, 'seconds')
+                                .format(),
+                            ],
+                          },
+                        }
+                      : {},
+                  include: [{ model: Ticket, attributes: [] }],
                 },
               ],
             },
@@ -84,22 +84,26 @@ const getByCineplexs = async (req, res, next) => {
       ],
     };
 
-    cineplexs.map((cineplex) => {
-      result.labels.push(cineplex.name);
-      result.datasets[0].data.push(parseInt(cineplex.dataValues.ticket_number));
-      cineplex.dataValues.revenue !== null
-        ? result.datasets[1].data.push(parseInt(cineplex.dataValues.revenue))
-        : result.datasets[1].data.push(0);
-    });
-
-    res.status(200).send(result);
+    if (cineplexs) {
+      cineplexs.map((cineplex) => {
+        result.labels.push(cineplex.name);
+        result.datasets[0].data.push(
+          parseInt(cineplex.dataValues.ticket_number)
+        );
+        cineplex.dataValues.revenue !== null
+          ? result.datasets[1].data.push(parseInt(cineplex.dataValues.revenue))
+          : result.datasets[1].data.push(0);
+      });
+      res.status(200).send(result);
+    }
   } catch (error) {
-    next(error);
+    res.status(500).send({ message: 'Invalid date value!' });
   }
 };
 
 const getByMovies = async (req, res, next) => {
   try {
+    const { from, to } = req.query;
     const movies = await Movie.findAll({
       attributes: {
         include: [
@@ -124,13 +128,25 @@ const getByMovies = async (req, res, next) => {
         {
           model: Showtime,
           attributes: [],
-          rights: true,
           include: [
             {
               model: Booking,
               attributes: [],
-              rights: true,
-              include: [{ model: Ticket, attributes: [], rights: true }],
+              where:
+                from && to
+                  ? {
+                      createdAt: {
+                        [Op.between]: [
+                          moment(from).format(),
+                          moment(to)
+                            .add(1, 'day')
+                            .subtract(1, 'seconds')
+                            .format(),
+                        ],
+                      },
+                    }
+                  : {},
+              include: [{ model: Ticket, attributes: [] }],
             },
           ],
         },
@@ -154,17 +170,18 @@ const getByMovies = async (req, res, next) => {
       ],
     };
 
-    movies.map((movie) => {
-      result.labels.push(movie.title);
-      result.datasets[0].data.push(parseInt(movie.dataValues.ticket_number));
-      movie.dataValues.revenue !== null
-        ? result.datasets[1].data.push(parseInt(movie.dataValues.revenue))
-        : result.datasets[1].data.push(0);
-    });
-
-    res.status(200).send(result);
+    if (movies) {
+      movies.map((movie) => {
+        result.labels.push(movie.title);
+        result.datasets[0].data.push(parseInt(movie.dataValues.ticket_number));
+        movie.dataValues.revenue !== null
+          ? result.datasets[1].data.push(parseInt(movie.dataValues.revenue))
+          : result.datasets[1].data.push(0);
+      });
+      res.status(200).send(result);
+    }
   } catch (error) {
-    next(error);
+    res.status(500).send({ message: 'Invalid date value!' });
   }
 };
 
