@@ -1,6 +1,6 @@
 import cinemaApi from '../../api/cinemaApi';
 
-export const getAllCinemas = () => async (dispatch) => {
+export const getAllCinemas = () => async (dispatch, getState) => {
   try {
     const response = await cinemaApi.getAll();
     dispatch({

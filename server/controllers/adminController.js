@@ -13,18 +13,21 @@ const login = async (req, res) => {
       },
     });
     if (!admin) {
-      return res.status(401).send({
-        error: 'Email does not exist',
+      return res.send({
+        error: 'Email does not exist!',
       });
     }
     const isTruePassword = await comparePassword(password, admin.password);
     if (!isTruePassword) {
-      return res.status(401).send({
-        error: 'Email and password do not match.',
+      return res.send({
+        error: 'Email and password do not match!',
       });
     }
 
-    const token = jwt.sign({ id: admin.id, admin: true }, process.env.JWT_SECRET);
+    const token = jwt.sign(
+      { id: admin.id, admin: true },
+      process.env.JWT_SECRET
+    );
     const { id, fullname, address, status, avatar } = admin;
 
     return res.status(200).send({

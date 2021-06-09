@@ -15,7 +15,10 @@ let storage = multer.diskStorage({
     cb(null, 'public/img/users/');
   },
   filename(req, file, cb) {
-    cb(null, crypto.randomBytes(18).toString('hex') + path.extname(file.originalname));
+    cb(
+      null,
+      crypto.randomBytes(18).toString('hex') + path.extname(file.originalname)
+    );
   },
 });
 
@@ -109,19 +112,19 @@ const login = async (req, res) => {
       },
     });
     if (!user) {
-      return res.status(401).send({
+      return res.status(200).send({
         error: 'Email does not exist',
       });
     }
     const isTruePassword = await comparePassword(password, user.password);
     if (!isTruePassword) {
-      return res.status(401).send({
+      return res.status(200).send({
         error: 'Email and password do not match.',
       });
     }
 
     if (user.status === 'UNVERIFIED') {
-      return res.status(401).send({
+      return res.status(200).send({
         error: 'Account is not verified',
       });
     }
@@ -155,10 +158,16 @@ const forgotPassword = async (req, res) => {
         error: 'Email is not exists',
       });
 
-    await MailService.sendMail(userExists.email, 'Forgot Password', 'Code: ' + code.toString());
+    await MailService.sendMail(
+      userExists.email,
+      'Forgot Password',
+      'Code: ' + code.toString()
+    );
     req.session.codeVerify = code.toString();
     req.session.email = email;
-    return res.status(200).send({ message: 'Success', codeVerify: code.toString() });
+    return res
+      .status(200)
+      .send({ message: 'Success', codeVerify: code.toString() });
   } catch (error) {
     return res.status(400).send({ error: 'Fail' });
   }

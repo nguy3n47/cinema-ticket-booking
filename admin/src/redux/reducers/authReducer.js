@@ -16,10 +16,9 @@ const authReducer = (state = initialState, action) => {
       };
     }
     case 'LOGIN_FAIL': {
-      toast.error('Account is invalid!');
+      toast.error(payload);
       return {
         ...state,
-        user: null,
       };
     }
     case 'LOGOUT': {

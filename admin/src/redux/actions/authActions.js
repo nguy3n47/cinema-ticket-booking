@@ -8,10 +8,17 @@ export const setAccessToken = (token) => ({
 export const login = (data) => async (dispatch) => {
   try {
     const response = await authApi.login(data);
-    dispatch({
-      type: 'LOGIN_SUCCESS',
-      payload: response.admin,
-    });
+    if (response.admin) {
+      dispatch({
+        type: 'LOGIN_SUCCESS',
+        payload: response.admin,
+      });
+    } else {
+      dispatch({
+        type: 'LOGIN_FAIL',
+        payload: response.error,
+      });
+    }
   } catch (error) {
     dispatch({
       type: 'LOGIN_FAIL',

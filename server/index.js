@@ -49,8 +49,7 @@ const options = {
 const swaggerSpecs = swaggerJsdoc(options);
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(expressValidator());
 app.use(cookieParser());
 app.use(cors());
@@ -83,7 +82,9 @@ app.use('*', (req, res) => {
 
 app.use((err, req, res, next) => {
   if (err.name === 'UnauthorizedError') {
-    return res.status(401).json({ error: 'Unauthorized', message: err.message });
+    return res
+      .status(401)
+      .json({ error: 'Unauthorized', message: err.message });
   }
   if (err.status && err.name) {
     return res.status(err.status).send({
