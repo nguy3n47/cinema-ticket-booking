@@ -7,6 +7,7 @@ import * as CinemaController from '../controllers/cinemaController';
 import * as ShowtimeController from '../controllers/showtimeController';
 import * as BookingController from '../controllers/bookingControlller';
 import * as AdminController from '../controllers/adminController';
+import * as StatisticController from '../controllers/statisticController';
 import { resetPasswordValidator, userValidator } from '../validations/auth';
 import verifyUser from '../middlewares/verifyUser';
 import isAdmin from '../middlewares/verifyAdmin';
@@ -20,8 +21,15 @@ router.post('/auth/login', AuthController.login);
 router.post('/auth/uploadImage', verifyUser, AuthController.uploadImage);
 router.post('/auth/verifyEmail', AuthController.verifyEmail);
 router.post('/auth/forgotPassword', AuthController.forgotPassword);
-router.post('/auth/verifyCodeResetPassword', AuthController.verifyCodeResetPassword);
-router.post('/auth/resetPassword', resetPasswordValidator, AuthController.resetPassword);
+router.post(
+  '/auth/verifyCodeResetPassword',
+  AuthController.verifyCodeResetPassword
+);
+router.post(
+  '/auth/resetPassword',
+  resetPasswordValidator,
+  AuthController.resetPassword
+);
 
 // User Router
 router.get('/user/me', verifyUser, UserController.getProfile);
@@ -66,5 +74,9 @@ router.delete('/bookings/:id', BookingController.remove);
 // Admin Router
 router.get('/admin/profile', verifyUser, isAdmin, AdminController.getProfile);
 router.post('/admin/auth/login', AdminController.login);
+
+// Statistic Router
+router.get('/statistic/movies', StatisticController.getByMovies);
+router.get('/statistic/cineplexs', StatisticController.getByCineplexs);
 
 export default router;
