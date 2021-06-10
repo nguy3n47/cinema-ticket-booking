@@ -1,9 +1,15 @@
 import React from 'react';
+import { Col, Row } from 'react-bootstrap';
 
 function Setting() {
   return (
     <div className="content">
-      <h1 className="text-center mt-3">Setting Page</h1>
+      <Row>
+        <Col>
+          <h1 className="text-center">Settings</h1>
+        </Col>
+      </Row>
+      <Row></Row>
     </div>
   );
 }

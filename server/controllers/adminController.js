@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 import jwt from 'jsonwebtoken';
-import { Admin } from '../models';
+import { Admin, User } from '../models';
 import { comparePassword } from '../utils/password';
 
 const login = async (req, res) => {
@@ -13,13 +13,13 @@ const login = async (req, res) => {
       },
     });
     if (!admin) {
-      return res.send({
+      return res.status(200).send({
         error: 'Email does not exist!',
       });
     }
     const isTruePassword = await comparePassword(password, admin.password);
     if (!isTruePassword) {
-      return res.send({
+      return res.status(200).send({
         error: 'Email and password do not match!',
       });
     }
@@ -62,4 +62,15 @@ const logout = async (req, res) => {
   return res.status(200).send({ message: 'Successful logout' });
 };
 
-export { login, logout, getProfile };
+const getUsers = async (req, res) => {
+  try {
+    const users = await User.findAll();
+    return res.status(200).send(users);
+  } catch (error) {
+    return res.status(400).send({
+      error: 'Something went wrong!',
+    });
+  }
+};
+
+export { login, logout, getProfile, getUsers };

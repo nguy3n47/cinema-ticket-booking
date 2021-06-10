@@ -81,7 +81,7 @@ function Statistic() {
     <div className="content">
       <Row>
         <Col>
-          <h1 className="text-center mt-3">Statistics</h1>
+          <h1 className="text-center">Statistics</h1>
         </Col>
       </Row>
       <Row>

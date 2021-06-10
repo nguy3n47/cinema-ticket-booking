@@ -6,6 +6,7 @@ import * as CineplexController from '../controllers/cineplexController';
 import * as CinemaController from '../controllers/cinemaController';
 import * as ShowtimeController from '../controllers/showtimeController';
 import * as BookingController from '../controllers/bookingControlller';
+import * as TicketController from '../controllers/ticketController';
 import * as AdminController from '../controllers/adminController';
 import * as StatisticController from '../controllers/statisticController';
 import { resetPasswordValidator, userValidator } from '../validations/auth';
@@ -71,9 +72,13 @@ router.get('/bookings', BookingController.getByUserId);
 router.post('/bookings', multer().array(), BookingController.create);
 router.delete('/bookings/:id', BookingController.remove);
 
+// Ticket Router
+router.get('/tickets', TicketController.getAll);
+
 // Admin Router
 router.get('/admin/profile', verifyUser, isAdmin, AdminController.getProfile);
 router.post('/admin/auth/login', AdminController.login);
+router.get('/users', AdminController.getUsers);
 
 // Statistic Router
 router.get('/statistic/movies', StatisticController.getByMovies);
