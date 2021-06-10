@@ -11,7 +11,7 @@ function User() {
   };
 
   useEffect(() => {
-    fetchDataUsers();
+    return () => fetchDataUsers();
   }, []);
 
   return (

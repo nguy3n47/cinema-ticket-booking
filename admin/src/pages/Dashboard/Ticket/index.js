@@ -12,7 +12,7 @@ function Ticket() {
   };
 
   useEffect(() => {
-    fetchDataTickets();
+    return () => fetchDataTickets();
   }, []);
 
   return (

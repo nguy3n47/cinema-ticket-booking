@@ -46,8 +46,10 @@ function Statistic() {
   };
 
   useEffect(() => {
-    fetchDataMovies({});
-    fetchDataCineplexs({});
+    return () => {
+      fetchDataMovies({});
+      fetchDataCineplexs({});
+    };
   }, []);
 
   const options = {
