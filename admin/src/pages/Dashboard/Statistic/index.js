@@ -59,8 +59,8 @@ function Statistic() {
     fetchDataSetsCineplexs();
 
     return () => {
-      setStartDateCineplexs([]);
-      setEndDateCineplexs([]);
+      setDataMovies([]);
+      setDataCineplexs([]);
     };
   }, []);
 
