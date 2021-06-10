@@ -19,7 +19,7 @@ function Statistic() {
     const [start, end] = dates;
     setStartDateMovies(start);
     setEndDateMovies(end);
-    fetchDataMovies({
+    changeDataMovies({
       from: start ? moment(start).format('YYYY-MM-DD') : '',
       to: end ? moment(end).format('YYYY-MM-DD') : '',
     });
@@ -29,27 +29,34 @@ function Statistic() {
     const [start, end] = dates;
     setStartDateCineplexs(start);
     setEndDateCineplexs(end);
-    fetchDataCineplexs({
+    changeDataCineplexs({
       from: start ? moment(start).format('YYYY-MM-DD') : '',
       to: end ? moment(end).format('YYYY-MM-DD') : '',
     });
   };
 
-  const fetchDataMovies = async (params) => {
+  const changeDataMovies = async (params) => {
     const response = await axiosClient.get('/statistic/movies', { params });
-    return response;
+    setDataMovies(response);
   };
 
-  const fetchDataCineplexs = async (params) => {
+  const changeDataCineplexs = async (params) => {
     const response = await axiosClient.get('/statistic/cineplexs', { params });
-    return response;
+    setDataCineplexs(response);
   };
 
   useEffect(() => {
-    return () => {
-      setDataMovies(fetchDataMovies({}));
-      setDataCineplexs(fetchDataCineplexs({}));
+    const fetchDataSetsMovies = async () => {
+      const response = await axiosClient.get('/statistic/movies');
+      setDataMovies(response);
     };
+    fetchDataSetsMovies();
+
+    const fetchDataSetsCineplexs = async () => {
+      const response = await axiosClient.get('/statistic/cineplexs');
+      setDataCineplexs(response);
+    };
+    fetchDataSetsCineplexs();
   }, []);
 
   const options = {

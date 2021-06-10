@@ -5,13 +5,12 @@ import DataTable from './components/Tables/DataTable';
 function User() {
   const [users, setUsers] = useState([]);
 
-  const fetchDataUsers = async () => {
-    const response = await axiosClient.get('/users');
-    return response;
-  };
-
   useEffect(() => {
-    return () => setUsers(fetchDataUsers());
+    const fetchDataUsers = async () => {
+      const response = await axiosClient.get('/users');
+      setUsers(response);
+    };
+    fetchDataUsers();
   }, []);
 
   return (

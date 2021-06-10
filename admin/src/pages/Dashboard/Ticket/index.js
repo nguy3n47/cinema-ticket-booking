@@ -6,13 +6,12 @@ import axiosClient from '../../../api/axiosClient';
 function Ticket() {
   const [tickets, setTickets] = useState([]);
 
-  const fetchDataTickets = async () => {
-    const response = await axiosClient.get('/tickets');
-    return response;
-  };
-
   useEffect(() => {
-    return () => setTickets(fetchDataTickets());
+    const fetchDataTickets = async () => {
+      const response = await axiosClient.get('/tickets');
+      setTickets(response);
+    };
+    fetchDataTickets();
   }, []);
 
   return (

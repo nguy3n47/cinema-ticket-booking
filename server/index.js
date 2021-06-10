@@ -1,7 +1,6 @@
 require('dotenv').config();
 
 import express from 'express';
-import bodyParser from 'body-parser';
 import cors from 'cors';
 import expressValidator from 'express-validator';
 import cookieParser from 'cookie-parser';
@@ -48,7 +47,7 @@ const options = {
 };
 const swaggerSpecs = swaggerJsdoc(options);
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
-
+app.use(express.urlencoded());
 app.use(express.json());
 app.use(expressValidator());
 app.use(cookieParser());
@@ -103,7 +102,7 @@ const port = process.env.PORT || 5000;
 
 app.listen(port, async () => {
   try {
-    await models.sequelize.sync({ force: true });
+    await models.sequelize.sync();
     console.log('Database connected!');
     console.log(`🚀 Server running at http://${hostname}:${port}`);
   } catch (error) {
