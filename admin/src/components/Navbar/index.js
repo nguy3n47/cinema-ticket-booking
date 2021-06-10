@@ -1,15 +1,17 @@
 import $ from 'jquery';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { logout } from '../../redux/actions/authActions';
 import './styles.scss';
 
 function Navbar() {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const onSubmitLogout = () => {
     dispatch(logout());
+    history.push('/auth/login');
   };
 
   useEffect(() => {
