@@ -7,11 +7,11 @@ function User() {
 
   const fetchDataUsers = async () => {
     const response = await axiosClient.get('/users');
-    setUsers(response);
+    return response;
   };
 
   useEffect(() => {
-    return () => fetchDataUsers();
+    return () => setUsers(fetchDataUsers());
   }, []);
 
   return (

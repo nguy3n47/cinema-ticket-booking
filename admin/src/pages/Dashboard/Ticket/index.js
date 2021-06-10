@@ -8,11 +8,11 @@ function Ticket() {
 
   const fetchDataTickets = async () => {
     const response = await axiosClient.get('/tickets');
-    setTickets(response);
+    return response;
   };
 
   useEffect(() => {
-    return () => fetchDataTickets();
+    return () => setTickets(fetchDataTickets());
   }, []);
 
   return (

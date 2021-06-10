@@ -37,18 +37,18 @@ function Statistic() {
 
   const fetchDataMovies = async (params) => {
     const response = await axiosClient.get('/statistic/movies', { params });
-    setDataMovies(response);
+    return response;
   };
 
   const fetchDataCineplexs = async (params) => {
     const response = await axiosClient.get('/statistic/cineplexs', { params });
-    setDataCineplexs(response);
+    return response;
   };
 
   useEffect(() => {
     return () => {
-      fetchDataMovies({});
-      fetchDataCineplexs({});
+      setDataMovies(fetchDataMovies({}));
+      setDataCineplexs(fetchDataCineplexs({}));
     };
   }, []);
 
