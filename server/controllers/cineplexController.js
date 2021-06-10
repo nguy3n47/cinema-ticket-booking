@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 import path from 'path';
 import crypto from 'crypto';
 import { Cineplex, Cinema } from '../models';
@@ -9,11 +11,14 @@ let storage = multer.diskStorage({
     cb(null, 'public/img/cineplexs/');
   },
   filename(req, file, cb) {
-    cb(null, crypto.randomBytes(18).toString('hex') + path.extname(file.originalname));
+    cb(
+      null,
+      crypto.randomBytes(18).toString('hex') + path.extname(file.originalname)
+    );
   },
 });
 
-let upload = multer({ storage }).single('image');
+let upload = multer().single('image');
 
 const create = (req, res, next) => {
   try {
@@ -21,7 +26,8 @@ const create = (req, res, next) => {
       if (err) return res.send({ error: err.message });
       if (!req.file) return res.send({ error: 'Missing Cineplex image.' });
 
-      req.body.image = 'http://127.0.0.1:5000/img/cineplexs/' + req.file.filename;
+      req.body.image =
+        'data:image/jpeg;base64,' + req.file.buffer.toString('base64');
 
       const { name, address, image, googleMapsUrl } = req.body;
 
@@ -79,7 +85,8 @@ const update = async (req, res, next) => {
       upload(req, res, async (err) => {
         if (err) return res.send({ error: err.message });
         if (req.file) {
-          cineplex.image = 'http://127.0.0.1:5000/img/movies/' + req.file.filename;
+          cineplex.image =
+            'data:image/jpeg;base64,' + req.file.buffer.toString('base64');
           await cineplex.save();
         }
 

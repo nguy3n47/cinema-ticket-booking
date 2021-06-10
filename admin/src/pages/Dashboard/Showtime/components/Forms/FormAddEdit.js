@@ -24,11 +24,13 @@ function FormAddEdit(props) {
   const onAddSubmit = (data) => {
     data.movie_id = movieId;
     dispatch(createShowtime(data));
+    props.handleClose();
   };
 
   const onUpdateSubmit = (data) => {
     data.movie_id = movieId;
     dispatch(updateShowtime(data, showtime.id));
+    props.handleClose();
   };
 
   const onChangeCineplexId = (e) => {

@@ -25,17 +25,13 @@ function ModalForm(props) {
           <Modal.Title> {props.title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <FormAddEdit data={props.data} />
+          <FormAddEdit handleClose={handleClose} data={props.data} />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button
-            onClick={handleClose}
-            form="form-add-edit"
-            className="button-add"
-            type="submit">
+          <Button form="form-add-edit" className="button-add" type="submit">
             {props.method === 'add' ? 'Submit' : 'Update'}
           </Button>
         </Modal.Footer>

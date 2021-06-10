@@ -27,7 +27,7 @@ function FormAddEdit(props) {
   const dispatch = useDispatch();
 
   const onAddSubmit = (data) => {
-    data.release_date = moment(startDate).format('MM-DD-YYYY');
+    data.release_date = moment(startDate).format('YYYY-MM-DD');
 
     let bodyFormData = new FormData();
 
@@ -38,12 +38,12 @@ function FormAddEdit(props) {
         bodyFormData.append(key, data[key]);
       }
     });
-
     dispatch(createMovie(bodyFormData));
+    props.handleClose();
   };
 
   const onUpdateSubmit = (data) => {
-    data.release_date = moment(startDate).format('MM-DD-YYYY');
+    data.release_date = moment(startDate).format('YYYY-MM-DD');
 
     let bodyFormData = new FormData();
 
@@ -56,6 +56,7 @@ function FormAddEdit(props) {
     });
 
     dispatch(updateMovie(bodyFormData, movie.id));
+    props.handleClose();
   };
 
   const onChangePicture = (e) => {

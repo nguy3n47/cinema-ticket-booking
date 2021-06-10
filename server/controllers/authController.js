@@ -22,7 +22,7 @@ let storage = multer.diskStorage({
   },
 });
 
-let upload = multer({ storage }).fields([{ name: 'avatar', maxCount: 1 }]);
+let upload = multer().fields([{ name: 'avatar', maxCount: 1 }]);
 
 const uploadImage = (req, res) => {
   upload(req, res, (err) => {
@@ -53,7 +53,8 @@ const register = async (req, res) => {
       email,
       password: hashedPassword,
       phone,
-      avatar: 'http://127.0.0.1:5000/img/users/profile.jpg',
+      avatar:
+        'https://i.ibb.co/1sQnjm7/360-F-346839683-6n-APzbhp-Sk-Ipb8pm-Awufk-C7c5e-D7w-Yws.jpg',
       birthday,
       address,
       status: USER_STATUS.UNVERIFIED,

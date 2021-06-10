@@ -33,6 +33,7 @@ function FormAddEdit(props) {
     });
 
     dispatch(createCineplex(bodyFormData));
+    props.handleClose();
   };
 
   const onUpdateSubmit = (data) => {
@@ -47,6 +48,7 @@ function FormAddEdit(props) {
     });
 
     dispatch(updateCineplex(bodyFormData, cineplex.id));
+    props.handleClose();
   };
 
   const onChangePicture = (e) => {

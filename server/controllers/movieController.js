@@ -10,19 +10,27 @@ let storage = multer.diskStorage({
     cb(null, 'public/img/movies/');
   },
   filename(req, file, cb) {
-    cb(null, crypto.randomBytes(18).toString('hex') + path.extname(file.originalname));
+    cb(
+      null,
+      crypto.randomBytes(18).toString('hex') + path.extname(file.originalname)
+    );
   },
 });
 
-let upload = multer({ storage }).single('poster');
+let upload = multer().single('poster');
 
 const create = (req, res, next) => {
   try {
     upload(req, res, async (err) => {
       if (err) return res.send({ error: err.message });
-      if (!req.file) return res.status(401).send({ error: 'Missing movie poster.' });
+      if (!req.file)
+        return res.status(401).send({ error: 'Missing movie poster.' });
 
-      req.body.poster = 'http://127.0.0.1:5000/img/movies/' + req.file.filename;
+      // req.body.poster =
+      //   process.env.BASE_URL + '/img/movies/' + req.file.filename;
+
+      req.body.poster =
+        'data:image/jpeg;base64,' + req.file.buffer.toString('base64');
 
       const {
         title,
@@ -68,7 +76,12 @@ const getAllShowtimes = async (req, res, next) => {
       include: [
         {
           model: Showtime,
-          include: [{ model: Cinema, include: [{ model: Cineplex }, { model: CinemaType }] }],
+          include: [
+            {
+              model: Cinema,
+              include: [{ model: Cineplex }, { model: CinemaType }],
+            },
+          ],
         },
       ],
     });
@@ -121,7 +134,8 @@ const update = async (req, res, next) => {
       upload(req, res, async (err) => {
         if (err) return res.status(400).send({ error: err.message });
         if (req.file) {
-          movie.poster = 'http://127.0.0.1:5000/img/movies/' + req.file.filename;
+          movie.poster =
+            'data:image/jpeg;base64,' + req.file.buffer.toString('base64');
           await movie.save();
         }
 

@@ -50,10 +50,12 @@ function FormAddEdit(props) {
 
   const onAddSubmit = (data) => {
     dispatch(createCinema(data));
+    props.handleClose();
   };
 
   const onUpdateSubmit = (data) => {
     dispatch(updateCinema(data, cinema.id));
+    props.handleClose();
   };
 
   const onChangeVerticalSize = (e) => {

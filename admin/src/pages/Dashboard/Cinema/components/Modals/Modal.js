@@ -31,6 +31,7 @@ function ModalForm(props) {
         </Modal.Header>
         <Modal.Body>
           <FormAddEdit
+            handleClose={handleClose}
             data={props.data}
             cinemaTypes={props.cinemaTypes}
             cineplexs={props.cineplexs}
@@ -40,11 +41,7 @@ function ModalForm(props) {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button
-            onClick={handleClose}
-            form="form-add-edit"
-            className="button-add"
-            type="submit">
+          <Button form="form-add-edit" className="button-add" type="submit">
             {props.method === 'add' ? 'Submit' : 'Update'}
           </Button>
         </Modal.Footer>
