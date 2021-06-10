@@ -11,6 +11,10 @@ function User() {
       setUsers(response);
     };
     fetchDataUsers();
+
+    return () => {
+      setUsers([]);
+    };
   }, []);
 
   return (

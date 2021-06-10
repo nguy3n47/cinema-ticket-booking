@@ -57,6 +57,11 @@ function Statistic() {
       setDataCineplexs(response);
     };
     fetchDataSetsCineplexs();
+
+    return () => {
+      setStartDateCineplexs([]);
+      setEndDateCineplexs([]);
+    };
   }, []);
 
   const options = {

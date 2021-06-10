@@ -12,6 +12,10 @@ function Ticket() {
       setTickets(response);
     };
     fetchDataTickets();
+
+    return () => {
+      setTickets([]);
+    };
   }, []);
 
   return (
