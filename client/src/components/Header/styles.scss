@@ -1,0 +1,24 @@
+.color-primary {
+  background-color: #e61212 !important;
+  border-color: #e61212 !important;
+}
+
+.color-outline-primary {
+  color: #e61212 !important;
+  border-color: #e61212 !important;
+}
+
+.color-outline-primary:hover,
+.color-outline-primary:focus {
+  color: #fff !important;
+  background-color: #e61212 !important;
+  border-color: #e61212 !important;
+}
+
+.dropdown-toggle::after {
+  display: none !important;
+}
+
+.btn-color-profile {
+  border-color: #000000 !important;
+}
