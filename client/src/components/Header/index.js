@@ -1,8 +1,18 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import './styles.scss';
 
 function Header() {
   const user = {};
+  const history = useHistory();
+
+  const loginOnClick = () => {
+    history.push('/login');
+  };
+
+  const registerOnClick = () => {
+    history.push('/register');
+  };
 
   return (
     <div className="container">
@@ -40,11 +50,16 @@ function Header() {
         <div className="col-md-3 text-end">
           {user ? (
             <>
-              {' '}
-              <button type="button" className="btn btn-outline-primary me-2 color-outline-primary">
+              <button
+                type="button"
+                onClick={loginOnClick}
+                className="btn btn-outline-primary me-2 color-outline-primary">
                 Đăng nhập
               </button>
-              <button type="button" className="btn btn-primary color-primary">
+              <button
+                type="button"
+                onClick={registerOnClick}
+                className="btn btn-primary color-primary">
                 Đăng ký
               </button>
             </>
