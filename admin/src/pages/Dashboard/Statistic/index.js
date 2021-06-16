@@ -71,23 +71,12 @@ function Statistic() {
       intersect: true,
     },
     scales: {
-      yAxes: [
-        {
-          type: 'linear',
-          display: true,
-          position: 'left',
-          id: 'A',
-        },
-        {
-          type: 'linear',
-          display: true,
-          position: 'right',
-          id: 'B',
-          gridLines: {
-            drawOnArea: false,
-          },
-        },
-      ],
+      'left-y-axis': {
+        position: 'left',
+      },
+      'right-y-axis': {
+        position: 'right',
+      },
     },
   };
 

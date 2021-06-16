@@ -73,13 +73,13 @@ const getByCineplexs = async (req, res, next) => {
       datasets: [
         {
           label: 'Ticket Number',
-          yAxisID: 'A',
+          yAxisID: 'left-y-axis',
           data: [],
           backgroundColor: 'rgb(255, 23, 23)',
         },
         {
           label: 'Revenue',
-          yAxisID: 'B',
+          yAxisID: 'right-y-axis',
           data: [],
           backgroundColor: 'rgb(69, 69, 69)',
         },
@@ -161,13 +161,13 @@ const getByMovies = async (req, res, next) => {
       datasets: [
         {
           label: 'Ticket Number',
-          yAxisID: 'A',
+          yAxisID: 'left-y-axis',
           data: [],
           backgroundColor: 'rgb(255, 23, 23)',
         },
         {
           label: 'Revenue',
-          yAxisID: 'B',
+          yAxisID: 'right-y-axis',
           data: [],
           backgroundColor: 'rgb(69, 69, 69)',
         },
