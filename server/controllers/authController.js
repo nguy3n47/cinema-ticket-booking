@@ -44,7 +44,7 @@ const register = async (req, res) => {
       },
     });
     if (userExists)
-      return res.status(403).send({
+      return res.status(200).send({
         error: 'Email is taken by another account.',
       });
 
@@ -97,7 +97,7 @@ const verifyEmail = async (req, res) => {
       delete req.session.email;
       return res.status(200).send({ message: 'Verified' });
     } else {
-      res.status(400).send({ error: 'Verification code has expired' });
+      res.status(200).send({ error: 'Verification code has expired' });
     }
   } catch (error) {
     return res.status(400).send({ error: 'Fail' });
@@ -155,7 +155,7 @@ const forgotPassword = async (req, res) => {
     const userExists = await User.findOne({ where: { email: email } });
 
     if (!userExists)
-      return res.status(403).send({
+      return res.status(200).send({
         error: 'Email is not exists',
       });
 
@@ -166,9 +166,7 @@ const forgotPassword = async (req, res) => {
     );
     req.session.codeVerify = code.toString();
     req.session.email = email;
-    return res
-      .status(200)
-      .send({ message: 'Success', codeVerify: code.toString() });
+    return res.status(200).send({ message: 'Success' });
   } catch (error) {
     return res.status(400).send({ error: 'Fail' });
   }
@@ -179,7 +177,7 @@ const verifyCodeResetPassword = (req, res) => {
   const codeVerify = req.session.codeVerify;
 
   if (code != codeVerify) {
-    return res.status(403).send({ message: 'Invalid Code' });
+    return res.status(200).send({ error: 'Invalid Code' });
   } else {
     delete req.session.codeVerify;
     return res.status(200).send({ message: 'OK' });

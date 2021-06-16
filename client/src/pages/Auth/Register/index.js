@@ -1,10 +1,30 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
+import { registerAction } from '../../../redux/actions/authActions';
 
 function Register() {
+  const { register, handleSubmit } = useForm();
+  const email = useSelector((state) => state.auth.email);
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const onSubmit = (data) => {
+    data.birthday = moment(data.birthday).format('YYYY-MM-DD');
+    dispatch(registerAction(data));
+  };
+
   const isNumber = (e) => {
     e.target.value = e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');
   };
+
+  useEffect(() => {
+    if (email) {
+      history.push('/enter-code', email);
+    }
+  }, [history, email]);
 
   return (
     <div className="container">
@@ -17,9 +37,15 @@ function Register() {
           </p>
         </div>
         <div className="col-md-10 mx-auto col-lg-5">
-          <form className="p-4 p-md-5 border rounded-3 bg-light">
+          <form onSubmit={handleSubmit(onSubmit)} className="p-4 p-md-5 border rounded-3 bg-light">
             <div className="form-floating mb-3">
-              <input type="text" className="form-control" id="nameInput" placeholder="Trần Dần" />
+              <input
+                type="text"
+                className="form-control"
+                id="nameInput"
+                {...register('fullname')}
+                placeholder="Trần Dần"
+              />
               <label htmlFor="nameInput">Họ và tên</label>
             </div>
             <div className="form-floating mb-3">
@@ -29,6 +55,7 @@ function Register() {
                 className="form-control"
                 id="phoneInput"
                 onInput={isNumber}
+                {...register('phone')}
                 placeholder="09xxxxxx"
               />
               <label htmlFor="phoneInput">Số điện thoại</label>
@@ -38,6 +65,7 @@ function Register() {
                 type="email"
                 className="form-control"
                 id="emailInput"
+                {...register('email')}
                 placeholder="name@example.com"
               />
               <label htmlFor="emailInput">Email</label>
@@ -47,6 +75,8 @@ function Register() {
                 type="password"
                 className="form-control"
                 id="passwordInput"
+                autoComplete="password"
+                {...register('password')}
                 placeholder="Password"
               />
               <label htmlFor="passwordInput">Mật khẩu</label>
@@ -56,12 +86,19 @@ function Register() {
                 type="date"
                 className="form-control"
                 id="birthdayInput"
+                {...register('birthday')}
                 placeholder="2000-07-10"
               />
               <label htmlFor="birthdayInput">Ngày sinh</label>
             </div>
             <div className="form-floating mb-3">
-              <input type="text" className="form-control" id="addressInput" placeholder="HCM" />
+              <input
+                type="text"
+                className="form-control"
+                id="addressInput"
+                {...register('address')}
+                placeholder="HCM"
+              />
               <label htmlFor="addressInput">Địa chỉ</label>
             </div>
             <button className="w-100 btn btn-lg btn-primary color-primary" type="submit">

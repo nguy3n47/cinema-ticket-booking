@@ -4,7 +4,7 @@ import express from 'express';
 import cors from 'cors';
 import expressValidator from 'express-validator';
 import cookieParser from 'cookie-parser';
-import cookieSession from 'cookie-session';
+import session from 'express-session';
 import swaggerUi from 'swagger-ui-express';
 const swaggerJsdoc = require('swagger-jsdoc');
 
@@ -47,20 +47,35 @@ const options = {
 };
 const swaggerSpecs = swaggerJsdoc(options);
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
+app.use(
+  cors({
+    origin: [
+      'https://cgv-cinemas-web.herokuapp.com',
+      'https://admin-cgv-cinemas.herokuapp.com',
+      'http://localhost:3000',
+    ],
+    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+    credentials: true,
+  })
+);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(expressValidator());
 app.use(cookieParser());
-app.use(cors());
 
 // Session
+app.enable('trust proxy');
 app.use(
-  cookieSession({
-    name: 'session',
-    keys: [process.env.COOKIE_KEY || 'secret'],
-
-    // Cookie Options
-    maxAge: 24 * 60 * 60 * 1000, // 24 hours
+  session({
+    secret: 'street',
+    resave: true,
+    saveUninitialized: true,
+    proxy: true,
+    cookie: {
+      sameSite: 'none',
+      secure: true,
+      maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    },
   })
 );
 
