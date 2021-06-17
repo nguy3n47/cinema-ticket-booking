@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import './styles.scss';
 import { getUserSelector } from './../../redux/selectors/authSelector';
 import { logoutAction } from '../../redux/actions/authActions';
@@ -47,9 +47,24 @@ function Header() {
             </a>
           </li>
           <li>
-            <a href="/movies" className="nav-link px-4 link-dark fw-bold menu-link">
+            <a
+              href="/movies"
+              className="nav-link px-4 link-dark fw-bold menu-link dropdown-toggle"
+              data-bs-toggle="dropdown">
               Phim
             </a>
+            <ul className="dropdown-menu">
+              <li>
+                <Link className="dropdown-item" to="/movies/now-showing">
+                  Phim Đang Chiếu
+                </Link>
+              </li>
+              <li>
+                <Link className="dropdown-item" to="/movies/coming-soon">
+                  Phim Sắp Chiếu
+                </Link>
+              </li>
+            </ul>
           </li>
           <li>
             <a href="/showtimes" className="nav-link px-4 link-dark fw-bold menu-link">

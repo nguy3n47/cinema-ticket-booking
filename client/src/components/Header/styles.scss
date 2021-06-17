@@ -46,3 +46,8 @@
 .menu-link:hover {
   color: #e61212 !important;
 }
+
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: #e61212 !important;
+}
