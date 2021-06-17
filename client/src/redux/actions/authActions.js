@@ -74,6 +74,75 @@ export const verifyEmailAction = (data) => async (dispatch) => {
   }
 };
 
+export const forgotPasswordAction = (data) => async (dispatch) => {
+  try {
+    const response = await authApi.forgotPassword(data);
+    if (!response.error) {
+      dispatch({
+        type: 'FORGOT_PASSWORD_SUCCESS',
+        payload: data.email,
+      });
+    } else {
+      dispatch({
+        type: 'FORGOT_PASSWORD_FAIL',
+        payload: response.error,
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: 'FORGOT_PASSWORD_FAIL',
+      payload:
+        error.response && error.response.data.message ? error.response.data.message : error.message,
+    });
+  }
+};
+
+export const verifyCodeResetPasswordAction = (data) => async (dispatch) => {
+  try {
+    const response = await authApi.verifyCodeResetPassword(data);
+    if (!response.error) {
+      dispatch({
+        type: 'VERIFY_CODE_RESET_PASSWORD_SUCCESS',
+        payload: true,
+      });
+    } else {
+      dispatch({
+        type: 'VERIFY_CODE_RESET_PASSWORD_FAIL',
+        payload: response.error,
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: 'VERIFY_CODE_RESET_PASSWORD_FAIL',
+      payload:
+        error.response && error.response.data.message ? error.response.data.message : error.message,
+    });
+  }
+};
+
+export const resetPasswordAction = (data) => async (dispatch) => {
+  try {
+    const response = await authApi.resetPassword(data);
+    if (!response.error) {
+      dispatch({
+        type: 'RESET_PASSWORD_SUCCESS',
+        payload: true,
+      });
+    } else {
+      dispatch({
+        type: 'RESET_PASSWORD_FAIL',
+        payload: response.error,
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: 'VERIFY_CODE_RESET_PASSWORD_FAIL',
+      payload:
+        error.response && error.response.data.message ? error.response.data.message : error.message,
+    });
+  }
+};
+
 export const logoutAction = () => async (dispatch) => {
   dispatch({
     type: 'LOGOUT',

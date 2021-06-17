@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
@@ -8,6 +8,7 @@ import { registerAction } from '../../../redux/actions/authActions';
 function Register() {
   const { register, handleSubmit } = useForm();
   const email = useSelector((state) => state.auth.email);
+  const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -25,6 +26,10 @@ function Register() {
       history.push('/enter-code', email);
     }
   }, [history, email]);
+
+  if (user) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <div className="container">

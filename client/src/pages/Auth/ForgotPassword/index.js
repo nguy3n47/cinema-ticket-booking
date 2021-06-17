@@ -1,25 +1,27 @@
 import React, { useEffect } from 'react';
+import { useHistory, Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, Redirect, useHistory } from 'react-router-dom';
-import { loginAction } from '../../../redux/actions/authActions';
+import { Link } from 'react-router-dom';
+import { forgotPasswordAction } from '../../../redux/actions/authActions';
 
-function Login() {
+function ForgotPassword() {
   const { register, handleSubmit } = useForm();
-  const isLogined = useSelector((state) => state.auth.isLogined);
+  const email = useSelector((state) => state.auth.email);
   const user = useSelector((state) => state.auth.user);
+  const isForgotPassword = true;
   const dispatch = useDispatch();
   const history = useHistory();
 
   const onSubmit = (data) => {
-    dispatch(loginAction(data));
+    dispatch(forgotPasswordAction(data));
   };
 
   useEffect(() => {
-    if (isLogined) {
-      history.push('/');
+    if (email) {
+      history.push('/enter-code', [email, isForgotPassword]);
     }
-  }, [history, isLogined]);
+  }, [history, email, isForgotPassword]);
 
   if (user) {
     return <Redirect to="/" />;
@@ -37,6 +39,8 @@ function Login() {
         </div>
         <div className="col-md-10 mx-auto col-lg-5">
           <form onSubmit={handleSubmit(onSubmit)} className="p-4 p-md-5 border rounded-3 bg-light">
+            <h3>Phục hồi mật khẩu của bạn</h3>
+            <p>Nhập địa chỉ email được liên kết với tài khoản CGV Cinemas của bạn.</p>
             <div className="form-floating mb-3">
               <input
                 type="email"
@@ -47,38 +51,24 @@ function Login() {
               />
               <label htmlFor="floatingInput">Email</label>
             </div>
-            <div className="form-floating mb-3">
-              <input
-                type="password"
-                className="form-control"
-                autoComplete="password"
-                id="floatingPassword"
-                {...register('password')}
-                placeholder="Password"
-              />
-              <label htmlFor="floatingPassword">Mật khẩu</label>
-            </div>
             <button className="w-100 btn btn-lg btn-primary color-primary" type="submit">
-              Đăng nhập
+              Tiếp theo
             </button>
             <hr className="my-4" />
-            <p className="d-flex justify-content-between">
-              <button type="button" className="btn btn-primary button-icon-size">
-                <i className="bi bi-facebook icon-size"></i>
-              </button>
-              <button type="button" className="btn btn-dark button-icon-size">
-                <i className="bi bi-github icon-size"></i>
-              </button>
-              <button type="button" className="btn btn-danger button-icon-size">
-                <i className="bi bi-google icon-size"></i>
-              </button>
-            </p>
-            <div className="d-flex justify-content-between">
-              <Link className="text-link color-link" to="/forgot-password">
-                <span>Quên mật khẩu?</span>
-              </Link>
-              <Link className="text-link color-link-primary" to="/register">
-                <span>Đăng ký</span>
+            <div className="d-flex justify-content-center">
+              <Link className="text-link color-link-primary" to="/login">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="36"
+                  height="36"
+                  fill="currentColor"
+                  className="bi bi-arrow-left-square"
+                  viewBox="0 0 16 16">
+                  <path
+                    fillRule="evenodd"
+                    d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"
+                  />
+                </svg>
               </Link>
             </div>
           </form>
@@ -88,4 +78,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default ForgotPassword;

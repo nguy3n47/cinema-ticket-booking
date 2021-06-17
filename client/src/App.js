@@ -8,6 +8,8 @@ import LoginPage from './pages/Auth/Login';
 import RegisterPage from './pages/Auth/Register';
 import EnterCode from './pages/Auth/EnterCode';
 import VerifiedEmail from './pages/Auth/VerifiedEmail';
+import ForgotPassword from './pages/Auth/ForgotPassword';
+import ResetPassword from './pages/Auth/ResetPassword';
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
           <Route exact from="/register" component={RegisterPage} />
           <Route exact from="/enter-code" component={EnterCode} />
           <Route exact from="/verified-email" component={VerifiedEmail} />
+          <Route exact from="/forgot-password" component={ForgotPassword} />
+          <Route exact from="/reset-password" component={ResetPassword} />
         </Switch>
         <Footer />
       </Router>

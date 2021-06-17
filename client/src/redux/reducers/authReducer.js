@@ -6,6 +6,9 @@ const initialState = {
   password: '',
   accessToken: '',
   isVerified: false,
+  isVerifyCodeResetPassword: false,
+  isReset: false,
+  isLogined: false,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -38,11 +41,51 @@ const authReducer = (state = initialState, action) => {
       };
     }
 
+    case 'VERIFY_CODE_RESET_PASSWORD_SUCCESS': {
+      return {
+        ...state,
+        isVerifyCodeResetPassword: payload,
+      };
+    }
+    case 'VERIFY_CODE_RESET_PASSWORD_FAIL': {
+      toast.error('Mã không hợp lệ!');
+      return {
+        ...state,
+      };
+    }
+
+    case 'RESET_PASSWORD_SUCCESS': {
+      return {
+        ...state,
+        isReset: payload,
+      };
+    }
+    case 'RESET_PASSWORD_FAIL': {
+      toast.error('Mật khẩu không hợp lệ!');
+      return {
+        ...state,
+      };
+    }
+
+    case 'FORGOT_PASSWORD_SUCCESS': {
+      return {
+        ...state,
+        email: payload,
+      };
+    }
+    case 'FORGOT_PASSWORD_FAIL': {
+      toast.error('Email không tồn tại!');
+      return {
+        ...state,
+      };
+    }
+
     case 'LOGIN_SUCCESS': {
       localStorage.setItem('user', JSON.stringify(payload));
       return {
         ...state,
         user: payload,
+        isLogined: true,
       };
     }
     case 'LOGIN_FAIL': {
@@ -57,6 +100,7 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         user: null,
+        isLogined: false,
       };
     }
     default:

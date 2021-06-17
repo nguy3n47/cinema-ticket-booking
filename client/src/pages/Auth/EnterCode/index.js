@@ -2,17 +2,31 @@ import React, { useEffect } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { verifyEmailAction } from '../../../redux/actions/authActions';
+import {
+  verifyCodeResetPasswordAction,
+  verifyEmailAction,
+} from '../../../redux/actions/authActions';
 
 function EnterCode(props) {
-  const email = props.location.state;
+  const email = props.location.state ? props.location.state[0] : '';
+  const isForgotPassword = props.location.state ? props.location.state[1] : false;
+
   const { register, handleSubmit } = useForm();
   const isVerified = useSelector((state) => state.auth.isVerified);
+  const isVerifyCodeResetPassword = useSelector((state) => state.auth.isVerifyCodeResetPassword);
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const onSubmit = (data) => {
+  const isNumber = (e) => {
+    e.target.value = e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');
+  };
+
+  const onSubmitVerifyEmail = (data) => {
     dispatch(verifyEmailAction(data));
+  };
+
+  const onSubmitForgotPassword = (data) => {
+    dispatch(verifyCodeResetPasswordAction(data));
   };
 
   const resendCode = (e) => {
@@ -25,6 +39,12 @@ function EnterCode(props) {
       history.push('/verified-email', isVerified);
     }
   }, [history, isVerified]);
+
+  useEffect(() => {
+    if (isVerifyCodeResetPassword) {
+      history.push('/reset-password', isVerifyCodeResetPassword);
+    }
+  }, [history, isVerifyCodeResetPassword]);
 
   if (!email) {
     return <Redirect to="/" />;
@@ -41,8 +61,14 @@ function EnterCode(props) {
           </p>
         </div>
         <div className="col-md-10 mx-auto col-lg-5">
-          <form onSubmit={handleSubmit(onSubmit)} className="p-4 p-md-5 border rounded-3 bg-light">
-            <h3>Xác minh email</h3>
+          <form
+            onSubmit={
+              isForgotPassword
+                ? handleSubmit(onSubmitForgotPassword)
+                : handleSubmit(onSubmitVerifyEmail)
+            }
+            className="p-4 p-md-5 border rounded-3 bg-light">
+            <h3>{isForgotPassword ? 'Phục hồi mật khẩu' : 'Xác minh email'}</h3>
             <p>
               Nhập mã mà chúng tôi đã gửi đến <span className="fw-bold">{email}</span> Nếu bạn không
               nhận được email, hãy kiểm tra thư mục thư rác hoặc{' '}
@@ -59,6 +85,7 @@ function EnterCode(props) {
                 type="text"
                 className="form-control"
                 id="codeInput"
+                onInput={isNumber}
                 {...register('code')}
                 maxLength="6"
                 placeholder="000000"

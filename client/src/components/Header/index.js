@@ -1,9 +1,13 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import './styles.scss';
+import { getUserSelector } from './../../redux/selectors/authSelector';
+import { logoutAction } from '../../redux/actions/authActions';
 
 function Header() {
-  const user = {};
+  const user = useSelector(getUserSelector);
+  const dispatch = useDispatch();
   const history = useHistory();
 
   const loginOnClick = () => {
@@ -12,6 +16,12 @@ function Header() {
 
   const registerOnClick = () => {
     history.push('/register');
+  };
+
+  const onLogout = (e) => {
+    e.preventDefault();
+    dispatch(logoutAction());
+    history.push('/');
   };
 
   return (
@@ -27,28 +37,28 @@ function Header() {
         </a>
         <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
           <li>
-            <a href="/" className="nav-link px-4 link-dark fw-bold">
+            <a href="/" className="nav-link px-4 link-dark fw-bold menu-link">
               Trang chủ
             </a>
           </li>
           <li>
-            <a href="/cineplexs" className="nav-link px-4 link-dark fw-bold">
+            <a href="/cineplexs" className="nav-link px-4 link-dark fw-bold menu-link">
               Rạp
             </a>
           </li>
           <li>
-            <a href="/movies" className="nav-link px-4 link-dark fw-bold">
+            <a href="/movies" className="nav-link px-4 link-dark fw-bold menu-link">
               Phim
             </a>
           </li>
           <li>
-            <a href="/showtimes" className="nav-link px-4 link-dark fw-bold">
+            <a href="/showtimes" className="nav-link px-4 link-dark fw-bold menu-link">
               Lịch chiếu
             </a>
           </li>
         </ul>
         <div className="col-md-3 text-end">
-          {user ? (
+          {!user ? (
             <>
               <button
                 type="button"
@@ -73,13 +83,13 @@ function Header() {
                 aria-expanded="false">
                 <div>
                   <img
-                    src="https://avatars.githubusercontent.com/u/69791062?v=4"
+                    src={user.avatar}
                     alt="mdo"
                     width={36}
                     height={36}
                     className="rounded-circle"
                   />
-                  <span className="text-center ms-1 mx-auto">Nguyen</span>
+                  <span className="text-center ms-1 mx-auto">{user.fullname}</span>
                 </div>
               </button>
               <ul className="dropdown-menu" aria-labelledby="dropdownMenuProfile">
@@ -94,7 +104,7 @@ function Header() {
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="/logout">
+                  <a className="dropdown-item" onClick={onLogout} href="/logout">
                     Đăng xuất
                   </a>
                 </li>
