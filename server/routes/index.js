@@ -40,6 +40,7 @@ router.get('/movies', MovieController.getAll);
 router.get('/movies/showtimes', MovieController.getAllShowtimes);
 router.post('/movies', MovieController.create);
 router.get('/movies/:id', MovieController.getById);
+router.get('/movies/detail/:slug', MovieController.getBySlug);
 router.put('/movies/:id', MovieController.update);
 router.delete('/movies/:id', MovieController.remove);
 

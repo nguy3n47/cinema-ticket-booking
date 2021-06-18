@@ -2,18 +2,18 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { Redirect, Link } from 'react-router-dom';
-import { getAllMoviesByState } from '../../redux/actions/movieActions';
+import { getAllMoviesByStateAction } from '../../redux/actions/movieActions';
 import { getMoviesSelector } from '../../redux/selectors/movieSelector';
 import { Container, Row, Col, Image } from 'react-bootstrap';
 import moment from 'moment';
 
-function Movie(props) {
+function Movie() {
   const { state } = useParams();
   const movies = useSelector(getMoviesSelector);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllMoviesByState({ state: state }));
+    dispatch(getAllMoviesByStateAction({ state: state }));
   }, [dispatch, state]);
 
   if (state !== 'now-showing' && state !== 'coming-soon') {
@@ -32,7 +32,7 @@ function Movie(props) {
             return (
               <Col className="d-flex align-items-end flex-column mt-3" key={i}>
                 <Row className="movie-item">
-                  <Link className="movie-item-link" to={{ pathname: url, state: { movie } }}>
+                  <Link className="movie-item-link" to={url}>
                     <Image className="movie-poster" src={movie.poster} height={300} />
                     <h2 className="fw-bold fs-5 mt-2">{movie.title}</h2>
                   </Link>

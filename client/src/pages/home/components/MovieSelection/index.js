@@ -8,7 +8,7 @@ import SwiperCore, { Autoplay, Pagination, Navigation } from 'swiper/core';
 import { Image } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMoviesSelector } from '../../../../redux/selectors/movieSelector';
-import { getAllMoviesByState } from '../../../../redux/actions/movieActions';
+import { getAllMoviesByStateAction } from '../../../../redux/actions/movieActions';
 
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
@@ -17,7 +17,7 @@ function MovieSelection() {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getAllMoviesByState({ state: 'now-showing' }));
+    dispatch(getAllMoviesByStateAction({ state: 'now-showing' }));
   }, [dispatch]);
 
   return (

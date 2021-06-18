@@ -126,6 +126,20 @@ const getById = async (req, res, next) => {
   }
 };
 
+const getBySlug = async (req, res, next) => {
+  try {
+    const { slug } = req.params;
+    const movie = await Movie.findOne({ where: { slug } });
+    if (movie) {
+      return res.status(200).send(movie);
+    } else {
+      return res.status(200).send({ error: 'Movie not found' });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 const update = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -191,4 +205,4 @@ const remove = async (req, res, next) => {
   }
 };
 
-export { create, getAll, getAllShowtimes, getById, update, remove };
+export { create, getAll, getAllShowtimes, getById, update, remove, getBySlug };
