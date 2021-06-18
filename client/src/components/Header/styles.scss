@@ -51,3 +51,40 @@
 .dropdown-item:active {
   background-color: #e61212 !important;
 }
+
+.w-60 {
+  width: 60% !important;
+}
+
+.movie-poster {
+  object-fit: cover;
+}
+
+.movie-item:hover {
+  cursor: pointer;
+}
+
+.movie-item:hover h2 {
+  color: #e61212 !important;
+}
+
+.movie-item-link {
+  color: #000000 !important;
+  text-decoration: none !important;
+}
+
+.text-line {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}
+
+.title-line {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}

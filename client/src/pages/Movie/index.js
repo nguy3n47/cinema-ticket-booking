@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { getAllMoviesByState } from '../../redux/actions/movieActions';
 import { getMoviesSelector } from '../../redux/selectors/movieSelector';
+import { Container, Row, Col, Image } from 'react-bootstrap';
+import moment from 'moment';
 
-function Movie() {
+function Movie(props) {
   const { state } = useParams();
   const movies = useSelector(getMoviesSelector);
   const dispatch = useDispatch();
@@ -19,39 +21,43 @@ function Movie() {
   }
 
   return (
-    <div className="container">
-      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        {movies.map((movie, i) => {
-          return (
-            <div key={i} className="col">
-              <div className="card shadow-sm">
-                <svg
-                  className="bd-placeholder-img card-img-top"
-                  width="100%"
-                  height={225}
-                  xmlns="http://www.w3.org/2000/svg"
-                  role="img"
-                  aria-label="Placeholder: Thumbnail"
-                  preserveAspectRatio="xMidYMid slice"
-                  focusable="false">
-                  <title>{movie.title}</title>
-                  <img src={movie.poster} width="100%" height="100%" alt="#" />
-                </svg>
-                <div className="card-body">
-                  <p className="card-text">
-                    This is a wider card with supporting text below as a natural lead-in to
-                    additional content. This content is a little bit longer.
-                  </p>
-                  <div className="d-flex justify-content-between align-items-center">
-                    <small className="text-muted">{movie.running_time} mins</small>
+    <main className="flex-shrink-0">
+      <Container className="w-60">
+        <h1 className="text-center">
+          {state === 'now-showing' ? 'Phim Đang Chiếu' : 'Phim Sắp Chiếu'}
+        </h1>
+        <Row md={4}>
+          {movies.map((movie, i) => {
+            const url = '/movies/detail/' + movie.slug;
+            return (
+              <Col className="d-flex align-items-end flex-column mt-3" key={i}>
+                <Row className="movie-item">
+                  <Link className="movie-item-link" to={{ pathname: url, state: { movie } }}>
+                    <Image className="movie-poster" src={movie.poster} height={300} />
+                    <h2 className="fw-bold fs-5 mt-2">{movie.title}</h2>
+                  </Link>
+                </Row>
+
+                <Row className="mt-auto">
+                  <div>
+                    <span className="fw-bold mt-1">Thể loại: </span>
+                    <span className="text-line">{movie.genre}</span>
                   </div>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </div>
+                  <div>
+                    <span className="fw-bold mt-1">Thời lượng: </span>
+                    <span>{movie.running_time} phút</span>
+                  </div>
+                  <div>
+                    <span className="fw-bold mt-1">Khởi chiếu: </span>
+                    <span> {moment(movie.release_date).format('DD/MM/YYYY')}</span>
+                  </div>
+                </Row>
+              </Col>
+            );
+          })}
+        </Row>
+      </Container>
+    </main>
   );
 }
 
