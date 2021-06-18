@@ -2,7 +2,7 @@ import React from 'react';
 
 function Footer() {
   return (
-    <footer className="footer mt-4 py-3 bg-light">
+    <footer className="footer mt-4 py-3">
       <div className="container text-center me-5">
         <img
           src="https://www.cgv.vn/skin/frontend/cgv/default/images/bg-cgv/brand-type-film-footer-min-600.png"

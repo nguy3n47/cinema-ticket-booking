@@ -5,7 +5,6 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMovieBySlugSelector } from '../../../redux/selectors/movieSelector';
 import { getMovieBySlugAction } from '../../../redux/actions/movieActions';
-import _ from 'lodash';
 import moment from 'moment';
 
 function MovieDetail() {
@@ -14,21 +13,49 @@ function MovieDetail() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  useEffect(() => {
-    dispatch(getMovieBySlugAction(slug, history));
-  }, [dispatch, slug, history]);
-
   const getYoutubeVideoId = (url) => {
+    if (!url) {
+      return null;
+    }
+
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
     const match = url.match(regExp);
 
     return match && match[2].length === 11 ? match[2] : null;
   };
 
-  const videoId = _.isEmpty(movie) ? '' : getYoutubeVideoId(movie.trailer);
+  const VideoIframe = React.memo(({ src, height }) => (
+    <iframe
+      className="px-0 mb-0"
+      title={movie.title}
+      controls
+      height={height}
+      allowFullScreen
+      src={src}
+    />
+  ));
+
+  const ScrollToTopOnMount = () => {
+    useEffect(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    }, []);
+
+    return null;
+  };
+
+  useEffect(() => {
+    dispatch(getMovieBySlugAction(slug, history));
+
+    return () => {
+      dispatch({
+        type: 'GET_MOVIE_DETAIL_FAIL',
+      });
+    };
+  }, [dispatch, slug, history]);
 
   return (
     <main className="flex-shrink-0">
+      <ScrollToTopOnMount />
       <Container className="w-60">
         <Row>
           <Col xs={3} className="d-flex justify-content-center">
@@ -79,13 +106,9 @@ function MovieDetail() {
           <p className="px-0 mb-0">{movie.description}</p>
         </Row>
         <Row className="mt-2 text-center">
-          <iframe
-            className="px-0 mb-0"
-            title={movie.title}
-            controls
-            height="444"
-            allowFullScreen
-            src={`https://www.youtube.com/embed/${videoId}`}
+          <VideoIframe
+            height={444}
+            src={`https://www.youtube.com/embed/${getYoutubeVideoId(movie.trailer)}`}
           />
         </Row>
       </Container>
