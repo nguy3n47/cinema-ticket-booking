@@ -90,16 +90,20 @@ function MovieDetail() {
               <span className="fw-bold">Ngôn ngữ: </span>
               <span>Tiếng Anh - Phụ đề Tiếng Việt</span>
             </div>
-            <div className="mt-3">
-              <button type="button" className="btn btn-primary color-primary">
-                <div className="d-flex">
-                  <span className="me-1">Mua vé</span>
-                  <span>
-                    <i className="bi bi-wallet2"></i>
-                  </span>
-                </div>
-              </button>
-            </div>
+            {movie.state === 'now-showing' ? (
+              <div className="mt-3">
+                <button type="button" className="btn btn-primary color-primary">
+                  <div className="d-flex">
+                    <span className="me-1">Mua vé</span>
+                    <span>
+                      <i className="bi bi-wallet2"></i>
+                    </span>
+                  </div>
+                </button>
+              </div>
+            ) : (
+              ''
+            )}
           </Col>
         </Row>
         <Row className="mt-2">

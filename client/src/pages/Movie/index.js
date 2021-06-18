@@ -14,6 +14,12 @@ function Movie() {
 
   useEffect(() => {
     dispatch(getAllMoviesByStateAction({ state: state }));
+
+    return () => {
+      dispatch({
+        type: 'GET_MOVIES_FAIL',
+      });
+    };
   }, [dispatch, state]);
 
   if (state !== 'now-showing' && state !== 'coming-soon') {
@@ -33,21 +39,21 @@ function Movie() {
               <Col className="d-flex align-items-end flex-column mt-3" key={i}>
                 <Row className="movie-item">
                   <Link className="movie-item-link" to={url}>
-                    <Image className="movie-poster" src={movie.poster} height={300} />
+                    <Image className="movie-poster" src={movie.poster} width={220} height={333} />
                     <h2 className="fw-bold fs-5 mt-2">{movie.title}</h2>
                   </Link>
                 </Row>
 
                 <Row className="mt-auto">
-                  <div>
+                  <div className="px-0">
                     <span className="fw-bold mt-1">Thể loại: </span>
                     <span className="text-line">{movie.genre}</span>
                   </div>
-                  <div>
+                  <div className="px-0">
                     <span className="fw-bold mt-1">Thời lượng: </span>
                     <span>{movie.running_time} phút</span>
                   </div>
-                  <div>
+                  <div className="px-0">
                     <span className="fw-bold mt-1">Khởi chiếu: </span>
                     <span> {moment(movie.release_date).format('DD/MM/YYYY')}</span>
                   </div>

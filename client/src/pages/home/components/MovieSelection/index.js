@@ -18,6 +18,12 @@ function MovieSelection() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllMoviesByStateAction({ state: 'now-showing' }));
+
+    return () => {
+      dispatch({
+        type: 'GET_MOVIES_FAIL',
+      });
+    };
   }, [dispatch]);
 
   return (
