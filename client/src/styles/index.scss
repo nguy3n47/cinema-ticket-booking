@@ -107,9 +107,6 @@ code {
 
 .footer-cgv-address {
   width: 100%;
-  overflow: hidden;
-  display: block;
-  padding: 10px 0px;
 }
 
 .cgv-address-content {
@@ -120,15 +117,8 @@ code {
 .logo-footer-cgv {
   background-image: url("https://www.cgv.vn/skin/frontend/cgv/default/images/bg-cgv/common_sprite_area.png");
   background-position: -145px -319px;
-  float: left;
-  height: 43px;
+  height: 50px;
   width: 120px;
-  margin-top: 30px;
-}
-
-.text-cgv-address {
-  float: left;
-  width: 80%;
 }
 
 .container_img {

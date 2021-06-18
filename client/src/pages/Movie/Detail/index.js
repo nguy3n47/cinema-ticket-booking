@@ -34,7 +34,6 @@ function MovieDetail() {
           <Col xs={3} className="d-flex justify-content-center">
             <Image src={movie.poster} height={330}></Image>
           </Col>
-
           <Col>
             <div>
               <h5 className="fw-bold">{movie.title}</h5>
