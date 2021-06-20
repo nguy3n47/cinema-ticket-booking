@@ -1,48 +1,53 @@
 require('dotenv').config();
-
-import path from 'path';
-import crypto from 'crypto';
 import { Cineplex, Cinema } from '../models';
 import multer from 'multer';
+import firebase from '../services/firebase';
 
-// SET STORAGE
-let storage = multer.diskStorage({
-  destination(req, file, cb) {
-    cb(null, 'public/img/cineplexs/');
-  },
-  filename(req, file, cb) {
-    cb(
-      null,
-      crypto.randomBytes(18).toString('hex') + path.extname(file.originalname)
-    );
-  },
-});
-
-let upload = multer().single('image');
+let upload = multer({ storage: multer.memoryStorage() }).single('image');
 
 const create = (req, res, next) => {
   try {
     upload(req, res, async (err) => {
       if (err) return res.send({ error: err.message });
-      if (!req.file) return res.send({ error: 'Missing Cineplex image.' });
+      if (!req.file) {
+        res.status(400).send({ error: 'Missing Cineplex image.' });
+        return;
+      }
 
-      req.body.image =
-        'data:image/jpeg;base64,' + req.file.buffer.toString('base64');
+      const blob = firebase.bucket.file(req.file.originalname);
 
-      const { name, address, image, googleMapsUrl } = req.body;
-
-      const newCineplex = await Cineplex.create({
-        name,
-        address,
-        image,
-        googleMapsUrl,
+      const blobWriter = blob.createWriteStream({
+        metadata: {
+          contentType: req.file.mimetype,
+        },
       });
 
-      if (newCineplex) {
-        return res.status(200).send({ message: 'Success' });
-      } else {
-        return res.status(400).send({ message: 'Fail' });
-      }
+      blobWriter.on('error', (err) => next(err));
+
+      blobWriter.on('finish', async () => {
+        const publicUrl = `https://firebasestorage.googleapis.com/v0/b/${
+          firebase.bucket.name
+        }/o/${encodeURI(blob.name)}?alt=media`;
+
+        req.body.image = publicUrl;
+
+        const { name, address, image, googleMapsUrl } = req.body;
+
+        const newCineplex = await Cineplex.create({
+          name,
+          address,
+          image,
+          googleMapsUrl,
+        });
+
+        if (newCineplex) {
+          return res.status(200).send({ message: 'Success' });
+        } else {
+          return res.status(400).send({ message: 'Fail' });
+        }
+      });
+
+      blobWriter.end(req.file.buffer);
     });
   } catch (error) {
     next(error);
@@ -85,9 +90,26 @@ const update = async (req, res, next) => {
       upload(req, res, async (err) => {
         if (err) return res.send({ error: err.message });
         if (req.file) {
-          cineplex.image =
-            'data:image/jpeg;base64,' + req.file.buffer.toString('base64');
-          await cineplex.save();
+          const blob = firebase.bucket.file(req.file.originalname);
+
+          const blobWriter = blob.createWriteStream({
+            metadata: {
+              contentType: req.file.mimetype,
+            },
+          });
+
+          blobWriter.on('error', (err) => next(err));
+
+          blobWriter.on('finish', async () => {
+            const publicUrl = `https://firebasestorage.googleapis.com/v0/b/${
+              firebase.bucket.name
+            }/o/${encodeURI(blob.name)}?alt=media`;
+
+            cineplex.image = publicUrl;
+            await cineplex.save();
+          });
+
+          blobWriter.end(req.file.buffer);
         }
 
         const { name, address, googleMapsUrl } = req.body;

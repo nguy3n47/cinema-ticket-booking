@@ -14,48 +14,42 @@ function Movie() {
 
   useEffect(() => {
     dispatch(getAllMoviesByStateAction({ state: state }));
-
-    return () => {
-      dispatch({
-        type: 'GET_MOVIES_FAIL',
-      });
-    };
   }, [dispatch, state]);
 
   if (state !== 'now-showing' && state !== 'coming-soon') {
     return <Redirect to="/movies/now-showing" />;
   }
 
-  return (
+  const MovieList = React.memo(({ data }) => (
     <main className="flex-shrink-0">
       <Container className="w-60">
         <h1 className="text-center">
           {state === 'now-showing' ? 'Phim Đang Chiếu' : 'Phim Sắp Chiếu'}
         </h1>
         <Row md={4}>
-          {movies.map((movie, i) => {
-            const url = '/movies/detail/' + movie.slug;
+          {data.map((item, i) => {
+            const url = '/movies/detail/' + item.slug;
             return (
               <Col className="d-flex align-items-end flex-column mt-3" key={i}>
                 <Row className="movie-item">
                   <Link className="movie-item-link" to={url}>
-                    <Image className="movie-poster" src={movie.poster} width={220} height={333} />
-                    <h2 className="fw-bold fs-5 mt-2">{movie.title}</h2>
+                    <Image className="movie-poster" src={item.poster} width={220} height={333} />
+                    <h2 className="fw-bold fs-5 mt-2">{item.title}</h2>
                   </Link>
                 </Row>
 
                 <Row className="mt-auto">
                   <div className="px-0">
                     <span className="fw-bold mt-1">Thể loại: </span>
-                    <span className="text-line">{movie.genre}</span>
+                    <span className="text-line">{item.genre}</span>
                   </div>
                   <div className="px-0">
                     <span className="fw-bold mt-1">Thời lượng: </span>
-                    <span>{movie.running_time} phút</span>
+                    <span>{item.running_time} phút</span>
                   </div>
                   <div className="px-0">
                     <span className="fw-bold mt-1">Khởi chiếu: </span>
-                    <span> {moment(movie.release_date).format('DD/MM/YYYY')}</span>
+                    <span> {moment(item.release_date).format('DD/MM/YYYY')}</span>
                   </div>
                 </Row>
               </Col>
@@ -64,7 +58,9 @@ function Movie() {
         </Row>
       </Container>
     </main>
-  );
+  ));
+
+  return <MovieList data={movies} />;
 }
 
 export default Movie;

@@ -1,69 +1,71 @@
-import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
-import crypto from 'crypto';
 import { Movie, Showtime, Cinema, Cineplex, CinemaType } from '../models';
 import multer from 'multer';
+import firebase from '../services/firebase';
 
-// SET STORAGE
-let storage = multer.diskStorage({
-  destination(req, file, cb) {
-    cb(null, 'public/img/movies/');
-  },
-  filename(req, file, cb) {
-    cb(
-      null,
-      crypto.randomBytes(18).toString('hex') + path.extname(file.originalname)
-    );
-  },
-});
-
-let upload = multer().single('poster');
+let upload = multer({ storage: multer.memoryStorage() }).single('poster');
 
 const create = (req, res, next) => {
   try {
     upload(req, res, async (err) => {
       if (err) return res.send({ error: err.message });
-      if (!req.file)
-        return res.status(401).send({ error: 'Missing movie poster.' });
+      if (!req.file) {
+        res.status(400).send({ error: 'Missing movie poster.' });
+        return;
+      }
 
-      // req.body.poster =
-      //   process.env.BASE_URL + '/img/movies/' + req.file.filename;
+      const blob = firebase.bucket.file(req.file.originalname);
 
-      req.body.poster =
-        'data:image/jpeg;base64,' + req.file.buffer.toString('base64');
-
-      const {
-        title,
-        description,
-        director,
-        actor,
-        genre,
-        poster,
-        running_time,
-        release_date,
-        trailer,
-        state,
-      } = req.body;
-
-      const newMovie = await Movie.create({
-        id: uuidv4(),
-        title,
-        description,
-        director,
-        actor,
-        genre,
-        poster,
-        running_time: parseInt(running_time),
-        release_date,
-        trailer,
-        state,
+      const blobWriter = blob.createWriteStream({
+        metadata: {
+          contentType: req.file.mimetype,
+        },
       });
 
-      if (newMovie) {
-        return res.status(200).send({ message: 'Success' });
-      } else {
-        return res.status(400).send({ message: 'Fail' });
-      }
+      blobWriter.on('error', (err) => next(err));
+
+      blobWriter.on('finish', async () => {
+        const publicUrl = `https://firebasestorage.googleapis.com/v0/b/${
+          firebase.bucket.name
+        }/o/${encodeURI(blob.name)}?alt=media`;
+
+        req.body.poster = publicUrl;
+
+        const {
+          title,
+          description,
+          director,
+          actor,
+          genre,
+          poster,
+          running_time,
+          release_date,
+          trailer,
+          state,
+        } = req.body;
+
+        const newMovie = await Movie.create({
+          id: uuidv4(),
+          title,
+          description,
+          director,
+          actor,
+          genre,
+          poster,
+          running_time: parseInt(running_time),
+          release_date,
+          trailer,
+          state,
+        });
+
+        if (newMovie) {
+          res.status(200).send({ message: 'Success' });
+        } else {
+          res.status(400).send({ message: 'Fail' });
+        }
+      });
+
+      blobWriter.end(req.file.buffer);
     });
   } catch (error) {
     next(error);
@@ -148,9 +150,26 @@ const update = async (req, res, next) => {
       upload(req, res, async (err) => {
         if (err) return res.status(400).send({ error: err.message });
         if (req.file) {
-          movie.poster =
-            'data:image/jpeg;base64,' + req.file.buffer.toString('base64');
-          await movie.save();
+          const blob = firebase.bucket.file(req.file.originalname);
+
+          const blobWriter = blob.createWriteStream({
+            metadata: {
+              contentType: req.file.mimetype,
+            },
+          });
+
+          blobWriter.on('error', (err) => next(err));
+
+          blobWriter.on('finish', async () => {
+            const publicUrl = `https://firebasestorage.googleapis.com/v0/b/${
+              firebase.bucket.name
+            }/o/${encodeURI(blob.name)}?alt=media`;
+
+            movie.poster = publicUrl;
+            await movie.save();
+          });
+
+          blobWriter.end(req.file.buffer);
         }
 
         const {
