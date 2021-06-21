@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getMovieBySlugSelector } from '../../../redux/selectors/movieSelector';
 import { getMovieBySlugAction } from '../../../redux/actions/movieActions';
 import moment from 'moment';
+import ModalForm from '../components/ModalForm';
 
 function MovieDetail() {
   const { slug } = useParams();
@@ -92,14 +93,7 @@ function MovieDetail() {
             </div>
             {movie.state === 'now-showing' ? (
               <div className="mt-3">
-                <button type="button" className="btn btn-primary color-primary">
-                  <div className="d-flex">
-                    <span className="me-1">Mua vé</span>
-                    <span>
-                      <i className="bi bi-wallet2"></i>
-                    </span>
-                  </div>
-                </button>
+                <ModalForm />
               </div>
             ) : (
               ''

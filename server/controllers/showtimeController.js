@@ -1,4 +1,5 @@
 import { Showtime, Movie, Cinema, Cineplex, CinemaType } from '../models';
+import { Op } from 'sequelize';
 import moment from 'moment';
 
 const create = async (req, res, next) => {
@@ -43,7 +44,10 @@ const getByMovieId = async (req, res, next) => {
         {
           model: Cinema,
           attributes: ['id', 'name', 'cineplex_id'],
-          include: [{ model: Cineplex, attributes: ['id', 'name'] }, { model: CinemaType }],
+          include: [
+            { model: Cineplex, attributes: ['id', 'name'] },
+            { model: CinemaType },
+          ],
         },
       ],
     });
@@ -103,4 +107,52 @@ const remove = async (req, res, next) => {
   }
 };
 
-export { create, getByMovieId, update, remove };
+const getShowtimesByCineplexs = async (req, res, next) => {
+  try {
+    const { movie_id, day } = req.query;
+
+    const cineplexs = await Cineplex.findAll({
+      include: [
+        {
+          model: Cinema,
+          include: [
+            {
+              model: Showtime,
+              where: {
+                movie_id,
+                start_time: {
+                  [Op.between]: [
+                    moment(day).format(),
+                    moment(day).add(1, 'day').subtract(1, 'seconds').format(),
+                  ],
+                },
+              },
+              order: [['start_time', 'ASC']],
+              include: [
+                { model: Movie },
+                { model: Cinema, include: [{ model: CinemaType }] },
+              ],
+            },
+          ],
+        },
+      ],
+    });
+
+    const result = [];
+
+    cineplexs.forEach((cineplex, i) => {
+      result.push({ id: cineplex.id, name: cineplex.name, showtimes: [] });
+      cineplex.Cinemas.forEach((cinema) => {
+        cinema.Showtimes.forEach((showtime) => {
+          result[i].showtimes.push(showtime);
+        });
+      });
+    });
+
+    return res.status(200).send(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { create, getByMovieId, update, remove, getShowtimesByCineplexs };

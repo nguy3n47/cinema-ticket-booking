@@ -64,6 +64,7 @@ router.delete('/cinemas/:id', CinemaController.remove);
 
 // Showtime Router
 router.get('/showtimes', ShowtimeController.getByMovieId);
+router.get('/showtimes/cineplexs', ShowtimeController.getShowtimesByCineplexs);
 router.post('/showtimes', ShowtimeController.create);
 router.put('/showtimes/:id', ShowtimeController.update);
 router.delete('/showtimes/:id', ShowtimeController.remove);

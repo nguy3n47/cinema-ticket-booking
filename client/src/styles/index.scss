@@ -126,3 +126,61 @@ code {
   width: 40%;
   object-fit: cover;
 }
+
+.box-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgb(0, 0, 0);
+  margin: 3px;
+  width: 100px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.box-text:hover {
+  border: 1px solid rgb(255, 255, 255);
+  background-color: rgb(212, 13, 13);
+  color: white;
+}
+
+.box-day {
+  cursor: pointer;
+  height: 50px;
+  position: relative;
+  width: 75px;
+  border: 1px solid rgb(0, 0, 0);
+  margin: 3px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.box-day > span {
+  font-size: 11px;
+  left: 4px;
+  position: absolute;
+  top: 4px;
+}
+
+.box-day > em {
+  font-size: 11px;
+  font-style: normal;
+  left: 4px;
+  position: absolute;
+  top: 20px;
+}
+
+.box-day > strong {
+  font-size: 32px;
+  font-weight: normal;
+  left: 31px;
+  line-height: 32px;
+  position: absolute;
+  top: 5px;
+}
+
+.box-day:hover {
+  border: 1px solid rgb(255, 255, 255);
+  background-color: rgb(212, 13, 13);
+  color: white;
+}
