@@ -55,3 +55,19 @@ export const getMovieBySlugAction = (slug, history) => async (dispatch) => {
     });
   }
 };
+
+export const getMovieShowtimesAction = (id, day) => async (dispatch) => {
+  try {
+    const response = await movieApi.getShowtimes(id, day);
+    dispatch({
+      type: 'GET_MOVIE_SHOWTIMES_SUCCESS',
+      payload: response,
+    });
+  } catch (error) {
+    dispatch({
+      type: 'GET_MOVIE_SHOWTIMES_FAIL',
+      payload:
+        error.response && error.response.data.message ? error.response.data.message : error.message,
+    });
+  }
+};

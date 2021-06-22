@@ -1,5 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { Movie, Showtime, Cinema, Cineplex, CinemaType } from '../models';
+import { Op } from 'sequelize';
+import moment from 'moment';
 import multer from 'multer';
 import firebase from '../services/firebase';
 
@@ -224,4 +226,65 @@ const remove = async (req, res, next) => {
   }
 };
 
-export { create, getAll, getAllShowtimes, getById, update, remove, getBySlug };
+const getShowtimesByCineplexs = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { day } = req.query;
+
+    const cineplexs = await Cineplex.findAll({
+      order: [
+        ['id', 'ASC'],
+        [Cinema, Showtime, 'start_time', 'ASC'],
+      ],
+      include: [
+        {
+          model: Cinema,
+          include: [
+            {
+              model: Showtime,
+              where: {
+                movie_id: id,
+                start_time: {
+                  [Op.between]: [
+                    moment(day).format(),
+                    moment(day).add(1, 'day').subtract(1, 'seconds').format(),
+                  ],
+                },
+              },
+              include: [
+                { model: Movie },
+                { model: Cinema, include: [{ model: CinemaType }] },
+              ],
+            },
+          ],
+        },
+      ],
+    });
+
+    const result = [];
+
+    cineplexs.forEach((cineplex, i) => {
+      result.push({ id: cineplex.id, name: cineplex.name, showtimes: [] });
+      cineplex.Cinemas.forEach((cinema) => {
+        cinema.Showtimes.forEach((showtime) => {
+          result[i].showtimes.push(showtime);
+        });
+      });
+    });
+
+    return res.status(200).send(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export {
+  create,
+  getAll,
+  getAllShowtimes,
+  getById,
+  update,
+  remove,
+  getBySlug,
+  getShowtimesByCineplexs,
+};

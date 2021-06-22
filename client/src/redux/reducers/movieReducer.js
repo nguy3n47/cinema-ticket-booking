@@ -1,6 +1,7 @@
 const initialState = {
   movies: [],
   data: {},
+  showtimes: [],
 };
 
 const movieReducer = (state = initialState, action) => {
@@ -30,6 +31,19 @@ const movieReducer = (state = initialState, action) => {
       return {
         ...state,
         data: {},
+      };
+    }
+
+    case 'GET_MOVIE_SHOWTIMES_SUCCESS': {
+      return {
+        ...state,
+        showtimes: payload,
+      };
+    }
+    case 'GET_MOVIE_SHOWTIMES_FAIL': {
+      return {
+        ...state,
+        showtimes: [],
       };
     }
     default:

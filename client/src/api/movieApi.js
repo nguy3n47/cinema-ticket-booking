@@ -16,9 +16,9 @@ const movieApi = {
     return axiosClient.get(url);
   },
 
-  getAllShowtimes: () => {
-    const url = '/movies/showtimes';
-    return axiosClient.get(url);
+  getShowtimes: (id, params) => {
+    const url = `/movies/${id}/showtimes`;
+    return axiosClient.get(url, { params });
   },
 };
 

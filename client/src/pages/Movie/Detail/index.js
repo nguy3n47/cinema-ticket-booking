@@ -93,7 +93,7 @@ function MovieDetail() {
             </div>
             {movie.state === 'now-showing' ? (
               <div className="mt-3">
-                <ModalForm />
+                <ModalForm movie={movie} />
               </div>
             ) : (
               ''

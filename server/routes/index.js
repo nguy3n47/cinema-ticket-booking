@@ -38,6 +38,7 @@ router.get('/user/me', verifyUser, UserController.getProfile);
 // Movie Router
 router.get('/movies', MovieController.getAll);
 router.get('/movies/showtimes', MovieController.getAllShowtimes);
+router.get('/movies/:id/showtimes', MovieController.getShowtimesByCineplexs);
 router.post('/movies', MovieController.create);
 router.get('/movies/:id', MovieController.getById);
 router.get('/movies/detail/:slug', MovieController.getBySlug);
@@ -64,7 +65,6 @@ router.delete('/cinemas/:id', CinemaController.remove);
 
 // Showtime Router
 router.get('/showtimes', ShowtimeController.getByMovieId);
-router.get('/showtimes/cineplexs', ShowtimeController.getShowtimesByCineplexs);
 router.post('/showtimes', ShowtimeController.create);
 router.put('/showtimes/:id', ShowtimeController.update);
 router.delete('/showtimes/:id', ShowtimeController.remove);
