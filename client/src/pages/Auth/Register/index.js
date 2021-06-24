@@ -23,7 +23,7 @@ function Register() {
 
   useEffect(() => {
     if (email) {
-      history.push('/enter-code', email);
+      history.push('/enter-code', [email, false]);
     }
   }, [history, email]);
 

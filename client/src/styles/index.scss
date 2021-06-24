@@ -190,3 +190,33 @@ code {
   background-color: rgb(212, 13, 13);
   color: white;
 }
+
+.previous-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #343433;
+  border: 5px solid rgb(255, 255, 255);
+  color: white;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.next-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #bf2828;
+  border: 2px solid rgb(255, 255, 255);
+  color: white;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.booking-movie-img {
+  width: 105px;
+  height: 150px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  object-fit: cover;
+}

@@ -11,6 +11,8 @@ function EnterCode(props) {
   const email = props.location.state ? props.location.state[0] : '';
   const isForgotPassword = props.location.state ? props.location.state[1] : false;
 
+  console.log(props.location);
+
   const { register, handleSubmit } = useForm();
   const isVerified = useSelector((state) => state.auth.isVerified);
   const isVerifyCodeResetPassword = useSelector((state) => state.auth.isVerifyCodeResetPassword);
