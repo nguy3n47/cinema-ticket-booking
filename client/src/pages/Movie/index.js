@@ -34,7 +34,7 @@ function Movie() {
                 <Row className="movie-item">
                   <Link className="movie-item-link" to={url}>
                     <Image className="movie-poster" src={item.poster} width={220} height={333} />
-                    <h3 className="fw-bold fs-5 mt-2">{item.title}</h3>
+                    <h3 className="fw-bold fs-movie-title mt-2">{item.title}</h3>
                   </Link>
                 </Row>
 

@@ -91,7 +91,7 @@ function Booking() {
                   <p className="mb-0">{showtime.Cinema.CinemaType.name}</p>
                 </div>
               </div>
-              <div className="col-4 px-0 d-flex justify-content-center">
+              <div className="col-4 px-0 ms-5 d-flex justify-content-center">
                 <div>
                   <p className="fw-bold mb-1">Rạp</p>
                   <p className="fw-bold mb-1">Suất Chiếu</p>

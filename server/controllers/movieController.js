@@ -246,7 +246,10 @@ const getShowtimesByCineplexs = async (req, res, next) => {
                 movie_id: id,
                 start_time: {
                   [Op.between]: [
-                    moment().format(),
+                    moment(day).format('DD/MM/YYYY') ===
+                    moment().format('DD/MM/YYYY')
+                      ? moment().format()
+                      : moment(day).format(),
                     moment(day).add(1, 'day').subtract(1, 'seconds').format(),
                   ],
                 },
