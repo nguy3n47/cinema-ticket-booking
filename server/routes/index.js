@@ -59,12 +59,13 @@ router.get('/cinemas/types', CinemaController.getTypes);
 router.get('/cinemas/:id/type', CinemaController.getTypeByCinemaId);
 router.post('/cinemas', CinemaController.create);
 router.get('/cinemas/:id', CinemaController.getById);
-router.get('/cinemas/:id/seats', CinemaController.getSeatsByShowtimeId);
 router.put('/cinemas/:id', CinemaController.update);
 router.delete('/cinemas/:id', CinemaController.remove);
 
 // Showtime Router
 router.get('/showtimes', ShowtimeController.getByMovieId);
+router.get('/showtimes/:id', ShowtimeController.getById);
+router.get('/showtimes/:id/seats', ShowtimeController.getSeats);
 router.post('/showtimes', ShowtimeController.create);
 router.put('/showtimes/:id', ShowtimeController.update);
 router.delete('/showtimes/:id', ShowtimeController.remove);

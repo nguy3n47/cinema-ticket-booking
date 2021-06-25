@@ -1,4 +1,4 @@
-import { Cinema, Booking, Ticket, Cineplex, CinemaType } from '../models';
+import { Cinema, Cineplex, CinemaType } from '../models';
 
 const getAll = async (req, res, next) => {
   try {
@@ -34,7 +34,8 @@ const getTypes = async (req, res, next) => {
 
 const create = async (req, res, next) => {
   try {
-    const { name, cineplex_id, cinemaType_id, vertical_size, horizontal_size } = req.body;
+    const { name, cineplex_id, cinemaType_id, vertical_size, horizontal_size } =
+      req.body;
 
     const newCinema = await Cinema.create({
       name,
@@ -99,7 +100,13 @@ const update = async (req, res, next) => {
     const { id } = req.params;
     const cinema = await Cinema.findByPk(id);
     if (cinema) {
-      const { name, cineplex_id, cinemaType_id, vertical_size, horizontal_size } = req.body;
+      const {
+        name,
+        cineplex_id,
+        cinemaType_id,
+        vertical_size,
+        horizontal_size,
+      } = req.body;
 
       const parserData = {
         name,
@@ -134,58 +141,6 @@ const remove = async (req, res, next) => {
   }
 };
 
-const getSeatsByShowtimeId = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const { showtime_id } = req.query;
-
-    const cinema = await Cinema.findByPk(id);
-
-    let array_seat_code = [];
-    const bookings = await Booking.findAll({
-      where: { showtime_id },
-      include: [
-        {
-          model: Ticket,
-          attributes: ['seat_code'],
-        },
-      ],
-    });
-
-    bookings.forEach((booking) => {
-      booking.Tickets.forEach((ticket) => {
-        array_seat_code.push(ticket.seat_code);
-      });
-    });
-
-    if (cinema) {
-      const { vertical_size, horizontal_size } = cinema;
-      let obj = { seats: [] };
-      let chr;
-      let code;
-      let arr = [];
-      for (let i = 0; i < vertical_size; i++) {
-        for (let j = 1; j <= horizontal_size; j++) {
-          chr = String.fromCharCode(65 + i);
-          code = chr + j.toString();
-          if (array_seat_code.includes(code)) {
-            arr.push({ seat: code, isReserved: true });
-          } else {
-            arr.push({ seat: code, isReserved: false });
-          }
-        }
-        obj.seats.push({ key: chr, array: arr });
-        arr = [];
-      }
-      return res.status(200).send(obj);
-    } else {
-      return res.status(400).send({ error: 'Cinema not found' });
-    }
-  } catch (error) {
-    next(error);
-  }
-};
-
 const getTypeByCinemaId = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -210,7 +165,6 @@ export {
   getById,
   update,
   remove,
-  getSeatsByShowtimeId,
   getTypeByCinemaId,
   getTypes,
 };

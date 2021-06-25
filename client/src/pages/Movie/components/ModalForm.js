@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import FormData from './FormData';
 import { useSelector, useDispatch } from 'react-redux';
@@ -27,6 +27,14 @@ function ModalForm(props) {
     );
     setShow(true);
   };
+
+  useEffect(() => {
+    return () => {
+      dispatch({
+        type: 'REMOVE_MOVIE_SHOWTIMES',
+      });
+    };
+  }, [dispatch]);
 
   return (
     <>

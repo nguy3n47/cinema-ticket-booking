@@ -53,8 +53,7 @@ const register = async (req, res) => {
       email,
       password: hashedPassword,
       phone,
-      avatar:
-        'https://i.ibb.co/1sQnjm7/360-F-346839683-6n-APzbhp-Sk-Ipb8pm-Awufk-C7c5e-D7w-Yws.jpg',
+      avatar: 'https://i.imgur.com/vUqWoEE.png',
       birthday,
       address,
       status: USER_STATUS.UNVERIFIED,

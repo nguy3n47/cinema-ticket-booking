@@ -49,7 +49,7 @@ function MovieDetail() {
 
     return () => {
       dispatch({
-        type: 'GET_MOVIE_DETAIL_FAIL',
+        type: 'REMOVE_MOVIE_DETAIL',
       });
     };
   }, [dispatch, slug, history]);
@@ -87,10 +87,10 @@ function MovieDetail() {
               <span className="fw-bold">Thời lượng: </span>
               <span>{movie.running_time} phút</span>
             </div>
-            <div>
+            {/* <div>
               <span className="fw-bold">Ngôn ngữ: </span>
               <span>Tiếng Anh - Phụ đề Tiếng Việt</span>
-            </div>
+            </div> */}
             {movie.state === 'now-showing' ? (
               <div className="mt-3">
                 <ModalForm movie={movie} />

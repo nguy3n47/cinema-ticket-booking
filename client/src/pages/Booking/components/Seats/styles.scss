@@ -1,17 +1,16 @@
 .seat {
   background-color: #ffffff;
   color: black;
-  height: 40px;
+  height: 35px;
   width: 40px;
   margin: 3px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   border: 1px solid #bf2828;
-  padding: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-weight: 800;
+  font-weight: 600;
   font-size: 16px;
 }
 .seat.selected {
@@ -43,4 +42,8 @@
   margin-left: auto;
   margin-right: auto;
   width: 75%;
+}
+
+.row-seat {
+  display: flex;
 }

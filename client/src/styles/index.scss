@@ -80,7 +80,7 @@ code {
   cursor: pointer;
 }
 
-.movie-item:hover h2 {
+.movie-item:hover h3 {
   color: #e61212 !important;
 }
 
@@ -136,6 +136,7 @@ code {
   width: 100px;
   height: 40px;
   cursor: pointer;
+  color: black;
 }
 
 .box-text:hover {
@@ -207,7 +208,7 @@ code {
   justify-content: center;
   align-items: center;
   background-color: #bf2828;
-  border: 2px solid rgb(255, 255, 255);
+  border: 5px solid rgb(255, 255, 255);
   color: white;
   cursor: pointer;
   margin-right: 5px;

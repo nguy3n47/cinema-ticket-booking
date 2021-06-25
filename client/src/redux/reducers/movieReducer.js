@@ -34,6 +34,13 @@ const movieReducer = (state = initialState, action) => {
       };
     }
 
+    case 'REMOVE_MOVIE_DETAIL': {
+      return {
+        ...state,
+        data: {},
+      };
+    }
+
     case 'GET_MOVIE_SHOWTIMES_SUCCESS': {
       return {
         ...state,
@@ -41,6 +48,13 @@ const movieReducer = (state = initialState, action) => {
       };
     }
     case 'GET_MOVIE_SHOWTIMES_FAIL': {
+      return {
+        ...state,
+        showtimes: [],
+      };
+    }
+
+    case 'REMOVE_MOVIE_SHOWTIMES': {
       return {
         ...state,
         showtimes: [],

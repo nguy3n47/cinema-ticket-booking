@@ -23,9 +23,9 @@ function Movie() {
   const MovieList = React.memo(({ data }) => (
     <main className="flex-shrink-0">
       <Container className="w-60">
-        <h1 className="text-center">
+        <h3 className="text-center">
           {state === 'now-showing' ? 'Phim Đang Chiếu' : 'Phim Sắp Chiếu'}
-        </h1>
+        </h3>
         <Row md={4}>
           {data.map((item, i) => {
             const url = '/movies/detail/' + item.slug;
@@ -34,7 +34,7 @@ function Movie() {
                 <Row className="movie-item">
                   <Link className="movie-item-link" to={url}>
                     <Image className="movie-poster" src={item.poster} width={220} height={333} />
-                    <h2 className="fw-bold fs-5 mt-2">{item.title}</h2>
+                    <h3 className="fw-bold fs-5 mt-2">{item.title}</h3>
                   </Link>
                 </Row>
 

@@ -2,8 +2,10 @@ import moment from 'moment';
 import React, { useEffect } from 'react';
 import { Form, Row } from 'react-bootstrap';
 import $ from 'jquery';
+import CryptoJS from 'crypto-js';
 import { useDispatch } from 'react-redux';
 import { getMovieShowtimesAction } from '../../../redux/actions/movieActions';
+import { Link } from 'react-router-dom';
 
 function FormData(props) {
   const { movieId, data } = props;
@@ -69,11 +71,19 @@ function FormData(props) {
               <strong>{item.name}</strong>
               <div className="container text-center">
                 <div className="row row-cols-auto d-flex flex-wrap">
-                  {item.showtimes.map((showtime) => (
-                    <div key={showtime.id} id={showtime.id} className="col box-text">
-                      {moment(showtime.start_time).format('HH:mm A')}
-                    </div>
-                  ))}
+                  {item.showtimes.map((showtime) => {
+                    const hashId = CryptoJS.MD5(showtime.start_time).toString() + showtime.id;
+                    return (
+                      <Link
+                        to={`/booking/tickets/${hashId}`}
+                        key={showtime.id}
+                        className="text-link px-0">
+                        <div id={showtime.id} className="col box-text">
+                          {moment(showtime.start_time).format('HH:mm A')}
+                        </div>
+                      </Link>
+                    );
+                  })}
                 </div>
               </div>
               <hr className="my-3" />
