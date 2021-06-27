@@ -23,29 +23,51 @@ function Seats(props) {
 
   useEffect(() => {
     dispatch(getShowtimeSeatsAction(data.id));
+
+    return () => {
+      dispatch({
+        type: 'REMOVE_SEATS',
+      });
+    };
   }, [dispatch, data]);
 
   return (
-    <div className="mt-3" id="seats-container">
-      <img className="screen mb-4" alt="screen" src="https://i.imgur.com/VDoCPqg.png" />
+    <>
+      <div className="mt-3" id="seats-container">
+        <img className="screen mb-4" alt="screen" src="https://i.imgur.com/VDoCPqg.png" />
 
-      {seats.map((row, i) => {
-        return (
-          <div key={i} className="row-seat justify-content-center">
-            {row.array.map((code, r) => {
-              return (
-                <div
-                  key={r}
-                  className={code.isReserved ? 'seat occupied' : 'seat'}
-                  onClick={onClickSeat}>
-                  {code.isReserved ? 'X' : code.seat}
-                </div>
-              );
-            })}
-          </div>
-        );
-      })}
-    </div>
+        {seats.map((row, i) => {
+          return (
+            <div key={i} className="row-seat justify-content-center">
+              {row.array.map((code, r) => {
+                return (
+                  <div
+                    key={r}
+                    className={code.isReserved ? 'seat occupied' : 'seat'}
+                    onClick={onClickSeat}>
+                    {code.seat}
+                  </div>
+                );
+              })}
+            </div>
+          );
+        })}
+      </div>
+      <div className="d-flex justify-content-center mt-3">
+        <div className="d-flex justify-content-center align-items-center">
+          <div className="seat normal-occupied"></div>
+          <label>Ghế</label>
+        </div>
+        <div className="d-flex justify-content-center align-items-center mx-4">
+          <div className="seat selected-occupied"></div>
+          <label>Đang chọn</label>
+        </div>
+        <div className="d-flex justify-content-center align-items-center">
+          <div className="seat occupied"></div>
+          <label>Không thể chọn</label>
+        </div>
+      </div>
+    </>
   );
 }
 

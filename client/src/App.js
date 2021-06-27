@@ -7,6 +7,7 @@ import HomePage from './pages/Home';
 import MoviePage from './pages/Movie';
 import DetailPage from './pages/Movie/Detail';
 import BookingPage from './pages/Booking';
+import PaymentPage from './pages/Payment';
 import NotFound from './pages/NotFound';
 import LoginPage from './pages/Auth/Login';
 import RegisterPage from './pages/Auth/Register';
@@ -27,6 +28,7 @@ function App() {
           <Route exact from="/movies/:state" component={MoviePage} />
           <Route exact from="/movies/detail/:slug" component={DetailPage} />
           <Route exact from="/booking/tickets/:showtimeId" component={BookingPage} />
+          <Route exact from="/payment" component={PaymentPage} />
           <Route exact from="/login" component={LoginPage} />
           <Route exact from="/register" component={RegisterPage} />
           <Route exact from="/enter-code" component={EnterCode} />

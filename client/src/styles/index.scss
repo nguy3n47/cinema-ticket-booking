@@ -211,7 +211,7 @@ code {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #bf2828;
+  background-color: #e41111;
   border: 5px solid rgb(255, 255, 255);
   color: white;
   cursor: pointer;
@@ -224,4 +224,13 @@ code {
   margin-top: 5px;
   margin-bottom: 5px;
   object-fit: cover;
+}
+
+.form-check-input:checked {
+  background-color: #e41111;
+  border-color: #e41111;
+}
+
+.count_down_clock {
+  border: 2px solid rgb(223, 30, 30);
 }
