@@ -1,12 +1,4 @@
-import {
-  Showtime,
-  Movie,
-  Cinema,
-  Cineplex,
-  CinemaType,
-  Booking,
-  Ticket,
-} from '../models';
+import { Showtime, Movie, Cinema, Cineplex, CinemaType, Booking, Ticket } from '../models';
 import moment from 'moment';
 
 const create = async (req, res, next) => {
@@ -54,10 +46,7 @@ const getById = async (req, res, next) => {
         },
         {
           model: Cinema,
-          include: [
-            { model: Cineplex, attributes: ['id', 'name'] },
-            { model: CinemaType },
-          ],
+          include: [{ model: Cineplex, attributes: ['id', 'name'] }, { model: CinemaType }],
         },
       ],
     });
@@ -67,7 +56,30 @@ const getById = async (req, res, next) => {
     }
 
     if (showtime) {
-      return res.status(200).send(showtime);
+      const cinema = await Cinema.findByPk(showtime.cinema_id);
+
+      let exist_seats = [];
+      const bookings = await Booking.findAll({
+        where: { showtime_id: showtime.id },
+        include: [
+          {
+            model: Ticket,
+            attributes: ['seat_code'],
+          },
+        ],
+      });
+
+      bookings.forEach((booking) => {
+        booking.Tickets.forEach((ticket) => {
+          exist_seats.push(ticket.seat_code);
+        });
+      });
+
+      const { vertical_size, horizontal_size } = cinema;
+      const size = vertical_size * horizontal_size;
+      const reset_seats = exist_seats.length > 0 ? size - exist_seats.length : size;
+
+      return res.status(200).send({ showtime, reset_seats });
     } else {
       return res.status(200).send({ error: 'Showtime not found' });
     }
@@ -90,10 +102,7 @@ const getByMovieId = async (req, res, next) => {
         {
           model: Cinema,
           attributes: ['id', 'name', 'cineplex_id'],
-          include: [
-            { model: Cineplex, attributes: ['id', 'name'] },
-            { model: CinemaType },
-          ],
+          include: [{ model: Cineplex, attributes: ['id', 'name'] }, { model: CinemaType }],
         },
       ],
     });

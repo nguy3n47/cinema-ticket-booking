@@ -37,7 +37,6 @@ function Movie() {
                     <h3 className="fw-bold fs-movie-title mt-2">{item.title}</h3>
                   </Link>
                 </Row>
-
                 <Row className="mt-auto">
                   <div className="px-0">
                     <span className="fw-bold mt-1">Thể loại: </span>

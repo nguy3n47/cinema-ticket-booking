@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useHistory, useLocation, Redirect } from 'react-router-dom';
 import { Container, Row, Image, Col } from 'react-bootstrap';
 import Timer from './components/Timer';
 import moment from 'moment';
@@ -7,23 +7,29 @@ import moment from 'moment';
 function Payment() {
   const history = useHistory();
   const location = useLocation();
-  const { user, showtime, booking } = location.state;
+  const [valueRadio, setValueRadio] = useState('atm');
+
+  if (!location.state) {
+    return <Redirect to="/movies/now-showing" />;
+  }
+
+  const { user = {}, showtime = {}, booking = {} } = location.state;
 
   const onPreviousButtonClick = () => {
     history.goBack();
   };
 
   const onPaymentButtonClick = () => {
-    console.log(user.id);
-    console.log(showtime.id);
-    console.log(booking);
+    // console.log(valueRadio);
+    // console.log(user.id);
+    // console.log(showtime.id);
+    // console.log(booking);
+    history.replace({ pathname: `/payment/${Date.now()}`, state: { user, showtime, booking } });
   };
 
-  useEffect(() => {}, [location]);
-
-  if (!location.state) {
-    history.push('/movies/now-showing');
-  }
+  const onChangeRadioCheckbox = (e) => {
+    setValueRadio(e.target.value);
+  };
 
   return (
     <main className="flex-shrink-0">
@@ -37,10 +43,12 @@ function Payment() {
             <div className="form-check d-flex align-items-center">
               <input
                 className="form-check-input me-2"
-                defaultChecked
                 name="exampleRadios"
                 id="atm-card"
                 type="radio"
+                value="atm"
+                checked={valueRadio === 'atm'}
+                onChange={onChangeRadioCheckbox}
               />
               <label className="form-check-label" htmlFor="atm-card">
                 <div className="d-flex justify-content-center align-items-center">
@@ -59,6 +67,9 @@ function Payment() {
                 name="exampleRadios"
                 id="visa-card"
                 type="radio"
+                value="visa"
+                checked={valueRadio === 'visa'}
+                onChange={onChangeRadioCheckbox}
               />
               <label className="form-check-label" htmlFor="visa-card">
                 <div className="d-flex justify-content-center align-items-center">
@@ -77,6 +88,9 @@ function Payment() {
                 name="exampleRadios"
                 id="momo-wallet"
                 type="radio"
+                value="momo"
+                checked={valueRadio === 'momo'}
+                onChange={onChangeRadioCheckbox}
               />
               <label className="form-check-label" htmlFor="momo-wallet">
                 <div className="d-flex justify-content-center align-items-center">
@@ -95,6 +109,9 @@ function Payment() {
                 name="exampleRadios"
                 id="zalo-pay"
                 type="radio"
+                value="zalo"
+                checked={valueRadio === 'zalo'}
+                onChange={onChangeRadioCheckbox}
               />
               <label className="form-check-label" htmlFor="zalo-pay">
                 <div className="d-flex justify-content-center align-items-center">
@@ -113,6 +130,9 @@ function Payment() {
                 name="exampleRadios"
                 id="viettel-pay"
                 type="radio"
+                value="viettel"
+                checked={valueRadio === 'viettel'}
+                onChange={onChangeRadioCheckbox}
               />
               <label className="form-check-label" htmlFor="viettel-pay">
                 <div className="d-flex justify-content-center align-items-center">

@@ -11,7 +11,7 @@ export const loginAction = (data) => async (dispatch) => {
     if (response.user) {
       dispatch({
         type: 'LOGIN_SUCCESS',
-        payload: response.user,
+        payload: response,
       });
     } else {
       dispatch({

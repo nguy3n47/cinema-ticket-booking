@@ -4,7 +4,7 @@ const initialState = {
   user: JSON.parse(localStorage.getItem('user')),
   email: '',
   password: '',
-  accessToken: '',
+  accessToken: localStorage.getItem('accessToken'),
   isVerified: false,
   isVerifyCodeResetPassword: false,
   isReset: false,
@@ -81,10 +81,12 @@ const authReducer = (state = initialState, action) => {
     }
 
     case 'LOGIN_SUCCESS': {
-      localStorage.setItem('user', JSON.stringify(payload));
+      localStorage.setItem('user', JSON.stringify(payload.user));
+      localStorage.setItem('accessToken', payload.accessToken);
       return {
         ...state,
-        user: payload,
+        user: payload.user,
+        accessToken: payload.accessToken,
         isLogined: true,
       };
     }

@@ -24,10 +24,7 @@ const login = async (req, res) => {
       });
     }
 
-    const token = jwt.sign(
-      { id: admin.id, admin: true },
-      process.env.JWT_SECRET
-    );
+    const token = jwt.sign({ id: admin.id, admin: true }, process.env.JWT_SECRET);
     const { id, fullname, address, status, avatar } = admin;
 
     return res.status(200).send({

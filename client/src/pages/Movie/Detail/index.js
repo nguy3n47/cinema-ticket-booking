@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { useParams } from 'react-router';
 import { Container, Row, Col, Image } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
@@ -37,7 +37,7 @@ function MovieDetail() {
   ));
 
   const ScrollToTopOnMount = () => {
-    useEffect(() => {
+    useLayoutEffect(() => {
       window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     }, []);
 

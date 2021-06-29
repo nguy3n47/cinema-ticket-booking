@@ -12,25 +12,16 @@ import * as StatisticController from '../controllers/statisticController';
 import { resetPasswordValidator, userValidator } from '../validations/auth';
 import verifyUser from '../middlewares/verifyUser';
 import isAdmin from '../middlewares/verifyAdmin';
-import multer from 'multer';
 
 const router = express.Router();
 
 // Auth Router
 router.post('/auth/register', userValidator, AuthController.register);
 router.post('/auth/login', AuthController.login);
-router.post('/auth/uploadImage', verifyUser, AuthController.uploadImage);
 router.post('/auth/verifyEmail', AuthController.verifyEmail);
 router.post('/auth/forgotPassword', AuthController.forgotPassword);
-router.post(
-  '/auth/verifyCodeResetPassword',
-  AuthController.verifyCodeResetPassword
-);
-router.post(
-  '/auth/resetPassword',
-  resetPasswordValidator,
-  AuthController.resetPassword
-);
+router.post('/auth/verifyCodeResetPassword', AuthController.verifyCodeResetPassword);
+router.post('/auth/resetPassword', resetPasswordValidator, AuthController.resetPassword);
 
 // User Router
 router.get('/user/me', verifyUser, UserController.getProfile);
@@ -71,8 +62,9 @@ router.put('/showtimes/:id', ShowtimeController.update);
 router.delete('/showtimes/:id', ShowtimeController.remove);
 
 // Booking Router
-router.get('/bookings', BookingController.getByUserId);
-router.post('/bookings', multer().array(), BookingController.create);
+router.get('/bookings', verifyUser, BookingController.getByUserId);
+router.get('/bookings/:number', verifyUser, BookingController.getByBookingNumber);
+router.post('/bookings', verifyUser, BookingController.create);
 router.delete('/bookings/:id', BookingController.remove);
 
 // Ticket Router

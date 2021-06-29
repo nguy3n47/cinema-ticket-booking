@@ -35,7 +35,6 @@ function Seats(props) {
     <>
       <div className="mt-3" id="seats-container">
         <img className="screen mb-4" alt="screen" src="https://i.imgur.com/VDoCPqg.png" />
-
         {seats.map((row, i) => {
           return (
             <div key={i} className="row-seat justify-content-center">

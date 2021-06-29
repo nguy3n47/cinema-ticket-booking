@@ -6,7 +6,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { getShowtimeDetailAction } from '../../redux/actions/showtimeActions';
 import { getUserSelector } from '../../redux/selectors/authSelector';
-import { getShowtimeDetailSelector } from './../../redux/selectors/showtimeSelector';
+import {
+  getResetSeatsSelector,
+  getShowtimeDetailSelector,
+} from './../../redux/selectors/showtimeSelector';
 import Seats from './components/Seats';
 import { getBookingSelector } from './../../redux/selectors/bookingSelector';
 
@@ -15,9 +18,14 @@ function Booking() {
 
   const user = useSelector(getUserSelector);
   const showtime = useSelector(getShowtimeDetailSelector);
+  const resetSeats = useSelector(getResetSeatsSelector);
   const booking = useSelector(getBookingSelector);
   const dispatch = useDispatch();
   const history = useHistory();
+
+  if (!user) {
+    history.push('/login');
+  }
 
   const onPreviousButton = () => {
     history.goBack();
@@ -43,10 +51,6 @@ function Booking() {
     };
   }, [dispatch, showtimeId, history]);
 
-  if (!user) {
-    history.push('/login');
-  }
-
   return (
     <>
       {_.isEmpty(showtime) ? (
@@ -59,7 +63,7 @@ function Booking() {
             </Row>
             <Row>
               <p className="fw-bold mb-0">
-                {showtime.Cinema.Cineplex.name} | {showtime.Cinema.name} | Số ghế (XXX/
+                {showtime.Cinema.Cineplex.name} | {showtime.Cinema.name} | Số ghế ({resetSeats}/
                 {showtime.Cinema.horizontal_size * showtime.Cinema.vertical_size})
               </p>
               <p className="fw-bold mb-0">

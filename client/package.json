@@ -11,6 +11,7 @@
     "bootstrap-icons": "^1.5.0",
     "crypto-js": "^4.0.0",
     "jquery": "^3.6.0",
+    "js-cookie": "^2.2.1",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "node-sass": "^6.0.0",
