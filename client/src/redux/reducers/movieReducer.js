@@ -20,7 +20,12 @@ const movieReducer = (state = initialState, action) => {
         movies: [],
       };
     }
-
+    case 'REMOVE_MOVIES': {
+      return {
+        ...state,
+        movies: [],
+      };
+    }
     case 'GET_MOVIE_DETAIL_SUCCESS': {
       return {
         ...state,
@@ -33,14 +38,12 @@ const movieReducer = (state = initialState, action) => {
         data: {},
       };
     }
-
     case 'REMOVE_MOVIE_DETAIL': {
       return {
         ...state,
         data: {},
       };
     }
-
     case 'GET_MOVIE_SHOWTIMES_SUCCESS': {
       return {
         ...state,
@@ -53,7 +56,6 @@ const movieReducer = (state = initialState, action) => {
         showtimes: [],
       };
     }
-
     case 'REMOVE_MOVIE_SHOWTIMES': {
       return {
         ...state,

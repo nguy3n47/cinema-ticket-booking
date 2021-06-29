@@ -1,3 +1,5 @@
+import toast from 'react-hot-toast';
+
 const initialState = {
   total: 0,
   seats: [],
@@ -21,7 +23,17 @@ const bookingReducer = (state = initialState, action) => {
         seats: [],
       };
     }
-
+    case 'CREATE_BOOKING_SUCCESS': {
+      return {
+        ...state,
+      };
+    }
+    case 'CREATE_BOOKING_FAIL': {
+      toast.error(payload);
+      return {
+        ...state,
+      };
+    }
     default:
       return state;
   }

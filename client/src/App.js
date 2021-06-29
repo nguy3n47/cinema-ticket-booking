@@ -5,17 +5,18 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import HomePage from './pages/Home';
 import MoviePage from './pages/Movie';
+import CineplexPage from './pages/Cineplex';
 import MovieDetailPage from './pages/Movie/Detail';
 import BookingPage from './pages/Booking';
 import PaymentPage from './pages/Payment';
 import PaymentDetailPage from './pages/Payment/Detail';
-import NotFound from './pages/NotFound';
 import LoginPage from './pages/Auth/Login';
 import RegisterPage from './pages/Auth/Register';
 import EnterCode from './pages/Auth/EnterCode';
 import VerifiedEmail from './pages/Auth/VerifiedEmail';
 import ForgotPassword from './pages/Auth/ForgotPassword';
 import ResetPassword from './pages/Auth/ResetPassword';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Redirect exact from="/movies" to="/movies/now-showing" />
           <Route exact from="/" component={HomePage} />
           <Route exact from="/movies/:state" component={MoviePage} />
+          <Route exact from="/cineplexs" component={CineplexPage} />
           <Route exact from="/movies/detail/:slug" component={MovieDetailPage} />
           <Route exact from="/booking/tickets/:showtimeId" component={BookingPage} />
           <Route exact from="/payment" component={PaymentPage} />

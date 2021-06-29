@@ -88,6 +88,13 @@ const update = async (req, res, next) => {
     const cineplex = await Cineplex.findByPk(id);
     if (cineplex) {
       upload(req, res, async (err) => {
+        const { name, address, googleMapsUrl } = req.body;
+
+        const parserData = {
+          name,
+          address,
+          googleMapsUrl,
+        };
         if (err) return res.send({ error: err.message });
         if (req.file) {
           const blob = firebase.bucket.file(req.file.originalname);
@@ -107,21 +114,15 @@ const update = async (req, res, next) => {
 
             cineplex.image = publicUrl;
             await cineplex.save();
+            await cineplex.update(parserData);
+            return res.status(200).send({ message: 'Updated' });
           });
 
           blobWriter.end(req.file.buffer);
+        } else {
+          await cineplex.update(parserData);
+          return res.status(200).send({ message: 'Updated' });
         }
-
-        const { name, address, googleMapsUrl } = req.body;
-
-        const parserData = {
-          name,
-          address,
-          googleMapsUrl,
-        };
-
-        await cineplex.update(parserData);
-        return res.status(200).send({ message: 'Updated' });
       });
     } else {
       return res.status(400).send({ error: 'Cineplex not found' });

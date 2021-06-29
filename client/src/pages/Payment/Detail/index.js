@@ -6,7 +6,7 @@ import moment from 'moment';
 function PaymentDetail() {
   const location = useLocation();
   const { id } = useParams();
-  const barcode = `https://www.barcodesinc.com/generator/image.php?code=${id}&style=196&type=C128B&width=600&height=80&xres=1&font=100`;
+  const barcode = `https://www.barcodesinc.com/generator/image.php?code=${id}&style=196&type=C128B&width=600&height=80&xres=1&font=16`;
 
   if (!location.state) {
     return <Redirect to="/" />;

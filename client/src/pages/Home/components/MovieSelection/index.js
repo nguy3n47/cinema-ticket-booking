@@ -21,7 +21,7 @@ function MovieSelection() {
 
     return () => {
       dispatch({
-        type: 'GET_MOVIES_FAIL',
+        type: 'REMOVE_MOVIES',
       });
     };
   }, [dispatch]);

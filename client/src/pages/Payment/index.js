@@ -3,9 +3,12 @@ import { useHistory, useLocation, Redirect } from 'react-router-dom';
 import { Container, Row, Image, Col } from 'react-bootstrap';
 import Timer from './components/Timer';
 import moment from 'moment';
+import { useDispatch } from 'react-redux';
+import { createBookingAction } from '../../redux/actions/bookingActions';
 
 function Payment() {
   const history = useHistory();
+  const dispatch = useDispatch();
   const location = useLocation();
   const [valueRadio, setValueRadio] = useState('atm');
 
@@ -20,11 +23,7 @@ function Payment() {
   };
 
   const onPaymentButtonClick = () => {
-    // console.log(valueRadio);
-    // console.log(user.id);
-    // console.log(showtime.id);
-    // console.log(booking);
-    history.replace({ pathname: `/payment/${Date.now()}`, state: { user, showtime, booking } });
+    dispatch(createBookingAction({ user, showtime, booking }, history));
   };
 
   const onChangeRadioCheckbox = (e) => {
@@ -152,7 +151,6 @@ function Payment() {
             </div>
           </Col>
         </Row>
-
         <div className="row mt-3">
           <div className="col-1 previous-button" onClick={onPreviousButtonClick}>
             <svg

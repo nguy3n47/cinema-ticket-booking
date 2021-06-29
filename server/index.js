@@ -96,9 +96,7 @@ app.use('*', (req, res) => {
 
 app.use((err, req, res, next) => {
   if (err.name === 'UnauthorizedError') {
-    return res
-      .status(401)
-      .json({ error: 'Unauthorized', message: err.message });
+    return res.status(401).json({ error: 'Unauthorized', message: err.message });
   }
   if (err.status && err.name) {
     return res.status(err.status).send({
@@ -117,7 +115,7 @@ const port = process.env.PORT || 5000;
 
 app.listen(port, async () => {
   try {
-    await models.sequelize.sync({ alter: true });
+    await models.sequelize.sync();
     console.log('Database connected!');
     console.log(`🚀 Server running at http://${hostname}:${port}`);
   } catch (error) {

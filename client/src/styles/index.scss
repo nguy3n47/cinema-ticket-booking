@@ -15,20 +15,20 @@ code {
 }
 
 .color-primary {
-  background-color: #e61212 !important;
-  border-color: #e61212 !important;
+  background-color: #e71a0f !important;
+  border-color: #e71a0f !important;
 }
 
 .color-outline-primary {
-  color: #e61212 !important;
-  border-color: #e61212 !important;
+  color: #e71a0f !important;
+  border-color: #e71a0f !important;
 }
 
 .color-outline-primary:hover,
 .color-outline-primary:focus {
   color: #fff !important;
-  background-color: #e61212 !important;
-  border-color: #e61212 !important;
+  background-color: #e71a0f !important;
+  border-color: #e71a0f !important;
 }
 
 .dropdown-toggle::after {
@@ -36,7 +36,7 @@ code {
 }
 
 .btn-color-profile {
-  border-color: #e60909 !important;
+  border-color: #e71a0f !important;
 }
 
 .icon-size {
@@ -52,7 +52,7 @@ code {
 }
 
 .color-link-primary {
-  color: #e61212 !important;
+  color: #e71a0f !important;
 }
 
 .color-link {
@@ -60,19 +60,29 @@ code {
 }
 
 .menu-link:hover {
-  color: #e61212 !important;
+  color: #e71a0f !important;
 }
 
 .dropdown-item.active,
 .dropdown-item:active {
-  background-color: #e61212 !important;
+  background-color: #e71a0f !important;
 }
 
 .w-60 {
   width: 60% !important;
 }
 
+.w-70 {
+  width: 70% !important;
+}
+
 .movie-poster {
+  object-fit: cover;
+}
+
+.cineplex-img {
+  height: 100%;
+  width: 100%;
   object-fit: cover;
 }
 
@@ -81,7 +91,7 @@ code {
 }
 
 .movie-item:hover h3 {
-  color: #e61212 !important;
+  color: #e71a0f !important;
 }
 
 .movie-item-link {
@@ -211,7 +221,7 @@ code {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #e41111;
+  background-color: #e71a0f;
   border: 5px solid rgb(255, 255, 255);
   color: white;
   cursor: pointer;
@@ -227,8 +237,8 @@ code {
 }
 
 .form-check-input:checked {
-  background-color: #e41111;
-  border-color: #e41111;
+  background-color: #e71a0f;
+  border-color: #e71a0f;
 }
 
 .count_down_clock {
@@ -236,6 +246,19 @@ code {
 }
 
 .time_clock {
-  color: #e41111;
+  color: #e71a0f;
   font-size: 50px;
+}
+
+.cineplex_text:hover {
+  background-color: #e71a0f;
+  color: rgb(255, 255, 255);
+  padding: 3px;
+  cursor: pointer;
+}
+
+.cineplex_text.selected {
+  background-color: #e71a0f;
+  color: rgb(255, 255, 255);
+  padding: 3px;
 }
