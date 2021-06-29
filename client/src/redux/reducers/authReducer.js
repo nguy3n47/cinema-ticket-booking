@@ -4,7 +4,7 @@ const initialState = {
   user: JSON.parse(localStorage.getItem('user')),
   email: '',
   password: '',
-  accessToken: '',
+  accessToken: localStorage.getItem('accessToken'),
   isVerified: false,
   isVerifyCodeResetPassword: false,
   isReset: false,
@@ -27,7 +27,6 @@ const authReducer = (state = initialState, action) => {
         ...state,
       };
     }
-
     case 'VERIFY_EMAIL_SUCCESS': {
       return {
         ...state,
@@ -40,7 +39,6 @@ const authReducer = (state = initialState, action) => {
         ...state,
       };
     }
-
     case 'VERIFY_CODE_RESET_PASSWORD_SUCCESS': {
       return {
         ...state,
@@ -53,7 +51,6 @@ const authReducer = (state = initialState, action) => {
         ...state,
       };
     }
-
     case 'RESET_PASSWORD_SUCCESS': {
       return {
         ...state,
@@ -66,7 +63,6 @@ const authReducer = (state = initialState, action) => {
         ...state,
       };
     }
-
     case 'FORGOT_PASSWORD_SUCCESS': {
       return {
         ...state,
@@ -79,12 +75,13 @@ const authReducer = (state = initialState, action) => {
         ...state,
       };
     }
-
     case 'LOGIN_SUCCESS': {
-      localStorage.setItem('user', JSON.stringify(payload));
+      localStorage.setItem('user', JSON.stringify(payload.user));
+      localStorage.setItem('accessToken', payload.accessToken);
       return {
         ...state,
-        user: payload,
+        user: payload.user,
+        accessToken: payload.accessToken,
         isLogined: true,
       };
     }
@@ -94,7 +91,6 @@ const authReducer = (state = initialState, action) => {
         ...state,
       };
     }
-
     case 'LOGOUT': {
       localStorage.clear();
       return {

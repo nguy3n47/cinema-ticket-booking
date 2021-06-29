@@ -1,13 +1,4 @@
-import {
-  User,
-  Booking,
-  Ticket,
-  Showtime,
-  Movie,
-  Cinema,
-  Cineplex,
-  CinemaType,
-} from '../models';
+import { User, Booking, Ticket, Showtime, Movie, Cinema, Cineplex, CinemaType } from '../models';
 
 const getAll = async (req, res, next) => {
   try {

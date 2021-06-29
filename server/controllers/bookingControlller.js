@@ -1,11 +1,11 @@
-import { User, Booking, Ticket, Showtime, Movie, Cinema, Cineplex } from '../models';
+import { User, Booking, Ticket, Showtime, Movie, Cinema, CinemaType, Cineplex } from '../models';
 import { v4 as uuidv4 } from 'uuid';
 
 const getByUserId = async (req, res, next) => {
   try {
-    const { user_id } = req.query;
+    const user = req.auth;
     const bookings = await Booking.findAll({
-      where: { user_id },
+      where: { user_id: user.id },
       include: [
         {
           model: User,
@@ -21,7 +21,7 @@ const getByUserId = async (req, res, next) => {
           include: [
             {
               model: Movie,
-              attributes: ['title'],
+              attributes: ['title', 'poster', 'genre', 'running_time'],
             },
             {
               model: Cinema,
@@ -29,6 +29,10 @@ const getByUserId = async (req, res, next) => {
               include: [
                 {
                   model: Cineplex,
+                  attributes: ['name'],
+                },
+                {
+                  model: CinemaType,
                   attributes: ['name'],
                 },
               ],
@@ -49,14 +53,16 @@ const getByUserId = async (req, res, next) => {
 
 const create = async (req, res, next) => {
   try {
-    const { user_id, showtime_id, seats = [] } = req.body;
+    const user = req.auth;
+    const { showtime_id, seats = [] } = req.body;
 
     const showtime = await Showtime.findByPk(parseInt(showtime_id));
     const total = showtime.price * seats.length;
 
     const newBooking = await Booking.create({
       id: uuidv4(),
-      user_id: parseInt(user_id),
+      b_number: Date.now(),
+      user_id: user.id,
       showtime_id: parseInt(showtime_id),
       total,
     });
@@ -70,9 +76,56 @@ const create = async (req, res, next) => {
         });
         await newBooking.addTicket(newTicket);
       });
-      return res.status(200).send({ message: 'Success' });
+      return res.status(200).send({ message: 'Success', b_number: newBooking.b_number });
     } else {
       return res.status(400).send({ message: 'Fail' });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getByBookingNumber = async (req, res, next) => {
+  try {
+    const user = req.auth;
+    const { number } = req.params;
+    const booking = await Booking.findOne({
+      where: { b_number: number, user_id: user.id },
+      include: [
+        {
+          model: Ticket,
+          attributes: ['id', 'seat_code', 'price'],
+        },
+        {
+          model: Showtime,
+          attributes: ['start_time', 'end_time'],
+          include: [
+            {
+              model: Movie,
+              attributes: ['title', 'poster', 'genre', 'running_time'],
+            },
+            {
+              model: Cinema,
+              attributes: ['name'],
+              include: [
+                {
+                  model: Cineplex,
+                  attributes: ['name'],
+                },
+                {
+                  model: CinemaType,
+                  attributes: ['name'],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    });
+    if (booking) {
+      return res.status(200).send(booking);
+    } else {
+      return res.status(400).send({ error: 'Booking not found' });
     }
   } catch (error) {
     next(error);
@@ -94,4 +147,4 @@ const remove = async (req, res, next) => {
   }
 };
 
-export { create, getByUserId, remove };
+export { create, getByUserId, remove, getByBookingNumber };

@@ -6,7 +6,7 @@
   margin: 3px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  border: 1px solid #bf2828;
+  border: 1px solid #e71a0f;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,7 +14,7 @@
   font-size: 16px;
 }
 .seat.selected {
-  background-color: #bf2828;
+  background-color: #e71a0f;
   color: #fff;
 }
 
@@ -22,6 +22,11 @@
   background-color: #797979;
   color: #fff;
   border: 1px solid #797979;
+}
+
+.seat.selected-occupied {
+  background-color: #e71a0f;
+  color: #fff;
 }
 
 .seat:nth-of-type(2) {
@@ -35,6 +40,16 @@
 .seat:not(.occupied):hover {
   cursor: pointer;
   transform: scale(1.1);
+}
+
+.seat.selected-occupied:hover {
+  cursor: default !important;
+  transform: none;
+}
+
+.seat.normal-occupied:hover {
+  cursor: default !important;
+  transform: none;
 }
 
 .screen {

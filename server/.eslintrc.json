@@ -10,7 +10,8 @@
     "sourceType": "module"
   },
   "rules": {
-    "indent": ["error", 2, "tab"],
-    "no-tabs": 0
+    "indent": ["error", 2]
+    // "indent": ["error", 2, "tab"],
+    // "no-tabs": 0
   }
 }

@@ -104,9 +104,12 @@ const getAll = async (req, res, next) => {
     let movies;
     const { state } = req.query;
     if (state) {
-      movies = await Movie.findAll({ where: { state } });
+      movies = await Movie.findAll({
+        where: { state },
+        order: [['release_date', 'DESC']],
+      });
     } else {
-      movies = await Movie.findAll();
+      movies = await Movie.findAll({ order: [['release_date', 'DESC']] });
     }
     return res.status(200).send({
       movies,
@@ -150,30 +153,6 @@ const update = async (req, res, next) => {
     const movie = await Movie.findByPk(id);
     if (movie) {
       upload(req, res, async (err) => {
-        if (err) return res.status(400).send({ error: err.message });
-        if (req.file) {
-          const blob = firebase.bucket.file(req.file.originalname);
-
-          const blobWriter = blob.createWriteStream({
-            metadata: {
-              contentType: req.file.mimetype,
-            },
-          });
-
-          blobWriter.on('error', (err) => next(err));
-
-          blobWriter.on('finish', async () => {
-            const publicUrl = `https://firebasestorage.googleapis.com/v0/b/${
-              firebase.bucket.name
-            }/o/${encodeURI(blob.name)}?alt=media`;
-
-            movie.poster = publicUrl;
-            await movie.save();
-          });
-
-          blobWriter.end(req.file.buffer);
-        }
-
         const {
           title,
           description,
@@ -199,9 +178,34 @@ const update = async (req, res, next) => {
           state,
           active: active === 'true',
         };
+        if (err) return res.status(400).send({ error: err.message });
+        if (req.file) {
+          const blob = firebase.bucket.file(req.file.originalname);
 
-        await movie.update(parserData);
-        return res.status(200).send({ message: 'Updated' });
+          const blobWriter = blob.createWriteStream({
+            metadata: {
+              contentType: req.file.mimetype,
+            },
+          });
+
+          blobWriter.on('error', (err) => next(err));
+
+          blobWriter.on('finish', async () => {
+            const publicUrl = `https://firebasestorage.googleapis.com/v0/b/${
+              firebase.bucket.name
+            }/o/${encodeURI(blob.name)}?alt=media`;
+
+            movie.poster = publicUrl;
+            await movie.save();
+            await movie.update(parserData);
+            return res.status(200).send({ message: 'Updated' });
+          });
+
+          blobWriter.end(req.file.buffer);
+        } else {
+          await movie.update(parserData);
+          return res.status(200).send({ message: 'Updated' });
+        }
       });
     } else {
       return res.status(400).send({ error: 'Movie not found' });
@@ -246,18 +250,14 @@ const getShowtimesByCineplexs = async (req, res, next) => {
                 movie_id: id,
                 start_time: {
                   [Op.between]: [
-                    moment(day).format('DD/MM/YYYY') ===
-                    moment().format('DD/MM/YYYY')
+                    moment(day).format('DD/MM/YYYY') === moment().format('DD/MM/YYYY')
                       ? moment().format()
                       : moment(day).format(),
                     moment(day).add(1, 'day').subtract(1, 'seconds').format(),
                   ],
                 },
               },
-              include: [
-                { model: Movie },
-                { model: Cinema, include: [{ model: CinemaType }] },
-              ],
+              include: [{ model: Movie }, { model: Cinema, include: [{ model: CinemaType }] }],
             },
           ],
         },

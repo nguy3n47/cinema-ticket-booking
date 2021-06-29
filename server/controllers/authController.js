@@ -1,37 +1,10 @@
 require('dotenv').config();
 
-import path from 'path';
-import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import { User } from '../models';
 import { comparePassword, getHashedPassword } from '../utils/password';
-import multer from 'multer';
 import USER_STATUS from '../constants/userStatus';
 import MailService from '../services/mail';
-
-// SET STORAGE
-let storage = multer.diskStorage({
-  destination(req, file, cb) {
-    cb(null, 'public/img/users/');
-  },
-  filename(req, file, cb) {
-    cb(
-      null,
-      crypto.randomBytes(18).toString('hex') + path.extname(file.originalname)
-    );
-  },
-});
-
-let upload = multer().fields([{ name: 'avatar', maxCount: 1 }]);
-
-const uploadImage = (req, res) => {
-  upload(req, res, (err) => {
-    if (err) return res.send({ error: err.message });
-    if (!req.files.avatar) return res.json({ error: 'Missing avatar image.' });
-    req.body.avatar = req.files.avatar;
-    return res.status(200).send(req.body.avatar[0]);
-  });
-};
 
 const register = async (req, res) => {
   const { fullname, email, phone, password, birthday, address } = req.body;
@@ -158,11 +131,7 @@ const forgotPassword = async (req, res) => {
         error: 'Email is not exists',
       });
 
-    await MailService.sendMail(
-      userExists.email,
-      'Forgot Password',
-      'Code: ' + code.toString()
-    );
+    await MailService.sendMail(userExists.email, 'Forgot Password', 'Code: ' + code.toString());
     req.session.codeVerify = code.toString();
     req.session.email = email;
     return res.status(200).send({ message: 'Success' });
@@ -203,7 +172,6 @@ const resetPassword = async (req, res) => {
 export {
   register,
   login,
-  uploadImage,
   verifyEmail,
   logout,
   forgotPassword,

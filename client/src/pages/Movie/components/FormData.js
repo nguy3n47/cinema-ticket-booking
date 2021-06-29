@@ -64,7 +64,6 @@ function FormData(props) {
           </div>
           <hr className="my-3" />
         </Form.Group>
-
         {data.map((item, i) =>
           item.showtimes.length > 0 ? (
             <Form.Group key={i}>

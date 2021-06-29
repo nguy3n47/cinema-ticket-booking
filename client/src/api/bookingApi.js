@@ -1,9 +1,9 @@
 import axiosClient from './axiosClient';
 
 const bookingApi = {
-  create: () => {
+  create: (data, token) => {
     const url = `/bookings`;
-    return axiosClient.post(url);
+    return axiosClient.post(url, data, { headers: { Authorization: 'Bearer ' + token } });
   },
 };
 

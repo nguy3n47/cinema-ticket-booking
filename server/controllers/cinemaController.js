@@ -34,8 +34,7 @@ const getTypes = async (req, res, next) => {
 
 const create = async (req, res, next) => {
   try {
-    const { name, cineplex_id, cinemaType_id, vertical_size, horizontal_size } =
-      req.body;
+    const { name, cineplex_id, cinemaType_id, vertical_size, horizontal_size } = req.body;
 
     const newCinema = await Cinema.create({
       name,
@@ -100,13 +99,7 @@ const update = async (req, res, next) => {
     const { id } = req.params;
     const cinema = await Cinema.findByPk(id);
     if (cinema) {
-      const {
-        name,
-        cineplex_id,
-        cinemaType_id,
-        vertical_size,
-        horizontal_size,
-      } = req.body;
+      const { name, cineplex_id, cinemaType_id, vertical_size, horizontal_size } = req.body;
 
       const parserData = {
         name,
@@ -158,13 +151,4 @@ const getTypeByCinemaId = async (req, res, next) => {
   }
 };
 
-export {
-  getAll,
-  create,
-  getByCineplexId,
-  getById,
-  update,
-  remove,
-  getTypeByCinemaId,
-  getTypes,
-};
+export { getAll, create, getByCineplexId, getById, update, remove, getTypeByCinemaId, getTypes };

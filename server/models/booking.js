@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.UUID,
         primaryKey: true,
       },
+      b_number: DataTypes.STRING,
       user_id: DataTypes.INTEGER,
       showtime_id: DataTypes.INTEGER,
       total: DataTypes.INTEGER,

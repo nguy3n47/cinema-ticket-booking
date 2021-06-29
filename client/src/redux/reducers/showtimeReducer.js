@@ -25,7 +25,6 @@ const showtimeReducer = (state = initialState, action) => {
         data: {},
       };
     }
-
     case 'GET_SEATS_SUCCESS': {
       return {
         ...state,

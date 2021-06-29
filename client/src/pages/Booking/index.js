@@ -6,7 +6,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { getShowtimeDetailAction } from '../../redux/actions/showtimeActions';
 import { getUserSelector } from '../../redux/selectors/authSelector';
-import { getShowtimeDetailSelector } from './../../redux/selectors/showtimeSelector';
+import {
+  getResetSeatsSelector,
+  getShowtimeDetailSelector,
+} from './../../redux/selectors/showtimeSelector';
 import Seats from './components/Seats';
 import { getBookingSelector } from './../../redux/selectors/bookingSelector';
 
@@ -15,17 +18,24 @@ function Booking() {
 
   const user = useSelector(getUserSelector);
   const showtime = useSelector(getShowtimeDetailSelector);
+  const resetSeats = useSelector(getResetSeatsSelector);
   const booking = useSelector(getBookingSelector);
   const dispatch = useDispatch();
   const history = useHistory();
+
+  if (!user) {
+    history.push('/login');
+  }
+
+  const onPreviousButton = () => {
+    history.goBack();
+  };
 
   const onNextButton = () => {
     if (booking.seats.length === 0) {
       return alert('Vui lòng chọn ghế!');
     }
-    console.log(user.id);
-    console.log(showtime.id);
-    console.log(booking);
+    history.push({ pathname: '/payment', state: { user, showtime, booking } });
   };
 
   useEffect(() => {
@@ -41,10 +51,6 @@ function Booking() {
     };
   }, [dispatch, showtimeId, history]);
 
-  if (!user) {
-    history.push('/login');
-  }
-
   return (
     <>
       {_.isEmpty(showtime) ? (
@@ -57,7 +63,7 @@ function Booking() {
             </Row>
             <Row>
               <p className="fw-bold mb-0">
-                {showtime.Cinema.Cineplex.name} | {showtime.Cinema.name} | Số ghế (XXX/
+                {showtime.Cinema.Cineplex.name} | {showtime.Cinema.name} | Số ghế ({resetSeats}/
                 {showtime.Cinema.horizontal_size * showtime.Cinema.vertical_size})
               </p>
               <p className="fw-bold mb-0">
@@ -67,7 +73,7 @@ function Booking() {
             </Row>
             <Seats data={showtime} />
             <div className="row mt-3">
-              <div className="col-1 previous-button">
+              <div className="col-1 previous-button" onClick={onPreviousButton}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="50"
@@ -93,19 +99,19 @@ function Booking() {
               </div>
               <div className="col-4 px-0 ms-5 d-flex justify-content-center">
                 <div>
-                  <p className="fw-bold mb-1">Rạp</p>
-                  <p className="fw-bold mb-1">Suất Chiếu</p>
-                  <p className="fw-bold mb-1">Phòng Chiếu</p>
-                  {booking.seats.length > 0 ? <p className="fw-bold mb-1">Ghế</p> : ''}
+                  <p className="mb-1">Rạp</p>
+                  <p className="mb-1">Suất Chiếu</p>
+                  <p className="mb-1">Phòng Chiếu</p>
+                  {booking.seats.length > 0 ? <p className="mb-1">Ghế</p> : ''}
                 </div>
                 <div className="col">
-                  <p className="mb-1 ms-2">{showtime.Cinema.Cineplex.name}</p>
-                  <p className="mb-1 ms-2">
+                  <p className="fw-bold mb-1 ms-2">{showtime.Cinema.Cineplex.name}</p>
+                  <p className="fw-bold mb-1 ms-2">
                     {moment(showtime.start_time).format('DD/MM/YYYY - HH:mm A')}
                   </p>
-                  <p className="mb-1 ms-2">{showtime.Cinema.name}</p>
+                  <p className="fw-bold mb-1 ms-2">{showtime.Cinema.name}</p>
                   {booking.seats.length > 0 ? (
-                    <p className="mb-1 ms-2">
+                    <p className="fw-bold mb-1 ms-2">
                       {booking.seats.map((seat, i) => {
                         return i === 0 ? seat : ', ' + seat;
                       })}
