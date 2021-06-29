@@ -1,0 +1,1060 @@
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition End User License Agreement
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magento.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_enterprise
+ * @copyright Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @license http://www.magento.com/license/enterprise-edition
+ */
+/* ============================================ *
+ * General Enterprise Styles
+ * ============================================ */
+.global-site-notice div.notice-inner {
+  background-image: url("../images/demo-logo.png");
+}
+
+/* ============================================ *
+ * RMA List
+ * ============================================ */
+@media only screen and (max-width: 599px) {
+  #my-returns-table .ship-from,
+  #my-returns-table .number {
+    display: none;
+  }
+}
+/* ============================================ *
+ * RMA Create
+ * ============================================ */
+#rma_create_form .form-list li {
+  border-bottom: 1px solid #cccccc;
+  font-family: "Raleway", "Helvetica Neue", Verdana, Arial, sans-serif;
+  font-size: f-size-xs;
+}
+#rma_create_form .form-list li:last-child {
+  border-bottom: none;
+}
+#rma_create_form .form-list li h5 {
+  font-weight: 400;
+  text-align: left;
+  padding-left: 15px;
+  text-transform: none;
+}
+#rma_create_form .form-list li h5.rma-email {
+  text-transform: none;
+}
+#rma_create_form .fieldset {
+  margin: 20px 0;
+}
+#rma_create_form .fieldset #registrant_options .field .input-box {
+  margin-bottom: 10px;
+}
+#rma_create_form .buttons-set {
+  border-top: none;
+}
+
+/* ============================================ *
+ * RMA View
+ * ============================================ */
+.rma-view.col-2 {
+  text-align: right;
+}
+.rma-view h3 {
+  font-weight: 600;
+}
+
+body.enterprise-rma-return-view .box-content {
+  font-family: "Raleway", "Helvetica Neue", Verdana, Arial, sans-serif;
+  font-size: f-size-xs;
+  margin-bottom: 20px;
+}
+
+#my-returns-items-table th,
+#my-returns-items-table td {
+  font-size: 13px;
+}
+
+#rma_comment .box-content label {
+  font-family: "Raleway", "Helvetica Neue", Verdana, Arial, sans-serif;
+  font-size: f-size-xs;
+  font-weight: 400;
+}
+#rma_comment .buttons-set {
+  border-top: none;
+}
+#rma_comment .note-list {
+  font-family: "Raleway", "Helvetica Neue", Verdana, Arial, sans-serif;
+  font-size: f-size-xs;
+  font-weight: 400;
+}
+#rma_comment .note-list li {
+  border-bottom: 1px solid #cccccc;
+  padding: 5px 0;
+}
+#rma_comment .note-list li:last-child {
+  border-bottom: none;
+}
+
+@media only screen and (max-width: 480px) {
+  .rma-view.col-2 {
+    text-align: left;
+  }
+  .rma-view.col-1, .rma-view.col-2 {
+    border-bottom: 1px solid #cccccc;
+    margin-bottom: 20px;
+  }
+  .rma-view.col-1 h3, .rma-view.col-2 h3 {
+    margin-bottom: 0;
+  }
+}
+/* ============================================ *
+ * Store credit
+ * ============================================ */
+.storecredit .account-balance {
+  border-bottom: 1px solid #cccccc;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+}
+
+body.customer-account .storecredit .data-table td.last {
+  padding: 10px;
+}
+
+@media only screen and (max-width: 420px) {
+  .storecredit th,
+  .storecredit td {
+    font-size: 12px;
+    padding: 5px;
+  }
+
+  body.customer-account .storecredit .data-table td.last {
+    padding: 5px;
+  }
+}
+/* ============================================ *
+ * Gift Registry
+ * ============================================ */
+.gift-note {
+  width: 99%;
+}
+
+.btn-gift-registry {
+  padding-top: 7px;
+}
+.btn-gift-registry .input-box {
+  margin: 0 0 7px;
+}
+.btn-gift-registry select {
+  width: 100%;
+}
+
+.gr-manage-items {
+  margin-bottom: 15px;
+}
+.gr-manage-items input.qty {
+  min-width: 45px;
+}
+
+#event_date_trig {
+  display: inline;
+}
+
+.gift-registry-edit textarea,
+.gift-registry-edit input {
+  max-width: 100%;
+  width: 365px;
+}
+.gift-registry-edit label[for=type_id] {
+  text-transform: uppercase;
+  margin-bottom: 0px;
+  font-size: 13px;
+}
+.gift-registry-edit .add-row {
+  width: 100%;
+  max-width: 365px;
+}
+.gift-registry-edit .add-row > p {
+  float: right;
+}
+.gift-registry-edit .btn-remove {
+  float: right;
+}
+
+.block-gr-search .form-alt > li {
+  margin-top: 3.5px;
+  margin-bottom: 3.5px;
+}
+.block-gr-search button {
+  margin-top: 7px;
+}
+.block-gr-search .input-box > select {
+  width: 100%;
+}
+
+#gr-please-wait {
+  margin-bottom: 10px;
+  margin-left: 0;
+}
+
+.gift-registry-view .subtitle {
+  margin-top: 30px;
+  font-size: 18px;
+}
+@media only screen and (max-width: 479px) {
+  .gift-registry-view .subtitle {
+    margin-top: 15px;
+  }
+}
+
+.gift-registry-items .btn-update {
+  margin-top: 7px;
+}
+.gift-registry-items textarea {
+  min-width: 80px;
+}
+
+.gr-type-specific-options img.v-middle {
+  display: inline;
+}
+
+#gr_search_form select,
+#gr_search_email_form select,
+#gr_search_id_form select {
+  margin-bottom: 5px;
+}
+#gr_search_form .buttons-set,
+#gr_search_email_form .buttons-set,
+#gr_search_id_form .buttons-set {
+  max-width: 365px;
+}
+#gr_search_form p.required,
+#gr_search_email_form p.required,
+#gr_search_id_form p.required {
+  position: relative;
+  top: -30px;
+}
+
+@media only screen and (max-width: 979px) {
+  .gr-manage-items col.note-col,
+  .gr-manage-items .head-note,
+  .gr-manage-items .left-note,
+  .gr-manage-items col.date-col,
+  .gr-manage-items .head-add-date,
+  .gr-manage-items .add-date {
+    display: none;
+  }
+
+  .head-requested,
+  .head-fulfilled {
+    display: none;
+  }
+
+  .gift-image img {
+    width: 68px;
+  }
+
+  .gift-registry-actions a {
+    float: left;
+    width: 100%;
+    clear: both;
+    margin-bottom: 7px;
+  }
+}
+@media only screen and (max-width: 770px) {
+  .gift-info {
+    width: 55%;
+  }
+
+  .item-options {
+    float: left;
+  }
+
+  .item-options ~ .gift-note {
+    float: left;
+    width: 35%;
+    height: 10em;
+    margin: 10px 0 0 5%;
+  }
+
+  .gift-registry-items {
+    font-size: 12px;
+  }
+  .gift-registry-items td, .gift-registry-items th {
+    padding: 7px 3.5px;
+  }
+
+  .gr-manage-items {
+    font-size: 12px;
+  }
+
+  .gift-image,
+  col.img-col {
+    display: none;
+  }
+}
+@media only screen and (max-width: 599px) {
+  .gift-registry-actions a {
+    font-size: 11px !important;
+    white-space: normal !important;
+  }
+
+  .item-options ~ .gift-note {
+    width: 99% !important;
+  }
+
+  .item-options {
+    float: none;
+  }
+
+  .item-options ~ .gift-note {
+    float: none;
+    height: 10em;
+    margin: 10px 0 0 5%;
+  }
+
+  .gr-manage-items {
+    font-size: 11px;
+  }
+  .gr-manage-items input,
+  .gr-manage-items dt,
+  .gr-manage-items dl,
+  .gr-manage-items a {
+    font-size: inherit;
+  }
+
+  #giftregistry-search-results .location,
+  #giftregistry-search-results .event-type {
+    display: none;
+  }
+}
+@media only screen and (max-width: 479px) {
+  .gr-manage-items .gift-secondary,
+  .gift-registry-items .gift-secondary {
+    display: none;
+  }
+
+  #event_date_trig {
+    display: inline;
+    float: right;
+    margin-top: 7px;
+  }
+
+  .giftregistry-search-results {
+    font-size: 11px;
+  }
+  .giftregistry-search-results td,
+  .giftregistry-search-results th {
+    padding: 7px 3.5px;
+    vertical-align: top;
+  }
+
+  .gr-manage-items td,
+  .gr-manage-items th,
+  .gift-registry-items td,
+  .gift-registry-items th {
+    padding: 7px 3.5px;
+    vertical-align: top;
+  }
+
+  .giftregistry-table td,
+  .giftregistry-table th {
+    font-size: 11px;
+  }
+
+  #gr_search_form p.required,
+  #gr_search_email_form p.required,
+  #gr_search_id_form p.required {
+    padding-bottom: 15px;
+    position: static;
+  }
+}
+/* ============================================ *
+ * Reward
+ * ============================================ */
+.rewards {
+  margin-bottom: 30px;
+}
+
+.reward-message {
+  background-color: #3399cc;
+  display: block;
+  margin: 5px 0;
+  padding: 3px 10px;
+  color: #e6e6e6;
+  font-family: "Raleway", "Helvetica Neue", Verdana, Arial, sans-serif;
+}
+.reward-message.reward-checkout {
+  margin-bottom: 10px;
+}
+.reward-message p {
+  display: inline;
+  font-size: 13px;
+}
+.reward-message p.limit {
+  display: block;
+  font-size: 12px;
+  font-style: italic;
+}
+.reward-message a {
+  color: #e6e6e6;
+  text-decoration: underline;
+}
+
+.my-rewards h2 {
+  position: relative;
+  line-height: 1.7;
+}
+.my-rewards h2 .separator {
+  display: none;
+}
+.my-rewards h2 a {
+  white-space: nowrap;
+  float: right;
+  margin: 0 0 5px 10px;
+}
+.my-rewards .box {
+  margin-bottom: 20px;
+}
+.my-rewards .box.info-box {
+  border-bottom: 1px solid #ededed;
+  padding-bottom: 10px;
+}
+.my-rewards .box.info-box dt {
+  font-weight: bold;
+  margin-bottom: 0;
+  margin-top: 10px;
+  text-transform: none;
+}
+@media only screen and (max-width: 979px) {
+  .my-rewards #reward-history small.nobr {
+    white-space: normal;
+  }
+}
+@media only screen and (max-width: 599px) {
+  .my-rewards #reward-history small {
+    display: none;
+  }
+  .my-rewards #reward-history th.balance,
+  .my-rewards #reward-history td.balance,
+  .my-rewards #reward-history th.date,
+  .my-rewards #reward-history td.date {
+    display: none;
+  }
+}
+
+/* ============================================ *
+ * Gift Message Styles
+ * ============================================ */
+.gift-message-form .inner-box > div {
+  clear: both;
+  width: 100%;
+}
+
+#allow-gift-options-for-items-container,
+#allow-gift-messages-for-order-container,
+#allow-gift-options-for-order-container {
+  width: 100%;
+  float: left;
+  display: block;
+}
+
+.gift-message-form .gift-item .fieldset {
+  float: left;
+  width: 100%;
+  margin-left: 0px !important;
+}
+
+.gift-message-form .inner-box > div {
+  clear: both;
+  width: 100%;
+}
+
+.gift-wrapping-form .select {
+  max-width: 300px;
+}
+
+.gift-item .product-img-box > * {
+  float: left;
+  clear: both;
+  margin-top: 5px;
+}
+
+@media only screen and (max-width: 768px) {
+  .gift-message-form .gift-item .product-img-box {
+    float: left;
+    width: 140px;
+  }
+}
+/* ============================================ *
+ * Enterprise Wishlist Styles
+ * ============================================ */
+/* Customer Account Styles */
+#wishlist_edit_action_container {
+  left: 0;
+  position: fixed;
+  top: 50px;
+  width: 100%;
+  z-index: 99999;
+}
+#wishlist_edit_action_container .popup-block {
+  background: #F4F4F4;
+  border: 1px solid #CCCCCC;
+  display: block;
+  margin: 0 auto;
+  padding: 2% 20px;
+  width: 100%;
+  max-width: 500px;
+  min-width: 320px;
+}
+#wishlist_edit_action_container .popup-block .block-title {
+  padding-top: 0;
+  border-top: 0;
+}
+#wishlist_edit_action_container .popup-block .block-title .btn-close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+}
+
+.wishlist-actions-container {
+  content: '';
+  display: table;
+  clear: both;
+  width: 100%;
+  margin-bottom: 10px;
+}
+.wishlist-actions-container .sub-title {
+  float: left;
+}
+.wishlist-actions-container .sub-title .item-count {
+  text-transform: none;
+  margin-left: 10px;
+}
+.wishlist-actions-container .sub-title .wishlist-edit {
+  margin-left: 10px;
+  font-size: 15px;
+}
+.wishlist-actions-container .btn-create {
+  float: right;
+}
+
+.wishlist-management .table-caption {
+  content: '';
+  display: table;
+  clear: both;
+  width: 100%;
+  border-bottom: 1px solid #cccccc;
+  font-size: 16px;
+}
+.wishlist-management .table-caption .sub-title {
+  float: left;
+  padding-bottom: 5px;
+}
+.wishlist-management .table-caption .sub-title:after {
+  content: ':';
+}
+.wishlist-management .table-caption #wishlists-select,
+.wishlist-management .table-caption #wishlists-move,
+.wishlist-management .table-caption #wishlists-copy {
+  float: left;
+  margin-left: 10px;
+  position: relative;
+  padding-bottom: 5px;
+}
+.wishlist-management .table-caption #wishlists-select .split-button-title,
+.wishlist-management .table-caption #wishlists-move .split-button-title,
+.wishlist-management .table-caption #wishlists-copy .split-button-title {
+  display: inline;
+}
+.wishlist-management .table-caption #wishlists-select .change,
+.wishlist-management .table-caption #wishlists-move .change,
+.wishlist-management .table-caption #wishlists-copy .change {
+  margin-left: 10px;
+  font-size: 15px;
+}
+.wishlist-management .table-caption #wishlists-select .list-container,
+.wishlist-management .table-caption #wishlists-move .list-container,
+.wishlist-management .table-caption #wishlists-copy .list-container {
+  width: auto;
+  left: auto;
+  right: 0;
+}
+.wishlist-management .table-caption #wishlists-select .list-container li,
+.wishlist-management .table-caption #wishlists-move .list-container li,
+.wishlist-management .table-caption #wishlists-copy .list-container li {
+  padding: 2px 10px;
+}
+.wishlist-management .table-caption #wishlists-select .list-container li a,
+.wishlist-management .table-caption #wishlists-select .list-container li span,
+.wishlist-management .table-caption #wishlists-move .list-container li a,
+.wishlist-management .table-caption #wishlists-move .list-container li span,
+.wishlist-management .table-caption #wishlists-copy .list-container li a,
+.wishlist-management .table-caption #wishlists-copy .list-container li span {
+  font-size: 15px;
+  padding: 0;
+}
+.wishlist-management .table-caption #wishlists-select .list-container li:last-child,
+.wishlist-management .table-caption #wishlists-move .list-container li:last-child,
+.wishlist-management .table-caption #wishlists-copy .list-container li:last-child {
+  border-bottom: 0;
+}
+.wishlist-management .table-caption #wishlists-move,
+.wishlist-management .table-caption #wishlists-copy {
+  float: right;
+}
+.wishlist-management .table-caption #wishlists-move .split-button-title,
+.wishlist-management .table-caption #wishlists-copy .split-button-title {
+  display: none;
+}
+.wishlist-management + .fieldset .buttons-set button {
+  margin-bottom: 10px;
+}
+
+.fieldset .wishlist-empty {
+  margin-bottom: 30px;
+}
+
+#wishlist-table .item-manage .split-button {
+  float: right;
+  margin-left: 20px;
+  margin-bottom: 3px;
+}
+#wishlist-table .item-manage .split-button .change:after {
+  top: 5px;
+}
+#wishlist-table .item-manage .split-button .list-container {
+  left: auto;
+  right: 0;
+  width: auto;
+}
+#wishlist-table .item-manage .split-button .list-container li span {
+  padding: 0 10px;
+}
+#wishlist-table .item-manage .split-button ~ .btn-update {
+  clear: right;
+  float: right;
+  margin-top: 10px;
+}
+
+@media only screen and (max-width: 479px) {
+  body.customer-account .my-account .my-wishlist .fieldset {
+    margin-top: 10px;
+  }
+
+  #wishlist-table .item-manage .split-button {
+    float: left;
+    margin-right: 20px;
+    margin-left: 0;
+    margin-top: 15px;
+  }
+  #wishlist-table .item-manage .split-button .list-container {
+    left: 0;
+    right: auto;
+  }
+  #wishlist-table .item-manage .split-button ~ .btn-update {
+    clear: left;
+    float: left;
+  }
+  #wishlist-table thead {
+    display: none;
+  }
+
+  .customer-wishlist-item-info .item-manage {
+    content: '';
+    display: table;
+    clear: both;
+    width: 100%;
+  }
+}
+.wishlist-search-view h2.subtitle {
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
+.wishlist-search-view .info-table .nobr {
+  margin-right: 30px;
+}
+.wishlist-search-view #wishlist-table.clean-table td {
+  max-width: 100%;
+}
+.wishlist-search-view #wishlist-table.clean-table td p.qty {
+  text-align: center;
+  width: 100%;
+}
+.wishlist-search-view #wishlist-table.clean-table td .price-box {
+  margin: 0;
+}
+.wishlist-search-view #wishlist-table.clean-table th {
+  padding-left: 2px;
+  padding-right: 2px;
+}
+.wishlist-search-view .truncated .truncated_full_value .item-options {
+  left: -40px;
+}
+
+@media only screen and (max-width: 770px) {
+  .wishlist-search-view #wishlist-table.clean-table td {
+    max-width: 100px;
+    word-wrap: break-word;
+  }
+}
+@media only screen and (max-width: 599px) {
+  .wishlist-search-view #wishlist-table.clean-table td {
+    padding: 6px 10px;
+  }
+  .wishlist-search-view #wishlist-table.clean-table td p.qty {
+    text-align: left;
+  }
+  .wishlist-search-view #wishlist-table.clean-table td .price-box {
+    margin: 0;
+    float: left;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  .wishlist-search-view .customer-wishlist-item-comment {
+    width: 100%;
+    clear: both;
+  }
+}
+@media only screen and (max-width: 479px) {
+  .wishlist-search-view #wishlist-table.clean-table td {
+    max-width: 100%;
+  }
+}
+/* Store Front Styles */
+.split-button {
+  position: relative;
+}
+.split-button .split-button-title {
+  display: none;
+}
+.split-button .change {
+  padding-right: 13px;
+  min-height: 25px;
+  position: relative;
+}
+.split-button .change:after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  display: block;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  border-top: 4px solid #3399cc;
+  border-bottom: none;
+  content: '';
+  right: 0;
+  top: 8px;
+}
+.split-button .change.active:after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  display: block;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  border-bottom: 4px solid #3399cc;
+  border-top: none;
+}
+.split-button .list-container {
+  display: none;
+  width: 120%;
+  max-width: 320px;
+  min-width: 175px;
+  position: absolute;
+  left: -10%;
+  top: 100%;
+  background: #FBFBFB;
+  border: 1px solid #cccccc;
+  text-align: center;
+  z-index: 99999999;
+}
+.split-button .list-container li {
+  border-bottom: 1px solid #ededed;
+}
+.split-button .list-container li span,
+.split-button .list-container li a {
+  color: #3399cc;
+  font-family: "Raleway", "Helvetica Neue", Verdana, Arial, sans-serif;
+  position: relative;
+  font-size: 14px;
+  cursor: pointer;
+  display: block;
+  padding: 5px 10px;
+  white-space: normal;
+  text-transform: none;
+}
+.split-button .list-container li span:hover,
+.split-button .list-container li a:hover {
+  color: #246b8f;
+}
+.split-button .list-container li.new {
+  background-color: #ededed;
+}
+.split-button .list-container li.new span:before,
+.split-button .list-container li.new a:before {
+  content: '+ ';
+}
+.split-button.active .list-container {
+  display: block;
+}
+
+.products-grid .split-button .list-container {
+  width: 115%;
+}
+.products-grid .split-button .list-container li span,
+.products-grid .split-button .list-container li a {
+  font-size: 12px;
+}
+
+.products-list .split-button .list-container {
+  width: auto;
+}
+
+.product-view .split-button .change {
+  padding-right: 20px;
+}
+.product-view .split-button .change:after {
+  right: 7px;
+}
+.product-view .split-button .list-container {
+  width: auto;
+}
+.product-view .split-button .list-container li {
+  float: none;
+  margin-bottom: 0;
+}
+
+@media only screen and (min-width: 601px) {
+  .products-list .split-button .list-container {
+    left: auto;
+    right: -10%;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .products-list .split-button .list-container {
+    left: -10%;
+    right: auto;
+  }
+}
+@media only screen and (max-width: 599px) {
+  .cart-table .split-button .list-container {
+    width: auto;
+    top: auto;
+    bottom: 0;
+    left: 100%;
+  }
+}
+/* ============================================ *
+ * Customer Order by SKU
+ * ============================================ */
+.widget-addbysku td.last .input-box {
+  float: left;
+}
+
+.widget-addbysku .btn-remove {
+  cursor: pointer;
+  float: left;
+  margin-top: 7px;
+  margin-left: 5px;
+}
+
+.widget-addbysku .add-row {
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 480px) {
+  .widget-addbysku input[type="text"] {
+    float: left;
+    width: 100%;
+  }
+
+  .widget-addbysku .input-text.qty {
+    width: 50px;
+  }
+}
+/* ============================================ *
+ * Gift Message Styles
+ * ============================================ */
+.gift-message-form .inner-box > div {
+  clear: both;
+  width: 100%;
+}
+
+#allow-gift-options-for-items-container,
+#allow-gift-messages-for-order-container,
+#allow-gift-options-for-order-container {
+  width: 100%;
+  float: left;
+  display: block;
+}
+
+.gift-message-form .gift-item .fieldset {
+  float: left;
+  width: 100%;
+  margin-left: 0px !important;
+}
+
+.gift-message-form .inner-box > div {
+  clear: both;
+  width: 100%;
+}
+
+.gift-wrapping-form .select {
+  max-width: 300px;
+}
+
+.gift-item .product-img-box > * {
+  float: left;
+  clear: both;
+  margin-top: 5px;
+}
+
+@media only screen and (max-width: 768px) {
+  .gift-message-form .gift-item .product-img-box {
+    float: left;
+    width: 140px;
+  }
+}
+/* ============================================ *
+ * Catalog Event
+ * ============================================ */
+.event-container {
+  clear: both;
+  border: 1px solid #3399cc;
+  background: #eaf8ff;
+  position: relative;
+  z-index: 2;
+  border-width: 1px 1px;
+  min-height: 59px;
+  margin: 7px 0px 20px;
+}
+.event-container:after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  display: block;
+  border-right: 10px solid transparent;
+  border-left: 10px solid transparent;
+  border-top: 10px solid #3399cc;
+  border-bottom: none;
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  margin-left: -10px;
+}
+.event-container .event {
+  padding: 15px 10px 28px;
+  margin-bottom: -18px;
+  min-height: 52px;
+  line-height: 30px;
+  text-align: center;
+  width: auto;
+  position: relative;
+  z-index: 2;
+  border-bottom: 0 !important;
+}
+.event-container .event .event-ticker {
+  display: inline;
+  font-size: 28px;
+  height: auto;
+}
+.event-container .event .event-ticker span {
+  line-height: 50px;
+  height: 50px;
+  padding: 0;
+}
+.event-container .container {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+.event-container .status {
+  display: inline;
+  margin: 0 3px 0 0;
+  background: none;
+  font-size: 22px;
+}
+.event-container .event-dates {
+  display: inline;
+  font-size: 22px;
+  height: auto;
+}
+.event-container .event-dates div,
+.event-container .event-dates p {
+  display: inline;
+}
+.event-container .event-dates .time-part {
+  font-size: 14px;
+}
+
+.events-panel {
+  border-top: 1px solid #cccccc;
+  float: left;
+  width: 100%;
+  margin-top: 10px;
+}
+.events-panel .event-item {
+  float: left;
+  width: 100%;
+  margin: 10px 0;
+}
+.events-panel .event-item .status {
+  font-size: 18px;
+}
+.events-panel .event-item .event-dates, .events-panel .event-item .event-button, .events-panel .event-item .event-ticker {
+  margin-bottom: 10px;
+}
+.events-panel .event-item .category-show {
+  border: 1px solid #cccccc;
+  float: left;
+  width: 100%;
+}
+.events-panel .event-item .category-show img {
+  width: 100%;
+}
+
+@media only screen and (max-width: 770px) {
+  .event-container {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+/* Category Event Module - Upcoming */
+.container-upcoming {
+  background: #f4f4f4;
+  border-color: #cccccc;
+}
+
+.container-upcoming:after {
+  border-top-color: #cccccc;
+}
+
+/* Category Event Module - Closed */
+.container-closed {
+  background: #aaaaaa;
+  border-color: #777777;
+}
+
+.container-closed:after {
+  border-top-color: #777777;
+}
