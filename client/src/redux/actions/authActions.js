@@ -28,6 +28,31 @@ export const loginAction = (data) => async (dispatch) => {
   }
 };
 
+export const updateProfileAction = (data) => async (dispatch, getState) => {
+  try {
+    let { accessToken } = getState().auth;
+    await authApi.updateInfo(data, accessToken);
+    const response = await authApi.getInfo(accessToken);
+    if (!response.error) {
+      dispatch({
+        type: 'UPDATE_PROFILE_SUCCESS',
+        payload: response,
+      });
+    } else {
+      dispatch({
+        type: 'UPDATE_PROFILE_FAIL',
+        payload: response.error,
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: 'UPDATE_PROFILE_FAIL',
+      payload:
+        error.response && error.response.data.message ? error.response.data.message : error.message,
+    });
+  }
+};
+
 export const registerAction = (data) => async (dispatch) => {
   try {
     const response = await authApi.register(data);

@@ -36,14 +36,14 @@ function Header() {
         </a>
         <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
           <li>
-            <a href="/" className="nav-link px-4 link-dark fw-bold menu-link">
+            <Link to="/" className="nav-link px-4 link-dark fw-bold menu-link">
               Trang chủ
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="/cineplexs" className="nav-link px-4 link-dark fw-bold menu-link">
+            <Link to="/cineplexs" className="nav-link px-4 link-dark fw-bold menu-link">
               Rạp
-            </a>
+            </Link>
           </li>
           <li>
             <a
@@ -66,9 +66,9 @@ function Header() {
             </ul>
           </li>
           <li>
-            <a href="/showtimes" className="nav-link px-4 link-dark fw-bold menu-link">
+            <Link to="/showtimes" className="nav-link px-4 link-dark fw-bold menu-link">
               Lịch chiếu
-            </a>
+            </Link>
           </li>
         </ul>
         <div className="col-md-3 text-end">
@@ -98,24 +98,29 @@ function Header() {
                 <div>
                   <img
                     src={user.avatar}
-                    alt="mdo"
+                    alt="avatar"
                     width={36}
                     height={36}
-                    className="rounded-circle"
+                    className="rounded-circle img-cover"
                   />
                   <span className="text-center ms-1 mx-auto">{user.fullname}</span>
                 </div>
               </button>
               <ul className="dropdown-menu" aria-labelledby="dropdownMenuProfile">
                 <li>
-                  <a className="dropdown-item" href="/profile">
+                  <Link className="dropdown-item" to="/profile">
                     Thông tin cá nhân
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="/history">
+                  <Link className="dropdown-item" to="/history">
                     Lịch sử đặt vé
-                  </a>
+                  </Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item" to="/change-password">
+                    Đổi mật khẩu
+                  </Link>
                 </li>
                 <li>
                   <a className="dropdown-item" onClick={onLogout} href="/logout">

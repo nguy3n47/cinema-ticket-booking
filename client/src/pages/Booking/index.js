@@ -3,7 +3,7 @@ import moment from 'moment';
 import React, { useEffect } from 'react';
 import { Container, Image, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, Redirect } from 'react-router-dom';
 import { getShowtimeDetailAction } from '../../redux/actions/showtimeActions';
 import { getUserSelector } from '../../redux/selectors/authSelector';
 import {
@@ -22,10 +22,6 @@ function Booking() {
   const booking = useSelector(getBookingSelector);
   const dispatch = useDispatch();
   const history = useHistory();
-
-  if (!user) {
-    history.push('/login');
-  }
 
   const onPreviousButton = () => {
     history.goBack();
@@ -50,6 +46,10 @@ function Booking() {
       });
     };
   }, [dispatch, showtimeId, history]);
+
+  if (!user) {
+    return <Redirect to="/login" />;
+  }
 
   return (
     <>

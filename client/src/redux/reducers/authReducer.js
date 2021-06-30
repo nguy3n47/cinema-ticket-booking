@@ -91,6 +91,20 @@ const authReducer = (state = initialState, action) => {
         ...state,
       };
     }
+    case 'UPDATE_PROFILE_SUCCESS': {
+      toast.success('Cập nhật thành công!');
+      localStorage.setItem('user', JSON.stringify(payload.user));
+      return {
+        ...state,
+        user: payload.user,
+      };
+    }
+    case 'UPDATE_PROFILE_FAIL': {
+      toast.error('Cập nhật thất bại!');
+      return {
+        ...state,
+      };
+    }
     case 'LOGOUT': {
       localStorage.clear();
       return {

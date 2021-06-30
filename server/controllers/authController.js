@@ -102,11 +102,11 @@ const login = async (req, res) => {
       });
     }
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
-    const { id, fullname, address, status, avatar } = user;
+    const { id, fullname, address, avatar, phone, birthday } = user;
 
     return res.status(200).send({
       accessToken: token,
-      user: { id, email, fullname, address, status, avatar },
+      user: { id, email, phone, birthday, fullname, address, avatar },
     });
   } catch (error) {
     return res.status(400).send({

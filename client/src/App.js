@@ -9,6 +9,7 @@ import CineplexPage from './pages/Cineplex';
 import MovieDetailPage from './pages/Movie/Detail';
 import BookingPage from './pages/Booking';
 import PaymentPage from './pages/Payment';
+import ProfilePage from './pages/Profile';
 import PaymentDetailPage from './pages/Payment/Detail';
 import LoginPage from './pages/Auth/Login';
 import RegisterPage from './pages/Auth/Register';
@@ -16,6 +17,7 @@ import EnterCode from './pages/Auth/EnterCode';
 import VerifiedEmail from './pages/Auth/VerifiedEmail';
 import ForgotPassword from './pages/Auth/ForgotPassword';
 import ResetPassword from './pages/Auth/ResetPassword';
+import ChangePassword from './pages/Auth/ChangePassword';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -33,12 +35,14 @@ function App() {
           <Route exact from="/booking/tickets/:showtimeId" component={BookingPage} />
           <Route exact from="/payment" component={PaymentPage} />
           <Route exact from="/payment/:id" component={PaymentDetailPage} />
+          <Route exact from="/profile" component={ProfilePage} />
           <Route exact from="/login" component={LoginPage} />
           <Route exact from="/register" component={RegisterPage} />
           <Route exact from="/enter-code" component={EnterCode} />
           <Route exact from="/verified-email" component={VerifiedEmail} />
           <Route exact from="/forgot-password" component={ForgotPassword} />
           <Route exact from="/reset-password" component={ResetPassword} />
+          <Route exact from="/change-password" component={ChangePassword} />
           <Route component={NotFound} />
         </Switch>
         <Footer />

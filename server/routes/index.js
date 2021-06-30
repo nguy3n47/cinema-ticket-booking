@@ -24,7 +24,8 @@ router.post('/auth/verifyCodeResetPassword', AuthController.verifyCodeResetPassw
 router.post('/auth/resetPassword', resetPasswordValidator, AuthController.resetPassword);
 
 // User Router
-router.get('/user/me', verifyUser, UserController.getProfile);
+router.get('/user/profile', verifyUser, UserController.getProfile);
+router.put('/user/profile', verifyUser, UserController.updateProfile);
 
 // Movie Router
 router.get('/movies', MovieController.getAll);

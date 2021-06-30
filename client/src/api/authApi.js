@@ -31,9 +31,19 @@ const authApi = {
     return axiosClient.post(url, data);
   },
 
+  changePassword: (data) => {
+    const url = '/auth/changePassword';
+    return axiosClient.post(url, data);
+  },
+
   getInfo: (token) => {
-    const url = '/user/me';
+    const url = '/user/profile';
     return axiosClient.get(url, { headers: { Authorization: 'Bearer ' + token } });
+  },
+
+  updateInfo: (formData, token) => {
+    const url = '/user/profile';
+    return axiosClient.put(url, formData, { headers: { Authorization: 'Bearer ' + token } });
   },
 };
 

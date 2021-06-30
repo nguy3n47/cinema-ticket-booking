@@ -86,6 +86,10 @@ code {
   object-fit: cover;
 }
 
+.img-cover {
+  object-fit: cover;
+}
+
 .movie-item:hover {
   cursor: pointer;
 }
@@ -261,4 +265,15 @@ code {
   background-color: #e71a0f;
   color: rgb(255, 255, 255);
   padding: 3px;
+}
+
+.form-group.required.control-label:after {
+  content: "*";
+  color: red;
+  margin-left: 2px;
+}
+
+.form-padding {
+  padding-left: 12rem;
+  padding-right: 12rem;
 }
