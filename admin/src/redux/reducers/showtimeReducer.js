@@ -20,7 +20,12 @@ const showtimeReducer = (state = initialState, action) => {
         showtimes: [],
       };
     }
-
+    case 'REMOVE_ALL_SHOWTIMES': {
+      return {
+        ...state,
+        showtimes: [],
+      };
+    }
     case 'CREATE_SHOWTIME_SUCCESS': {
       toast.success('Successfully Add New Showtime');
       return {
@@ -33,7 +38,6 @@ const showtimeReducer = (state = initialState, action) => {
         ...state,
       };
     }
-
     case 'UPDATE_SHOWTIME_SUCCESS': {
       toast.success('Successfully Update Showtime');
       return {
@@ -46,7 +50,6 @@ const showtimeReducer = (state = initialState, action) => {
         ...state,
       };
     }
-
     case 'DELETE_SHOWTIME_SUCCESS': {
       toast.success('Successfully Delete Showtime');
       const { showtimeId } = payload;

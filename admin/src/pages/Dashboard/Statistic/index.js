@@ -89,12 +89,17 @@ function Statistic() {
       </Row>
       <Row>
         <Col>
-          <h3 className="text-center mt-3">Movies</h3>
-          <Row>
+          <Row className="mt-3">
+            <Col></Col>
+            <Col></Col>
+            <Col>
+              <h3 className="text-center">Movies</h3>
+            </Col>
+            <Col></Col>
             <Col>
               <Form.Group>
                 <DatePicker
-                  className="form-control"
+                  className="form-control text-center"
                   selected={startDateMovies}
                   startDate={startDateMovies}
                   endDate={endDateMovies}
@@ -106,18 +111,23 @@ function Statistic() {
                 />
               </Form.Group>
             </Col>
-            <Col></Col>
           </Row>
           <Bar data={dataMovies} options={options} />
         </Col>
+      </Row>
+      <Row>
         <Col>
-          <h3 className="text-center mt-3">Cineplexs</h3>
-          <Row>
+          <Row className="mt-5">
+            <Col></Col>
+            <Col></Col>
+            <Col>
+              <h3 className="text-center">Cineplexs</h3>
+            </Col>
             <Col></Col>
             <Col>
               <Form.Group>
                 <DatePicker
-                  className="form-control"
+                  className="form-control text-center"
                   selected={startDateCineplexs}
                   startDate={startDateCineplexs}
                   endDate={endDateCineplexs}
@@ -130,7 +140,7 @@ function Statistic() {
               </Form.Group>
             </Col>
           </Row>
-          <Bar data={dataCineplexs} options={options} />
+          <Bar className="mb-5" data={dataCineplexs} options={options} />
         </Col>
       </Row>
     </div>

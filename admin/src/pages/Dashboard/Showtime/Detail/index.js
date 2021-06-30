@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { Col, Form, Image, Row } from 'react-bootstrap';
 import { Redirect } from 'react-router';
 import moment from 'moment';
@@ -16,9 +16,21 @@ function DetailPage(props) {
   const cineplexs = useSelector(getCineplexsSelector);
   const dispatch = useDispatch();
 
+  const ScrollToTopOnMount = () => {
+    useLayoutEffect(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    }, []);
+
+    return null;
+  };
+
   useEffect(() => {
     dispatch(getAllShowtimesByMovieId({ movie_id: movie?.id }));
     dispatch(getAllCineplexs());
+
+    return () => {
+      dispatch({ type: 'REMOVE_ALL_SHOWTIMES' });
+    };
   }, [dispatch, movie]);
 
   if (!movie) {
@@ -27,6 +39,7 @@ function DetailPage(props) {
 
   return (
     <Row>
+      <ScrollToTopOnMount />
       <Col md={3}>
         <Form.Group>
           <Image src={movie?.poster} fluid />
