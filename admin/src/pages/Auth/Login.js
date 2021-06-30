@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Container, Form, Image, Row, FloatingLabel } from 'react-bootstrap';
+import { Col, Container, Form, Image, Row, FloatingLabel, Button } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
@@ -60,9 +60,9 @@ function Login() {
                 </FloatingLabel>
               </Form.Group>
 
-              <button className="btn btn-primary button-default" type="submit">
+              <Button className="button-default" type="submit">
                 SIGN IN
-              </button>
+              </Button>
             </Form>
           </Col>
         </Row>

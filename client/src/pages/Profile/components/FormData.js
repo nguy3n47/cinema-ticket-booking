@@ -30,8 +30,6 @@ function FormEdit(props) {
   const onChangePicture = (e) => {
     if (e.target.files.length !== 0) {
       setPicture(URL.createObjectURL(e.target.files[0]));
-    } else {
-      setPicture(null);
     }
   };
 
