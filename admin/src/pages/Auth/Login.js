@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Col, Container, Form, Image, Row, FloatingLabel } from 'react-bootstrap';
+import { Col, Container, Form, Image, Row, FloatingLabel } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
@@ -15,8 +15,7 @@ function Login() {
   const history = useHistory();
 
   const onSubmit = (data) => {
-    dispatch(login(data));
-    history.push('/');
+    dispatch(login(data, history));
   };
 
   if (currentUser) {
@@ -61,9 +60,9 @@ function Login() {
                 </FloatingLabel>
               </Form.Group>
 
-              <Button id="button-default" type="submit">
+              <button className="btn btn-primary button-default" type="submit">
                 SIGN IN
-              </Button>
+              </button>
             </Form>
           </Col>
         </Row>

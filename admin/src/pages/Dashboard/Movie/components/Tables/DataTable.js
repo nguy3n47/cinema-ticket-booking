@@ -89,6 +89,14 @@ function DataTable(props) {
       },
     },
     {
+      key: 'active',
+      text: 'Active',
+      sortable: true,
+      cell: (movie) => {
+        return movie.active === true ? 'True' : 'False';
+      },
+    },
+    {
       key: 'action',
       text: 'Action',
       cell: (movie) => {

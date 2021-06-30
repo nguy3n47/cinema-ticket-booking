@@ -117,7 +117,7 @@ const login = async (req, res) => {
 
 const logout = async (req, res) => {
   req.session = null;
-  return res.status(200).send({ message: 'Successful logout' });
+  return res.status(200).send({ message: 'Logout' });
 };
 
 const forgotPassword = async (req, res) => {
@@ -169,6 +169,31 @@ const resetPassword = async (req, res) => {
   }
 };
 
+const changePassword = async (req, res, next) => {
+  try {
+    const { id } = req.auth;
+    const { current_password, new_password } = req.body;
+    const user = await User.findByPk(id);
+    if (!user) {
+      return res.status(200).send({
+        error: 'User not found!',
+      });
+    }
+    const isTruePassword = await comparePassword(current_password, user.password);
+    if (!isTruePassword) {
+      return res.status(200).send({
+        error: 'Current password not match!',
+      });
+    }
+    const hash_new_password = await getHashedPassword(new_password);
+    user.password = hash_new_password;
+    await user.save();
+    return res.status(200).send({ message: 'Change password successfully!' });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export {
   register,
   login,
@@ -177,4 +202,5 @@ export {
   forgotPassword,
   verifyCodeResetPassword,
   resetPassword,
+  changePassword,
 };

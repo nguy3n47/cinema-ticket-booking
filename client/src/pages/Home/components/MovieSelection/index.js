@@ -9,6 +9,7 @@ import { Image } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMoviesSelector } from '../../../../redux/selectors/movieSelector';
 import { getAllMoviesByStateAction } from '../../../../redux/actions/movieActions';
+import { Link } from 'react-router-dom';
 
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
@@ -45,7 +46,9 @@ function MovieSelection() {
           loopFillGroupWithBlank={true}>
           {movies.map((movie, i) => (
             <SwiperSlide key={i}>
-              <Image className="img-movie" src={movie.poster} />
+              <Link to={'/movies/detail/' + movie.slug}>
+                <Image className="img-movie" src={movie.poster} />
+              </Link>
             </SwiperSlide>
           ))}
         </Swiper>

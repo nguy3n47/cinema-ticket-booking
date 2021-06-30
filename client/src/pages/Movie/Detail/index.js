@@ -59,8 +59,10 @@ function MovieDetail() {
       <ScrollToTopOnMount />
       <Container className="w-60">
         <Row>
-          <Col xs={3} className="d-flex justify-content-center">
-            <Image src={movie.poster} height={330}></Image>
+          <Col md={3} className="px-0">
+            <div>
+              <Image src={movie.poster} height={345} className="img-cover w-100"></Image>
+            </div>
           </Col>
           <Col>
             <div>

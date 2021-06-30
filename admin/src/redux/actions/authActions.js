@@ -5,7 +5,7 @@ export const setAccessToken = (token) => ({
   payload: token,
 });
 
-export const login = (data) => async (dispatch) => {
+export const login = (data, history) => async (dispatch) => {
   try {
     const response = await authApi.login(data);
     if (response.admin) {
@@ -13,6 +13,7 @@ export const login = (data) => async (dispatch) => {
         type: 'LOGIN_SUCCESS',
         payload: response.admin,
       });
+      history.push('/');
     } else {
       dispatch({
         type: 'LOGIN_FAIL',

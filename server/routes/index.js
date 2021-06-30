@@ -22,6 +22,7 @@ router.post('/auth/verifyEmail', AuthController.verifyEmail);
 router.post('/auth/forgotPassword', AuthController.forgotPassword);
 router.post('/auth/verifyCodeResetPassword', AuthController.verifyCodeResetPassword);
 router.post('/auth/resetPassword', resetPasswordValidator, AuthController.resetPassword);
+router.post('/auth/changePassword', verifyUser, AuthController.changePassword);
 
 // User Router
 router.get('/user/profile', verifyUser, UserController.getProfile);

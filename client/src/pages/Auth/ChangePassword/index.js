@@ -1,20 +1,23 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getUserSelector } from '../../../redux/selectors/authSelector';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { Container, Row, Image, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { changePasswordAction } from '../../../redux/actions/authActions';
 
 function ChangePassword() {
   const user = useSelector(getUserSelector);
   const { register, handleSubmit } = useForm();
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const onSubmitData = (data) => {
-    if (data.newPassword !== data.confirmPassword) {
+    if (data.new_password !== data.confirm_new_password) {
       toast.error('Mật khẩu mới không khớp!');
     } else {
-      console.log('Call API');
+      dispatch(changePasswordAction(data, history));
     }
   };
 
@@ -31,13 +34,14 @@ function ChangePassword() {
         </div>
         <Form id="form-edit" onSubmit={handleSubmit(onSubmitData)}>
           <Row className="mt-2 form-padding">
+            <input type="text" autoComplete="username" hidden></input>
             <Form.Group>
               <Form.Label className="form-group required control-label">
                 Mật khẩu hiện tại
               </Form.Label>
               <Form.Control
                 type="password"
-                {...register('currentPassword')}
+                {...register('current_password')}
                 autoComplete="current-password"
                 required
               />
@@ -46,7 +50,7 @@ function ChangePassword() {
               <Form.Label className="form-group required control-label">Mật khẩu mới</Form.Label>
               <Form.Control
                 type="password"
-                {...register('newPassword')}
+                {...register('new_password')}
                 autoComplete="new-password"
                 required
               />
@@ -57,7 +61,7 @@ function ChangePassword() {
               </Form.Label>
               <Form.Control
                 type="password"
-                {...register('confirmPassword')}
+                {...register('confirm_new_password')}
                 autoComplete="confirm-new-password"
                 required
               />

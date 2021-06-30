@@ -31,17 +31,17 @@ const authApi = {
     return axiosClient.post(url, data);
   },
 
-  changePassword: (data) => {
+  changePassword: (data, token) => {
     const url = '/auth/changePassword';
-    return axiosClient.post(url, data);
+    return axiosClient.post(url, data, { headers: { Authorization: 'Bearer ' + token } });
   },
 
-  getInfo: (token) => {
+  getUserInfo: (token) => {
     const url = '/user/profile';
     return axiosClient.get(url, { headers: { Authorization: 'Bearer ' + token } });
   },
 
-  updateInfo: (formData, token) => {
+  updateUserInfo: (formData, token) => {
     const url = '/user/profile';
     return axiosClient.put(url, formData, { headers: { Authorization: 'Bearer ' + token } });
   },

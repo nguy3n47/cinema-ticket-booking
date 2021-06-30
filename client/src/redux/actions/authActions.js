@@ -28,11 +28,35 @@ export const loginAction = (data) => async (dispatch) => {
   }
 };
 
+export const getUserInfoAction = () => async (dispatch, getState) => {
+  try {
+    let { accessToken } = getState().auth;
+    const response = await authApi.getUserInfo(accessToken);
+    if (!response.error) {
+      dispatch({
+        type: 'GET_USER_INFO_SUCCESS',
+        payload: response,
+      });
+    } else {
+      dispatch({
+        type: 'GET_USER_INFO_FAIL',
+        payload: response.error,
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: 'GET_USER_INFO_FAIL',
+      payload:
+        error.response && error.response.data.message ? error.response.data.message : error.message,
+    });
+  }
+};
+
 export const updateProfileAction = (data) => async (dispatch, getState) => {
   try {
     let { accessToken } = getState().auth;
-    await authApi.updateInfo(data, accessToken);
-    const response = await authApi.getInfo(accessToken);
+    await authApi.updateUserInfo(data, accessToken);
+    const response = await authApi.getUserInfo(accessToken);
     if (!response.error) {
       dispatch({
         type: 'UPDATE_PROFILE_SUCCESS',
@@ -162,6 +186,30 @@ export const resetPasswordAction = (data) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: 'VERIFY_CODE_RESET_PASSWORD_FAIL',
+      payload:
+        error.response && error.response.data.message ? error.response.data.message : error.message,
+    });
+  }
+};
+
+export const changePasswordAction = (data, history) => async (dispatch, getState) => {
+  try {
+    let { accessToken } = getState().auth;
+    const response = await authApi.changePassword(data, accessToken);
+    if (!response.error) {
+      dispatch({
+        type: 'CHANGE_PASSWORD_SUCCESS',
+      });
+      history.push('/');
+    } else {
+      dispatch({
+        type: 'CHANGE_PASSWORD_FAIL',
+        payload: response.error,
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: 'CHANGE_PASSWORD_FAIL',
       payload:
         error.response && error.response.data.message ? error.response.data.message : error.message,
     });

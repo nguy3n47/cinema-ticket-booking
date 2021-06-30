@@ -104,10 +104,17 @@ const getAll = async (req, res, next) => {
     let movies;
     const { state } = req.query;
     if (state) {
-      movies = await Movie.findAll({
-        where: { state },
-        order: [['release_date', 'DESC']],
-      });
+      if (state === 'now-showing') {
+        movies = await Movie.findAll({
+          where: { state },
+          order: [['release_date', 'DESC']],
+        });
+      } else {
+        movies = await Movie.findAll({
+          where: { state },
+          order: [['release_date', 'ASC']],
+        });
+      }
     } else {
       movies = await Movie.findAll({ order: [['release_date', 'DESC']] });
     }

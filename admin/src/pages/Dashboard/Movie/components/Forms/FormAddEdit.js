@@ -116,7 +116,7 @@ function FormAddEdit(props) {
                 className="embed-responsive-item"
                 title="sdsds"
                 width="100%"
-                height="185"
+                height="250"
                 controls
                 allowFullScreen
                 src={`https://www.youtube.com/embed/${videoId}`}
@@ -224,6 +224,18 @@ function FormAddEdit(props) {
               required>
               <option value="coming-soon">Coming Soon</option>
               <option value="now-showing">Now Showing</option>
+            </Form.Select>
+          </Form.Group>
+
+          <Form.Group className="mt-3">
+            <Form.Label className="form-group required control-label">Active</Form.Label>
+            <Form.Select
+              defaultValue={movie?.active.toString() ? movie.active === true : ''}
+              aria-label="Select active"
+              {...register('active')}
+              required>
+              <option value="true">True</option>
+              <option value="false">False</option>
             </Form.Select>
           </Form.Group>
         </Col>

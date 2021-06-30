@@ -63,6 +63,18 @@ const authReducer = (state = initialState, action) => {
         ...state,
       };
     }
+    case 'CHANGE_PASSWORD_SUCCESS': {
+      toast.success('Đổi mật khẩu thành công!');
+      return {
+        ...state,
+      };
+    }
+    case 'CHANGE_PASSWORD_FAIL': {
+      toast.error('Mật khẩu hiện tại không đúng!');
+      return {
+        ...state,
+      };
+    }
     case 'FORGOT_PASSWORD_SUCCESS': {
       return {
         ...state,
@@ -91,6 +103,18 @@ const authReducer = (state = initialState, action) => {
         ...state,
       };
     }
+    case 'GET_USER_INFO_SUCCESS': {
+      localStorage.setItem('user', JSON.stringify(payload.user));
+      return {
+        ...state,
+        user: payload.user,
+      };
+    }
+    case 'GET_USER_INFO_FAIL': {
+      return {
+        ...state,
+      };
+    }
     case 'UPDATE_PROFILE_SUCCESS': {
       toast.success('Cập nhật thành công!');
       localStorage.setItem('user', JSON.stringify(payload.user));
@@ -110,6 +134,7 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         user: null,
+        accessToken: null,
         isLogined: false,
       };
     }

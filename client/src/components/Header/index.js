@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom';
 import { getUserSelector } from './../../redux/selectors/authSelector';
-import { logoutAction } from '../../redux/actions/authActions';
+import { getUserInfoAction, logoutAction } from '../../redux/actions/authActions';
 
 function Header() {
   const user = useSelector(getUserSelector);
+  const isLogined = user ? true : false;
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -22,6 +23,12 @@ function Header() {
     dispatch(logoutAction());
     history.push('/');
   };
+
+  useEffect(() => {
+    if (isLogined) {
+      dispatch(getUserInfoAction());
+    }
+  }, [dispatch, isLogined]);
 
   return (
     <div className="container">
