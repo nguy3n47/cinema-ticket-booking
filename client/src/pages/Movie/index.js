@@ -30,7 +30,7 @@ function Movie() {
     <main className="flex-shrink-0">
       <Container className="w-60">
         <h3 className="text-center">
-          {state === 'now-showing' ? 'Phim Đang Chiếu' : 'Phim Sắp Chiếu'}
+          {state === 'now-showing' ? 'PHIM ĐANG CHIẾU' : 'PHIM SẮP CHIẾU'}
         </h3>
         <Row md={4}>
           {data.map((item, i) => {

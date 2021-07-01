@@ -1,5 +1,14 @@
 import { v4 as uuidv4 } from 'uuid';
-import { Movie, Showtime, Cinema, Cineplex, CinemaType } from '../models';
+import {
+  Movie,
+  Showtime,
+  Booking,
+  Ticket,
+  Cinema,
+  Cineplex,
+  CinemaType,
+  sequelize,
+} from '../models';
 import { Op } from 'sequelize';
 import moment from 'moment';
 import multer from 'multer';
@@ -106,12 +115,29 @@ const getAll = async (req, res, next) => {
     if (state) {
       if (state === 'now-showing') {
         movies = await Movie.findAll({
-          where: { state },
-          order: [['release_date', 'DESC']],
+          order: [
+            [sequelize.fn('COUNT', sequelize.col('"Showtimes.Bookings.Tickets"."id"')), 'DESC'],
+            ['release_date', 'DESC'],
+          ],
+          where: { state, active: true },
+          include: [
+            {
+              model: Showtime,
+              attributes: [],
+              include: [
+                {
+                  model: Booking,
+                  attributes: [],
+                  include: [{ model: Ticket, attributes: [] }],
+                },
+              ],
+            },
+          ],
+          group: ['"Movie"."id"'],
         });
       } else {
         movies = await Movie.findAll({
-          where: { state },
+          where: { state, active: true },
           order: [['release_date', 'ASC']],
         });
       }

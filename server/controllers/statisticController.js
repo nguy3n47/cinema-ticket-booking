@@ -1,33 +1,19 @@
-import {
-  Movie,
-  Cineplex,
-  Cinema,
-  Showtime,
-  Booking,
-  Ticket,
-  sequelize,
-} from '../models';
+import { Movie, Cineplex, Cinema, Showtime, Booking, Ticket, sequelize } from '../models';
 import { Op } from 'sequelize';
 import moment from 'moment';
 
-const getByCineplexs = async (req, res, next) => {
+const getByCineplexs = async (req, res) => {
   try {
     const { from, to } = req.query;
     const cineplexs = await Cineplex.findAll({
       attributes: {
         include: [
           [
-            sequelize.fn(
-              'COUNT',
-              sequelize.col('"Cinemas.Showtimes.Bookings.Tickets"."id"')
-            ),
+            sequelize.fn('COUNT', sequelize.col('"Cinemas.Showtimes.Bookings.Tickets"."id"')),
             'ticket_number',
           ],
           [
-            sequelize.fn(
-              'SUM',
-              sequelize.col('"Cinemas.Showtimes.Bookings.Tickets"."price"')
-            ),
+            sequelize.fn('SUM', sequelize.col('"Cinemas.Showtimes.Bookings.Tickets"."price"')),
             'revenue',
           ],
         ],
@@ -47,16 +33,13 @@ const getByCineplexs = async (req, res, next) => {
                   where:
                     from && to
                       ? {
-                          createdAt: {
-                            [Op.between]: [
-                              moment(from).format(),
-                              moment(to)
-                                .add(1, 'day')
-                                .subtract(1, 'seconds')
-                                .format(),
-                            ],
-                          },
-                        }
+                        createdAt: {
+                          [Op.between]: [
+                            moment(from).format(),
+                            moment(to).add(1, 'day').subtract(1, 'seconds').format(),
+                          ],
+                        },
+                      }
                       : {},
                   include: [{ model: Ticket, attributes: [] }],
                 },
@@ -89,9 +72,7 @@ const getByCineplexs = async (req, res, next) => {
     if (cineplexs) {
       cineplexs.map((cineplex) => {
         result.labels.push(cineplex.name);
-        result.datasets[0].data.push(
-          parseInt(cineplex.dataValues.ticket_number)
-        );
+        result.datasets[0].data.push(parseInt(cineplex.dataValues.ticket_number));
         cineplex.dataValues.revenue !== null
           ? result.datasets[1].data.push(parseInt(cineplex.dataValues.revenue))
           : result.datasets[1].data.push(0);
@@ -103,29 +84,19 @@ const getByCineplexs = async (req, res, next) => {
   }
 };
 
-const getByMovies = async (req, res, next) => {
+const getByMovies = async (req, res) => {
   try {
     const { from, to } = req.query;
     const movies = await Movie.findAll({
       attributes: {
         include: [
           [
-            sequelize.fn(
-              'COUNT',
-              sequelize.col('"Showtimes.Bookings.Tickets"."id"')
-            ),
+            sequelize.fn('COUNT', sequelize.col('"Showtimes.Bookings.Tickets"."id"')),
             'ticket_number',
           ],
-          [
-            sequelize.fn(
-              'SUM',
-              sequelize.col('"Showtimes.Bookings.Tickets"."price"')
-            ),
-            'revenue',
-          ],
+          [sequelize.fn('SUM', sequelize.col('"Showtimes.Bookings.Tickets"."price"')), 'revenue'],
         ],
       },
-
       include: [
         {
           model: Showtime,
@@ -137,16 +108,13 @@ const getByMovies = async (req, res, next) => {
               where:
                 from && to
                   ? {
-                      createdAt: {
-                        [Op.between]: [
-                          moment(from).format(),
-                          moment(to)
-                            .add(1, 'day')
-                            .subtract(1, 'seconds')
-                            .format(),
-                        ],
-                      },
-                    }
+                    createdAt: {
+                      [Op.between]: [
+                        moment(from).format(),
+                        moment(to).add(1, 'day').subtract(1, 'seconds').format(),
+                      ],
+                    },
+                  }
                   : {},
               include: [{ model: Ticket, attributes: [] }],
             },

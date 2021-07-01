@@ -5,6 +5,7 @@ const getByUserId = async (req, res, next) => {
   try {
     const user = req.auth;
     const bookings = await Booking.findAll({
+      order: [['createdAt', 'DESC']],
       where: { user_id: user.id },
       include: [
         {

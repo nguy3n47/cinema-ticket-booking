@@ -17,6 +17,30 @@ export const updateBookingAction = (seat, price) => async (dispatch, getState) =
   });
 };
 
+export const userGetBookingAction = () => async (dispatch, getState) => {
+  try {
+    let { accessToken } = getState().auth;
+    const response = await bookingApi.getByUserId(accessToken);
+    if (!response.error) {
+      dispatch({
+        type: 'USER_GET_BOOKINGS_SUCCESS',
+        payload: response.bookings,
+      });
+    } else {
+      dispatch({
+        type: 'USER_GET_BOOKINGS_FAIL',
+        payload: response.error,
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: 'USER_GET_BOOKINGS_FAIL',
+      payload:
+        error.response && error.response.data.message ? error.response.data.message : error.message,
+    });
+  }
+};
+
 export const createBookingAction = (data, history) => async (dispatch, getState) => {
   try {
     let { accessToken } = getState().auth;

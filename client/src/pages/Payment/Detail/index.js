@@ -35,13 +35,13 @@ function PaymentDetail() {
         </Row>
         <Row className="mt-3">
           <div className="d-flex justify-content-center">
-            <div className="d-flex justify-content-center">
+            <div className="d-flex justify-content-center w-320">
               <div>
                 <Image className="booking-movie-img" src={showtime.Movie.poster} />
               </div>
               <div className="ms-1">
                 <p className="fw-bold mb-0">{showtime.Movie.title}</p>
-                <p className="mb-0">{showtime.Movie.genre}</p>
+                <p className="mb-0 text-break">{showtime.Movie.genre}</p>
                 <p className="mb-0">{showtime.Cinema.CinemaType.name}</p>
               </div>
             </div>
@@ -62,7 +62,7 @@ function PaymentDetail() {
                 </p>
                 <p className="fw-bold mb-1 ms-2">{showtime.Cinema.name}</p>
                 {booking.seats.length > 0 ? (
-                  <p className="fw-bold mb-1 ms-2">
+                  <p className="fw-bold mb-1 ms-2 w-320">
                     {booking.seats.map((seat, i) => {
                       return i === 0 ? seat : ', ' + seat;
                     })}

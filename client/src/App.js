@@ -10,6 +10,7 @@ import MovieDetailPage from './pages/Movie/Detail';
 import BookingPage from './pages/Booking';
 import PaymentPage from './pages/Payment';
 import ProfilePage from './pages/Profile';
+import HistoryPage from './pages/History';
 import PaymentDetailPage from './pages/Payment/Detail';
 import LoginPage from './pages/Auth/Login';
 import RegisterPage from './pages/Auth/Register';
@@ -36,6 +37,7 @@ function App() {
           <Route exact from="/payment" component={PaymentPage} />
           <Route exact from="/payment/:id" component={PaymentDetailPage} />
           <Route exact from="/profile" component={ProfilePage} />
+          <Route exact from="/history" component={HistoryPage} />
           <Route exact from="/login" component={LoginPage} />
           <Route exact from="/register" component={RegisterPage} />
           <Route exact from="/enter-code" component={EnterCode} />

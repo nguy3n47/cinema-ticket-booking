@@ -94,7 +94,7 @@ function MovieDetail() {
               <span>Tiếng Anh - Phụ đề Tiếng Việt</span>
             </div> */}
             {movie.state === 'now-showing' ? (
-              <div className="mt-3">
+              <div className="mt-2">
                 <ModalForm movie={movie} isShow={false} />
               </div>
             ) : (
