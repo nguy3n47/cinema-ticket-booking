@@ -44,6 +44,7 @@ function Login() {
                 id="floatingInput"
                 {...register('email')}
                 placeholder="name@example.com"
+                required
               />
               <label htmlFor="floatingInput">Email</label>
             </div>
@@ -55,6 +56,7 @@ function Login() {
                 id="floatingPassword"
                 {...register('password')}
                 placeholder="Password"
+                required
               />
               <label htmlFor="floatingPassword">Mật khẩu</label>
             </div>

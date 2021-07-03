@@ -181,6 +181,7 @@ function Payment() {
               <p className="mb-1">Rạp</p>
               <p className="mb-1">Suất Chiếu</p>
               <p className="mb-1">Phòng Chiếu</p>
+              {booking.seats.length > 0 ? <p className="mb-1">Giá vé</p> : ''}
               {booking.seats.length > 0 ? <p className="mb-1">Ghế</p> : ''}
             </div>
             <div className="col">
@@ -189,6 +190,17 @@ function Payment() {
                 {moment(showtime.start_time).format('DD/MM/YYYY - HH:mm A')}
               </p>
               <p className="fw-bold mb-1 ms-2">{showtime.Cinema.name}</p>
+              {booking.seats.length > 0 ? (
+                <p className="fw-bold mb-1 ms-2">
+                  {booking.seats.length} x{' '}
+                  {new Intl.NumberFormat('vi-VN', {
+                    style: 'currency',
+                    currency: 'VND',
+                  }).format(showtime.price)}
+                </p>
+              ) : (
+                ''
+              )}
               {booking.seats.length > 0 ? (
                 <p className="fw-bold mb-1 ms-2">
                   {booking.seats.map((seat, i) => {

@@ -12,12 +12,15 @@ function Seats(props) {
 
   const onClickSeat = (e) => {
     if (e.target.classList.contains('seat') && !e.target.classList.contains('occupied')) {
-      e.target.classList.toggle('selected');
-
       let seat = e.target.innerText;
       let price = data.price;
+      dispatch(updateBookingAction(seat, price, e));
+    }
+  };
 
-      dispatch(updateBookingAction(seat, price));
+  const onAlertExistSeat = (e) => {
+    if (e.target.classList.contains('seat') && !e.target.classList.contains('occupied')) {
+      alert('Không thể chọn ghế này!');
     }
   };
 
@@ -43,7 +46,7 @@ function Seats(props) {
                   <div
                     key={r}
                     className={code.isReserved ? 'seat occupied' : 'seat'}
-                    onClick={onClickSeat}>
+                    onClick={code.isReserved ? onAlertExistSeat : onClickSeat}>
                     {code.seat}
                   </div>
                 );

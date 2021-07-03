@@ -1,20 +1,24 @@
 import bookingApi from '../../api/bookingApi';
 
-export const updateBookingAction = (seat, price) => async (dispatch, getState) => {
+export const updateBookingAction = (seat, price, e) => async (dispatch, getState) => {
   let { seats, total } = getState().booking;
 
-  if (seats.includes(seat)) {
-    seats = seats.filter((item) => item !== seat);
-    total -= price;
+  if (seats.length === 8 && !seats.includes(seat)) {
+    alert('Chỉ được chọn tối đa 8 ghế!');
   } else {
-    seats.push(seat);
-    total += price;
+    if (seats.includes(seat)) {
+      seats = seats.filter((item) => item !== seat);
+      total -= price;
+    } else if (seats.length < 8 && !seats.includes(seat)) {
+      seats.push(seat);
+      total += price;
+    }
+    e.target.classList.toggle('selected');
+    dispatch({
+      type: 'UPDATE_BOOKING',
+      payload: { total, seats },
+    });
   }
-
-  dispatch({
-    type: 'UPDATE_BOOKING',
-    payload: { total, seats },
-  });
 };
 
 export const userGetBookingAction = () => async (dispatch, getState) => {

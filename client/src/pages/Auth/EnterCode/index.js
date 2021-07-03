@@ -89,6 +89,7 @@ function EnterCode(props) {
                 {...register('code')}
                 maxLength="6"
                 placeholder="000000"
+                required
               />
               <label htmlFor="codeInput">Nhập mã</label>
             </div>

@@ -48,6 +48,7 @@ function ForgotPassword() {
                 id="floatingInput"
                 {...register('email')}
                 placeholder="name@example.com"
+                required
               />
               <label htmlFor="floatingInput">Email</label>
             </div>

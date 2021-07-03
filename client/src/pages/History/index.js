@@ -92,6 +92,15 @@ function History() {
                             return i === 0 ? ticket.seat_code : ', ' + ticket.seat_code;
                           })}
                         </span>
+                        <span> | </span>
+                        <span> Giá vé: </span>
+                        <span className="fw-bold">
+                          {booking.Tickets.length} x{' '}
+                          {new Intl.NumberFormat('vi-VN', {
+                            style: 'currency',
+                            currency: 'VND',
+                          }).format(booking.Tickets[0].price)}
+                        </span>
                       </div>
                       <div>
                         <span className="fw-bold">Tổng cộng: </span>

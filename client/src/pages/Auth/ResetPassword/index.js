@@ -55,6 +55,7 @@ function ResetPassword(props) {
                 autoComplete="new-password"
                 {...register('password')}
                 placeholder="password"
+                required
               />
               <label htmlFor="passwordInput">Mật khẩu mới</label>
             </div>
@@ -66,6 +67,7 @@ function ResetPassword(props) {
                 autoComplete="confirm-new-password"
                 {...register('confirmPassword')}
                 placeholder="confirmPassword"
+                required
               />
               <label htmlFor="newpasswordInput">Xác nhận mật khẩu mới</label>
             </div>

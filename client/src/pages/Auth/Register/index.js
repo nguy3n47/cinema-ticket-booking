@@ -50,6 +50,7 @@ function Register() {
                 id="nameInput"
                 {...register('fullname')}
                 placeholder="Trần Dần"
+                required
               />
               <label htmlFor="nameInput">Họ và tên</label>
             </div>
@@ -62,6 +63,7 @@ function Register() {
                 onInput={isNumber}
                 {...register('phone')}
                 placeholder="09xxxxxx"
+                required
               />
               <label htmlFor="phoneInput">Số điện thoại</label>
             </div>
@@ -72,6 +74,7 @@ function Register() {
                 id="emailInput"
                 {...register('email')}
                 placeholder="name@example.com"
+                required
               />
               <label htmlFor="emailInput">Email</label>
             </div>
@@ -83,6 +86,7 @@ function Register() {
                 autoComplete="password"
                 {...register('password')}
                 placeholder="Password"
+                required
               />
               <label htmlFor="passwordInput">Mật khẩu</label>
             </div>
@@ -93,6 +97,7 @@ function Register() {
                 id="birthdayInput"
                 {...register('birthday')}
                 placeholder="2000-07-10"
+                required
               />
               <label htmlFor="birthdayInput">Ngày sinh</label>
             </div>
@@ -103,6 +108,7 @@ function Register() {
                 id="addressInput"
                 {...register('address')}
                 placeholder="HCM"
+                required
               />
               <label htmlFor="addressInput">Địa chỉ</label>
             </div>

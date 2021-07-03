@@ -71,7 +71,7 @@ function Booking() {
                 {moment(showtime.end_time).format('DD/MM/YYYY HH:mm A')}
               </p>
             </Row>
-            <Seats data={showtime} />
+            <Seats data={showtime} booking={booking} />
             <div className="row mt-3">
               <div className="col-1 previous-button" onClick={onPreviousButton}>
                 <svg
@@ -102,6 +102,7 @@ function Booking() {
                   <p className="mb-1">Rạp</p>
                   <p className="mb-1">Suất Chiếu</p>
                   <p className="mb-1">Phòng Chiếu</p>
+                  {booking.seats.length > 0 ? <p className="mb-1">Giá vé</p> : ''}
                   {booking.seats.length > 0 ? <p className="mb-1">Ghế</p> : ''}
                 </div>
                 <div className="col">
@@ -110,6 +111,17 @@ function Booking() {
                     {moment(showtime.start_time).format('DD/MM/YYYY - HH:mm A')}
                   </p>
                   <p className="fw-bold mb-1 ms-2">{showtime.Cinema.name}</p>
+                  {booking.seats.length > 0 ? (
+                    <p className="fw-bold mb-1 ms-2">
+                      {booking.seats.length} x{' '}
+                      {new Intl.NumberFormat('vi-VN', {
+                        style: 'currency',
+                        currency: 'VND',
+                      }).format(showtime.price)}
+                    </p>
+                  ) : (
+                    ''
+                  )}
                   {booking.seats.length > 0 ? (
                     <p className="fw-bold mb-1 ms-2">
                       {booking.seats.map((seat, i) => {
