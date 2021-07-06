@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CGV Complex</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+    <!-- GOOGLE FONT -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <!-- BOOTSTRAP -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+    <!-- Slick -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
+    <!-- lightgallery -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.2.0-beta.0/css/lightgallery.min.css" integrity="sha512-KQBpYvtKcj7ytImR2yOZq7MV+U1eqUS3E6hyf43a5b4Amw4+8XZ7ReNDOCbgjf8wK+L/v5aOA4dWIsEZqZnSwQ==" crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="../css/main.css" />
+</head>
+
+<body>
+    <section>
+        <div class="container">
+            <div class="cgvcomplex">
+                <div class="cgvcomplex_top" style="background:url(../img/cinema-showtimes-favorite-top.png)no-repeat scroll center top transparent"></div>
+                <div class="cgvcomplex__center" style="background: url(../img/cinema-showtimes-favorite-center.png)repeat-y scroll center top transparent">
+                    <div class="cgvcomplex__content" style="padding:17px 96px">
+                        <div class="titlecgv">
+                            <h1>CGV CINEMAS</h1>
+                        </div>
+                        <div class="cgvarea">
+                            <ul class="nav nav-tabs" style="max-height: 250px;" id="myTab1" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="hcm-tab" data-toggle="tab" href="#hcm" role="tab" aria-controls="hcm" aria-selected="true">Hồ Chí Minh</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="haiphong-tab" data-toggle="tab" href="#haiphong" role="tab" aria-controls="haiphong" aria-selected="false">Hải Phòng</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="daklak-tab" data-toggle="tab" href="#daklak" role="tab" aria-controls="daklak" aria-selected="false">Đắc Lắk</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " id="haugiang-tab" data-toggle="tab" href="#haugiang" role="tab" aria-controls="haugiang" aria-selected="false">Hậu Giang</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="khanhhoa-tab" data-toggle="tab" href="#khanhhoa" role="tab" aria-controls="khanhhoa" aria-selected="false">Khánh Hòa</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="soctrang-tab" data-toggle="tab" href="#soctrang" role="tab" aria-controls="soctrang" aria-selected="false">Sóc Trăng</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " id="hanoi-tab" data-toggle="tab" href="#hanoi" role="tab" aria-controls="hanoi" aria-selected="true">Hà Nội</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="quangninh-tab" data-toggle="tab" href="#quangninh" role="tab" aria-controls="quangninh" aria-selected="false">Quảng Ninh</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="travinh-tab" data-toggle="tab" href="#travinh" role="tab" aria-controls="travinh" aria-selected="false">Trà Vinh</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " id="hatinh-tab" data-toggle="tab" href="#hatinh" role="tab" aria-controls="hatinh" aria-selected="false">Hà Tĩnh</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="kontum-tab" data-toggle="tab" href="#kontum" role="tab" aria-controls="kontum" aria-selected="false">Kon Tum</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="sonla-tab" data-toggle="tab" href="#sonla" role="tab" aria-controls="sonla" aria-selected="false">Sơn La</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " id="danang-tab" data-toggle="tab" href="#danang" role="tab" aria-controls="danang" aria-selected="true">Đà Nẵng</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="bariavungtau-tab" data-toggle="tab" href="#bariavungtau" role="tab" aria-controls="bariavungtau" aria-selected="false">Bà Rịa - Vũng Tàu</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="yenbai-tab" data-toggle="tab" href="#yenbai" role="tab" aria-controls="yenbai" aria-selected="false">Yên Bái</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " id="phuyen-tab" data-toggle="tab" href="#phuyen" role="tab" aria-controls="phuyen" aria-selected="false">Phú Yên</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="langson-tab" data-toggle="tab" href="#langson" role="tab" aria-controls="langson" aria-selected="false">Lạng Sơn</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="tayninh-tab" data-toggle="tab" href="#tayninh" role="tab" aria-controls="tayninh" aria-selected="false">Tây Ninh</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " id="cantho-tab" data-toggle="tab" href="#cantho" role="tab" aria-controls="cantho" aria-selected="true">Cần Thơ</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="binhdinh-tab" data-toggle="tab" href="#binhdinh" role="tab" aria-controls="binhdinh" aria-selected="false">Bình Định</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="vinhlong-tab" data-toggle="tab" href="#vinhlong" role="tab" aria-controls="vinhlong" aria-selected="false">Vĩnh Long</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " id="dongthap-tab" data-toggle="tab" href="#dongthap" role="tab" aria-controls="dongthap" aria-selected="false">Đồng Tháp</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="nghean-tab" data-toggle="tab" href="#nghean" role="tab" aria-controls="nghean" aria-selected="false">Nghệ An</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="thainguyen-tab" data-toggle="tab" href="#thainguyen" role="tab" aria-controls="thainguyen" aria-selected="false">Thái Nguyên</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " id="dongnai-tab" data-toggle="tab" href="#dongnai" role="tab" aria-controls="dongnai" aria-selected="true">Đồng Nai</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="binhduong-tab" data-toggle="tab" href="#binhduong" role="tab" aria-controls="binhduong" aria-selected="false">Bình Dương</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="kiengiang-tab" data-toggle="tab" href="#kiengiang" role="tab" aria-controls="kiengiang" aria-selected="false">Kiên Giang</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " id="hungyen-tab" data-toggle="tab" href="#hungyen" role="tab" aria-controls="hungyen" aria-selected="false">Hưng Yên</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="quangngai-tab" data-toggle="tab" href="#quangngai" role="tab" aria-controls="quangngai" aria-selected="false">Quảng Ngãi</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="tiengiang-tab" data-toggle="tab" href="#tiengiang" role="tab" aria-controls="tiengiang" aria-selected="false">Tiền Giang</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="cgvlist">
+                            <div class="tab-content" id="myTabContent1">
+                                <div class="tab-pane fade show active" id="hcm" role="tabpanel" aria-labelledby="hcm-tab">
+                                    <ul class="nav">
+                                        <li class="nav-item active">
+                                            <a class="nav-link ">CGV Hùng Vương Plaza</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Vivo City</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Trường Sơn (CGV CT Plaza)</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Hoàng Văn Thụ</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Sư Vạn Hạnh</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Lý Chính Thắng</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Crescent Mall</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Pearl Plaza</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Pandora City</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Aeon Bình Tân</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Vincom Center Landmark 81</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="tab-pane fade" id="haiphong" role="tabpanel" aria-labelledby="haiphong-tab"></div>
+                                <div class="tab-pane fade" id="daklak" role="tabpanel" aria-labelledby="daklak-tab"></div>
+                                <div class="tab-pane fade" id="haugiang" role="tabpanel" aria-labelledby="haugiang-tab"></div>
+                                <div class="tab-pane fade" id="khanhhoa" role="tabpanel" aria-labelledby="khanhhoa-tab"></div>
+                                <div class="tab-pane fade" id="soctrang" role="tabpanel" aria-labelledby="soctrang-tab"></div>
+                                <div class="tab-pane fade " id="hanoi" role="tabpanel" aria-labelledby="hanoi-tab">
+                                    <ul class="nav">
+                                        <li class="nav-item active">
+                                            <a class="nav-link ">CGV Hùng Vương Plaza</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Vivo City</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Trường Sơn (CGV CT Plaza)</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Hoàng Văn Thụ</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Sư Vạn Hạnh</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Lý Chính Thắng</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Crescent Mall</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Pearl Plaza</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Pandora City</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Aeon Bình Tân</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Vincom Center Landmark 81</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="tab-pane fade" id="quangninh" role="tabpanel" aria-labelledby="quangninh-tab"></div>
+                                <div class="tab-pane fade" id="travinh" role="tabpanel" aria-labelledby="travinh-tab"></div>
+                                <div class="tab-pane fade" id="hatinh" role="tabpanel" aria-labelledby="hatinh-tab"></div>
+                                <div class="tab-pane fade" id="kontum" role="tabpanel" aria-labelledby="kontum-tab"></div>
+                                <div class="tab-pane fade" id="sonla" role="tabpanel" aria-labelledby="sonla-tab"></div>
+                                <div class="tab-pane fade " id="danang" role="tabpanel" aria-labelledby="danang-tab">
+                                    <ul class="nav">
+                                        <li class="nav-item active">
+                                            <a class="nav-link ">CGV Hùng Vương Plaza</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Vivo City</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Trường Sơn (CGV CT Plaza)</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Hoàng Văn Thụ</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Sư Vạn Hạnh</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Lý Chính Thắng</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Crescent Mall</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Pearl Plaza</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Pandora City</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Aeon Bình Tân</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Vincom Center Landmark 81</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="tab-pane fade" id="bariavungtau" role="tabpanel" aria-labelledby="bariavungtau-tab"></div>
+                                <div class="tab-pane fade" id="yenbai" role="tabpanel" aria-labelledby="yenbai-tab"></div>
+                                <div class="tab-pane fade" id="phuyen" role="tabpanel" aria-labelledby="phuyen-tab"></div>
+                                <div class="tab-pane fade" id="langson" role="tabpanel" aria-labelledby="langson-tab"></div>
+                                <div class="tab-pane fade" id="tayninh" role="tabpanel" aria-labelledby="tayninh-tab"></div>
+                                <div class="tab-pane fade " id="cantho" role="tabpanel" aria-labelledby="cantho-tab">
+                                    <ul class="nav">
+                                        <li class="nav-item active">
+                                            <a class="nav-link ">CGV Hùng Vương Plaza</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Vivo City</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Trường Sơn (CGV CT Plaza)</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Hoàng Văn Thụ</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Sư Vạn Hạnh</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Lý Chính Thắng</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Crescent Mall</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Pearl Plaza</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Pandora City</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Aeon Bình Tân</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link ">CGV Vincom Center Landmark 81</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="tab-pane fade" id="binhdinh" role="tabpanel" aria-labelledby="binhdinh-tab"></div>
+                                <div class="tab-pane fade" id="vinhlong" role="tabpanel" aria-labelledby="vinhlong-tab"></div>
+                                <div class="tab-pane fade" id="dongthap" role="tabpanel" aria-labelledby="dongthap-tab"></div>
+                                <div class="tab-pane fade" id="nghean" role="tabpanel" aria-labelledby="nghean-tab"></div>
+                                <div class="tab-pane fade" id="thainguyen" role="tabpanel" aria-labelledby="thainguyen-tab"></div>
+                                <div class="tab-pane fade " id="dongnai" role="tabpanel" aria-labelledby="dongnai-tab">
+                                    <ul class="nav">
+                                        <li class="nav-item active">
+                                            <a class="nav-link">CGV Hùng Vương Plaza</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link">CGV Vivo City</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link">CGV Trường Sơn (CGV CT Plaza)</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link">CGV Hoàng Văn Thụ</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link">CGV Sư Vạn Hạnh</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link">CGV Lý Chính Thắng</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link">CGV Crescent Mall</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link">CGV Pearl Plaza</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link">CGV Pandora City</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link">CGV Aeon Bình Tân</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link">CGV Vincom Center Landmark 81</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="tab-pane fade" id="binhduong" role="tabpanel" aria-labelledby="binhduong-tab"></div>
+                                <div class="tab-pane fade" id="kiengiang" role="tabpanel" aria-labelledby="kiengiang-tab"></div>
+                                <div class="tab-pane fade" id="hungyen" role="tabpanel" aria-labelledby="hungyen-tab"></div>
+                                <div class="tab-pane fade" id="quangngai" role="tabpanel" aria-labelledby="quangngai-tab"></div>
+                                <div class="tab-pane fade" id="tiengiang" role="tabpanel" aria-labelledby="tiengiang-tab"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cgvcomplex_bottom" style="background: url(../img/cinema-showtimes-favorite-bottom.png)no-repeat scroll center top transparent;"></div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js "></script>
+    <!-- Slick -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js "></script>
+    <!-- lightgallery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.2.0-beta.0/lightgallery.es5.min.js "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.2.0-beta.0/lightgallery.min.js "></script>
+    <scriy0pt src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.2.0-beta.0/plugins/fullscreen/md-fullscreen.min.js "></scriy0pt>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.2.0-beta.0/plugins/thumbnail/md-thumbnail.min.js "></script>
+    <!-- BOOTSTRAP -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js "></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js "></script>
+
+
+    <script>
+        var a = document.querySelectorAll(".cgvlist li a");
+        for (var i = 0, length = a.length; i < length; i++) {
+            a[i].onclick = function() {
+                var b = document.querySelector(".cgvlist li.active");
+                if (b) b.classList.remove("active");
+                this.parentNode.classList.add('active');
+            };
+        }
+    </script>
+</body>
+
+</html>
