@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,6BAA6B,AAAA,OAAO,CAAC;EACnC,gBAAgB,EAAE,kBAAkB;CACrC",
-    "sources": [
-        "../Statistic/styles.scss"
-    ],
-    "names": [],
-    "file": "styles.css"
-}
