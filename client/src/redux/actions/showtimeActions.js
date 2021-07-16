@@ -37,3 +37,30 @@ export const getShowtimeSeatsAction = (id) => async (dispatch) => {
     });
   }
 };
+
+export const getAllShowtimesByCineplexAction = (id) => async (dispatch) => {
+  try {
+    const response = await showtimeApi.getByCineplexId(id);
+    dispatch({
+      type: 'GET_ALL_SHOWTIMES_BY_CINEPLEX_SUCCESS',
+      payload: response,
+    });
+  } catch (error) {
+    dispatch({
+      type: 'GET_ALL_SHOWTIMES_BY_CINEPLEX_FAIL',
+      payload:
+        error.response && error.response.data.message ? error.response.data.message : error.message,
+    });
+  }
+};
+
+export const changeDayShowtimeAction = (obj) => async (dispatch, getState) => {
+  const result = getState().showtime.showtimes.find((s) => s.date === obj.value);
+  dispatch({
+    type: 'RESET_MOVIES',
+  });
+  dispatch({
+    type: 'CHANGE_DAY_SHOWTIME',
+    payload: result.movies,
+  });
+};

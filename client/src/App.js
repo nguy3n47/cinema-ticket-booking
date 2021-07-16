@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import HomePage from './pages/Home';
 import MoviePage from './pages/Movie';
 import CineplexPage from './pages/Cineplex';
+import ShowtimePage from './pages/Showtime';
 import MovieDetailPage from './pages/Movie/Detail';
 import BookingPage from './pages/Booking';
 import PaymentPage from './pages/Payment';
@@ -32,6 +33,7 @@ function App() {
           <Route exact from="/" component={HomePage} />
           <Route exact from="/movies/:state" component={MoviePage} />
           <Route exact from="/cineplexs" component={CineplexPage} />
+          <Route exact from="/showtimes" component={ShowtimePage} />
           <Route exact from="/movies/detail/:slug" component={MovieDetailPage} />
           <Route exact from="/booking/tickets/:showtimeId" component={BookingPage} />
           <Route exact from="/payment" component={PaymentPage} />
