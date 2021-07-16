@@ -1,4 +1,14 @@
-import { Showtime, Movie, Cinema, Cineplex, CinemaType, Booking, Ticket } from '../models';
+import {
+  Showtime,
+  Movie,
+  Cinema,
+  Cineplex,
+  CinemaType,
+  Booking,
+  Ticket,
+  sequelize,
+} from '../models';
+import _ from 'lodash';
 import moment from 'moment';
 
 const create = async (req, res, next) => {
@@ -211,4 +221,112 @@ const getSeats = async (req, res, next) => {
   }
 };
 
-export { create, getByMovieId, update, remove, getById, getSeats };
+const getByCineplexId = async (req, res, next) => {
+  try {
+    const { cineplex_id } = req.body;
+
+    let movies = await Movie.findAll({
+      order: [
+        [sequelize.fn('COUNT', sequelize.col('"Showtimes.Bookings.Tickets"."id"')), 'DESC'],
+        ['release_date', 'DESC'],
+      ],
+      include: [
+        {
+          model: Showtime,
+          include: [
+            {
+              model: Booking,
+              attributes: [],
+              include: [{ model: Ticket, attributes: [] }],
+            },
+            { model: Cinema, where: { cineplex_id }, include: [{ model: CinemaType }] },
+          ],
+        },
+      ],
+      attributes: ['id', 'title', 'slug', 'poster'],
+      where: { state: 'now-showing', active: true },
+      group: [
+        '"Movie"."id"',
+        '"Showtimes"."id"',
+        '"Showtimes.Cinema"."id"',
+        '"Showtimes.Cinema.CinemaType"."id"',
+      ],
+    });
+
+    let result = [];
+    for (let i = 0; i < 7; i++) {
+      let today = new Date(new Date().getTime() + i * 24 * 60 * 60 * 1000);
+      if (i > 0) {
+        today = moment(today).format('YYYY-MM-DD');
+      }
+      let start = moment(today).format();
+      let end = moment(start).endOf('day').format();
+      movies = movies.filter((movie) => movie.Showtimes.length > 0);
+
+      result.push({ date: moment(start).format('DD/MM/YYYY'), movies: [] });
+
+      movies.forEach((movie, m) => {
+        result[i].movies.push({
+          id: movie.id,
+          title: movie.title,
+          slug: movie.slug,
+          poster: movie.poster,
+          showtimes: [],
+        });
+
+        movie.Showtimes.forEach((showtime) => {
+          if (
+            moment(showtime.start_time).format() >= start &&
+            moment(showtime.start_time).format() <= end
+          ) {
+            const existsType = result[i].movies[m].showtimes.filter(
+              (t) => t.type_id === showtime.Cinema.CinemaType.id
+            );
+            const indexType = result[i].movies[m].showtimes.findIndex(
+              (t) => t.type_id === showtime.Cinema.CinemaType.id
+            );
+            if (existsType.length === 0) {
+              result[i].movies[m].showtimes.push({
+                type_id: showtime.Cinema.CinemaType.id,
+                type_name: showtime.Cinema.CinemaType.name,
+                list: [
+                  {
+                    id: showtime.id,
+                    cinema_id: showtime.cinema_id,
+                    cinema_name: showtime.Cinema.name,
+                    start_time: showtime.start_time,
+                  },
+                ],
+              });
+              result[i].movies[m].showtimes.sort(function (a, b) {
+                return a.type_id - b.type_id;
+              });
+            } else {
+              result[i].movies[m].showtimes[indexType].list.push({
+                id: showtime.id,
+                cinema_id: showtime.cinema_id,
+                cinema_name: showtime.Cinema.name,
+                start_time: showtime.start_time,
+              });
+              result[i].movies[m].showtimes[indexType].list.sort(function (a, b) {
+                return new Date(a.start_time) - new Date(b.start_time);
+              });
+            }
+          }
+        });
+      });
+    }
+
+    result.forEach((r) => {
+      _.remove(r.movies, (movie) => {
+        return movie.showtimes.length === 0;
+      });
+    });
+
+    return res.status(200).send(result.filter((r) => r.movies.length > 0));
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { create, getByMovieId, update, remove, getById, getSeats, getByCineplexId };

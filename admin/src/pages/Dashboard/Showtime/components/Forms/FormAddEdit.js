@@ -70,7 +70,7 @@ function FormAddEdit(props) {
             </Form.Select>
           </Form.Group>
 
-          <Form.Group>
+          <Form.Group className="mt-3">
             <Form.Label className="form-group required control-label">Cinema</Form.Label>
             <Form.Select
               defaultValue={showtime?.Cinema?.id ? showtime?.Cinema?.id : 1}
@@ -108,7 +108,7 @@ function FormAddEdit(props) {
             />
           </Form.Group>
 
-          <Form.Group>
+          <Form.Group className="mt-3">
             <Form.Label className="form-group required control-label">Price</Form.Label>
             <Form.Control
               type="number"
