@@ -1,6 +1,6 @@
 <p align="center">
-  <img src="https://i.imgur.com/6ARlTXI.jpg" width=200  />
-  <img src="https://i.imgur.com/hsLXao0.jpg" width=200 /> 
+  <img src="https://i.imgur.com/6ARlTXI.jpg" width=400  />
+  <img src="https://i.imgur.com/hsLXao0.jpg" width=400 /> 
 </p>
 
 ### <p align="center">Final Project - Web2 - VNUHCM University Of Science</p>
