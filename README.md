@@ -1,6 +1,6 @@
 <p align="center">
-  <img src="https://inthienha.com/wp-content/uploads/CGV-Cinemas.png" width="200" />
-  <img src="https://repository-images.githubusercontent.com/248812720/56902700-c5bd-11ea-813f-ed8631377258" width="200" /> 
+  <img src="https://mir-s3-cdn-cf.behance.net/projects/404/6ab34582225477.Y3JvcCwxMzgwLDEwODAsMjcwLDA.jpg" style="width: 200px; height: 120px; object-fit: cover;"  />
+  <img src="https://repository-images.githubusercontent.com/248812720/56902700-c5bd-11ea-813f-ed8631377258" style="width: 200px; height: 120px; object-fit: cover;" /> 
 </p>
 
 ### <p align="center">Final Project - Web2 - VNUHCM University Of Science</p>
