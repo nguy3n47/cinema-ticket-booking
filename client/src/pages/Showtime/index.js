@@ -120,16 +120,25 @@ function Showtime() {
         {movies.length > 0 ? (
           <>
             {movies.map((movie, i) => {
+              const url = '/movies/detail/' + movie.slug;
               return (
                 <React.Fragment key={i}>
                   <Row className="mt-3" style={{ paddingLeft: 150, paddingRight: 150 }}>
                     <Col md={3} className="px-3">
-                      <Image className="img-cover w-100" src={movie.poster} height={300} />
+                      <Link className="movie-item-link" to={url}>
+                        <Image
+                          className="img-cover w-100 movie-poster"
+                          src={movie.poster}
+                          height={300}
+                        />
+                      </Link>
                     </Col>
                     <Col className="px-0">
-                      <div>
-                        <h5 className="fw-bold">{movie.title}</h5>
-                      </div>
+                      <Link className="movie-item-link" to={url}>
+                        <div className="movie-item">
+                          <h5 className="fw-bold">{movie.title}</h5>
+                        </div>
+                      </Link>
                       <hr className="my-1" />
                       {movie.showtimes.map((showtime, s) => {
                         return (
