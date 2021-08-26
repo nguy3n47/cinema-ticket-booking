@@ -1,5 +1,7 @@
 import { User, Booking, Ticket, Showtime, Movie, Cinema, CinemaType, Cineplex } from '../models';
 import { v4 as uuidv4 } from 'uuid';
+import moment from 'moment';
+import MailService from '../services/mail';
 
 const getByUserId = async (req, res, next) => {
   try {
@@ -56,8 +58,30 @@ const create = async (req, res, next) => {
   try {
     const user = req.auth;
     const { showtime_id, seats = [] } = req.body;
-
-    const showtime = await Showtime.findByPk(parseInt(showtime_id));
+    const info = await User.findByPk(parseInt(user.id));
+    const showtime = await Showtime.findByPk(parseInt(showtime_id),{
+      include: [
+        {
+          model: Movie,
+          attributes: ['title', 'poster', 'genre', 'running_time'],
+        },
+        {
+          model: Cinema,
+          attributes: ['name'],
+          include: [
+            {
+              model: Cineplex,
+              attributes: ['name'],
+            },
+            {
+              model: CinemaType,
+              attributes: ['name'],
+            },
+          ],
+        },
+      ],
+    }
+    );
     const total = showtime.price * seats.length;
 
     const newBooking = await Booking.create({
@@ -77,6 +101,24 @@ const create = async (req, res, next) => {
         });
         await newBooking.addTicket(newTicket);
       });
+
+      const barcode = `https://www.barcodesinc.com/generator/image.php?code=${newBooking.b_number}&style=196&type=C128B&width=180&height=60&xres=1&font=16`;
+      await MailService.sendMail(
+        info.email,
+        'ĐẶT VÉ THÀNH CÔNG',
+        `<h3>THÔNG TIN VÉ</h3>
+      <img src=${barcode} align="middle"/>
+      <p>Mã vé: ${newBooking.b_number}</p>
+      <p>Tên phim: ${showtime.Movie.title}</p>
+      <img style="width: 105px; height: 150px; object-fit: cover;" src=${showtime.Movie.poster} align="middle"/>
+      <p>Rạp: ${showtime.Cinema.Cineplex.name}</p>
+      <p>Phòng chiếu: ${showtime.Cinema.name}</p>
+      <p>Suất chiếu: ${moment(showtime.start_time).format('DD/MM/YYYY') + ' - ' + moment(showtime.start_time).format('HH:mm A')}</p>
+      <p>Ghế: ${seats.toString()}</p>
+      <p>Giá: ${seats.length + ' X ' + new Intl.NumberFormat('vi-VN', {style: 'currency',currency: 'VND',}).format(showtime.price)}</p>
+      <p>Tổng cộng: ${new Intl.NumberFormat('vi-VN', {style: 'currency',currency: 'VND',}).format(newBooking.total)}</p>
+      <p>CGV Cinemas Việt Nam</p>`
+      );
       return res.status(200).send({ message: 'Success', b_number: newBooking.b_number });
     } else {
       return res.status(400).send({ message: 'Fail' });

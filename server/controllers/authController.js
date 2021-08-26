@@ -39,7 +39,7 @@ const register = async (req, res) => {
 
       await MailService.sendMail(
         newUser.email,
-        'Verify your email address',
+        'VERIFY YOUR EMAIL ADDRESS',
         'Code: ' + code.toString()
       );
       res.status(200).send({ message: 'Success' });
@@ -101,7 +101,7 @@ const login = async (req, res) => {
         error: 'Account is not verified',
       });
     }
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
+    const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET);
     const { id, fullname, address, avatar, phone, birthday } = user;
 
     return res.status(200).send({
@@ -131,7 +131,7 @@ const forgotPassword = async (req, res) => {
         error: 'Email is not exists',
       });
 
-    await MailService.sendMail(userExists.email, 'Forgot Password', 'Code: ' + code.toString());
+    await MailService.sendMail(userExists.email, 'FORGOT PASSWORD', 'Code: ' + code.toString());
     req.session.codeVerify = code.toString();
     req.session.email = email;
     return res.status(200).send({ message: 'Success' });
