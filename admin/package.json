@@ -14,7 +14,6 @@
     "jquery": "^3.6.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
-    "node-sass": "^6.0.0",
     "query-string": "^7.0.0",
     "react": "^17.0.2",
     "react-bootstrap": "^2.0.0-beta.0",
@@ -32,6 +31,9 @@
     "redux-thunk": "^2.3.0",
     "swiper": "^6.7.0",
     "web-vitals": "^1.0.1"
+  },
+  "devDependencies": {
+    "node-sass": ">=7.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
